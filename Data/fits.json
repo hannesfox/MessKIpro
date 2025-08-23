@@ -1,0 +1,81 @@
+{
+    "Spielpassung" : [
+        {
+            "title": "Reichliches Spiel",
+            "description": "Mehrfach gelagerte Welle, Gleitlagerung in weitem Temperaturbereich, Hebellagerung",
+            "fits": [
+                "H8/d9"
+            ]
+        },
+        {
+            "title": "Merkliches Spiel",
+            "description": "Mehrfach gelagerte Welle, Gleitlagerung in weitem Temperaturbereich, Hebellagerung",
+            "fits": [
+                "H8/e8"
+            ]
+        },
+        {
+            "title": "Leicht verschiebbar",
+            "description": "Verschiebbare Kupplung, Distanzhülse",
+            "fits": [
+                "H8/h9"
+            ]
+        },
+        {
+            "title": "Kleines Spiel",
+            "description": "Führungsstein, Kreuzkopf-Gleitbahn",
+            "fits": [
+                "H8/f7"
+            ]
+        },
+        {
+            "title": "Ohne merkliches Spiel",
+            "description": "Genaue Gleitlagerung",
+            "fits": [
+                "H7/g6"
+            ]
+        },
+        {
+            "title": "Bei Verwendung von Schmiermitteln gerade noch verschiebbar",
+            "description": "Stellring, Wechselrad, Zentrierung, Reitstockpinole",
+            "fits": [
+                "H8/h7",
+                "H7/h6"
+            ]
+        }
+    ],
+    "Übergangspassung" : [
+        {
+            "title": "Unter leichtem Druck noch verschiebbar",
+            "description": "Genaue Zentrierung",
+            "fits": [
+                "H7/js6"
+            ]
+        },
+        {
+            "title": "Ohne erheblichen Kraftaufwand zusammengefügt",
+            "description": "Handrad, Kupplung, Riemenscheibe",
+            "fits": [
+                "H7/k6"
+            ]
+        },
+        {
+            "title": "Unter Druck zusammengefügt",
+            "description": "Drehmomentübertragung mit zusätzlicher Verdrehsicherung",
+            "fits": [
+                "H7/n6"
+            ]
+        }
+    ],
+    "Übermasspassung" : [
+        {
+            "title": "Durch Pressen zusammengefügt oder aufgeschrumpft",
+            "description": "Übertragung kleiner Drehmomente ohne zusätzliche Verdrehsicherung",
+            "fits": [
+                "H7/p6",
+                "H7/r6",
+                "H7/s6"
+            ]
+        }
+    ]
+}

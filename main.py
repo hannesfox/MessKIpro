@@ -2,7 +2,8 @@
 #      1. IMPORTS
 # ==============================================================================
 import sys
-import os  # Wichtig für die Pfad-Prüfung des Logos
+import os
+import json  # Für das Laden der Toleranzdaten
 import ezdxf
 from ezdxf.recover import readfile as recover_readfile
 from ezdxf.addons.drawing.pyqt import PyQtBackend
@@ -29,6 +30,55 @@ class ClickableLineEdit(QLineEdit):
     def mousePressEvent(self, event):
         self.clicked.emit()
         super().mousePressEvent(event)
+
+
+# === FINALER, JSON-BASIERTER ISO-TOLERANZ-RECHNER ===
+class IsoFitsCalculator:
+    """
+    Kapselt die Logik zur Berechnung von ISO 286-1 Passungen, indem es die Daten
+    aus einer externen tolerances.json liest und durchsucht.
+    """
+
+    def __init__(self, data_folder_path):
+        self.tolerances_data = []
+        self.available_fits = [""]  # Wird dynamisch gefüllt
+        self._load_data(data_folder_path)
+
+    def _load_data(self, data_folder_path):
+        tolerances_path = os.path.join(data_folder_path, "tolerances.json")
+        try:
+            with open(tolerances_path, 'r', encoding='utf-8') as f:
+                self.tolerances_data = json.load(f)
+            print(f"INFO: {len(self.tolerances_data)} Toleranzdatensätze erfolgreich aus '{tolerances_path}' geladen.")
+
+            # === NEU: Dropdown-Liste dynamisch aus tolerances.json erstellen ===
+            all_fits = set()
+            for entry in self.tolerances_data:
+                all_fits.add(entry["toleranzklasse"])
+            self.available_fits.extend(sorted(list(all_fits)))
+            print(f"INFO: {len(all_fits)} einzigartige Toleranzklassen für die Dropdown-Auswahl geladen.")
+
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            QMessageBox.critical(None, "Fataler Fehler",
+                                 f"Die Datei 'tolerances.json' konnte nicht im 'Data'-Ordner gefunden oder gelesen werden.\n\n{e}\n\nDas Programm kann ohne diese Datei nicht funktionieren.")
+            sys.exit(1)
+
+    def calculate(self, nominal_size, fit_string):
+        if not self.tolerances_data: return None
+        try:
+            for entry in self.tolerances_data:
+                if (entry["toleranzklasse"].lower() == fit_string.lower() and
+                        entry["lowerlimit"] < nominal_size <= entry["upperlimit"]):
+                    upper_dev_um = entry["es"]
+                    lower_dev_um = entry["ei"]
+
+                    return upper_dev_um / 1000.0, lower_dev_um / 1000.0
+
+            print(f"WARNUNG: Passung '{fit_string}' für Nennmaß {nominal_size}mm nicht in tolerances.json gefunden.")
+            return None
+        except Exception as e:
+            print(f"Fehler bei der Suche in Toleranzdaten: {e}")
+            return None
 
 
 # ==============================================================================
@@ -127,8 +177,7 @@ class MessprotokollWidget(QWidget):
 
     _pos_vals = [f"+{i / 1000.0:.3f}" for i in range(5, 201, 5)]
     _neg_vals = [f"-{i / 1000.0:.3f}" for i in range(5, 201, 5)]
-    UPPER_TOLERANCE_VALUES = ["", "0"] + _pos_vals
-    LOWER_TOLERANCE_VALUES = ["", "0"] + _neg_vals
+    TOLERANCE_VALUES = ["", "0"] + _neg_vals[::-1] + _pos_vals
     MESSMITTEL_OPTIONS = ["", "optisch", "Messschieber", "Bügelmessschraube", "Höhenmessgerät", "3D-Messmaschine"]
     KUNDEN_LISTE = ["", "Tool Service GmbH", "Musterfirma AG", "Projekt X Kunde"]
 
@@ -136,11 +185,16 @@ class MessprotokollWidget(QWidget):
         super().__init__(parent)
         main_layout = QVBoxLayout(self);
         main_layout.setSpacing(15)
-        self.nominal_fields, self.upper_tol_combos, self.lower_tol_combos, self.soll_labels = [], [], [], []
+
+        script_dir = os.path.dirname(os.path.realpath(__file__))
+        data_dir = os.path.join(script_dir, "Data")
+        self.iso_calculator = IsoFitsCalculator(data_dir)
+
+        self.nominal_fields, self.upper_tol_combos, self.lower_tol_combos, self.soll_labels, self.iso_fit_combos = [], [], [], [], []
 
         header_grid = QGridLayout()
         header_grid.setColumnStretch(1, 2);
-        header_grid.setColumnStretch(10, 1)  # Stretch vor dem Logo
+        header_grid.setColumnStretch(10, 1)
         header_grid.addWidget(QLabel("Messprotokoll-Assistent", font=QFont("Arial", 30, QFont.Bold)), 0, 0, 1, 5)
         kunde_combo = QComboBox();
         kunde_combo.setEditable(True);
@@ -158,21 +212,15 @@ class MessprotokollWidget(QWidget):
         date_edit = QDateEdit(calendarPopup=True, date=QDate.currentDate())
         header_grid.addWidget(QLabel("Datum:"), 1, 8);
         header_grid.addWidget(date_edit, 1, 9)
-
-        # === NEU: Logo hinzufügen ===
-        # Stellen Sie sicher, dass 'app-logo.png' im selben Verzeichnis wie das Skript liegt.
-        logo_label = QLabel()
-        logo_label.setFixedSize(200, 200)
+        logo_label = QLabel();
+        logo_label.setFixedSize(200, 200);
         logo_label.setScaledContents(True)
         logo_path = "app-logo.png"
         if os.path.exists(logo_path):
-            logo_pixmap = QPixmap(logo_path)
-            logo_label.setPixmap(logo_pixmap)
+            logo_label.setPixmap(QPixmap(logo_path))
         else:
             print(f"WARNUNG: Logo-Datei '{logo_path}' nicht gefunden.")
-        # Logo oben rechts im Grid platzieren
         header_grid.addWidget(logo_label, 0, 11, 2, 1, alignment=Qt.AlignTop | Qt.AlignRight)
-
         main_layout.addLayout(header_grid)
 
         for block_idx in range(2):
@@ -180,8 +228,9 @@ class MessprotokollWidget(QWidget):
             block_frame.setFrameShape(QFrame.StyledPanel)
             grid = QGridLayout(block_frame);
             grid.setSpacing(10)
-            grid.addWidget(QLabel("Maß lt.\nZeichnung"), 0, 0, 5, 1)
-            grid.addWidget(QLabel("SOLL ➡", font=QFont("Arial", 10, QFont.Bold)), 4, 0, 1, 1)
+            grid.addWidget(QLabel("Maß lt.\nZeichnung"), 0, 0, 7, 1)
+            grid.addWidget(QLabel("SOLL ➡", font=QFont("Arial", 10, QFont.Bold)), 6, 0, 1, 1)
+
             for col_idx in range(4):
                 measure_index = block_idx * 4 + col_idx
                 col_start = 1 + col_idx
@@ -192,16 +241,25 @@ class MessprotokollWidget(QWidget):
                 nominal_field.textEdited.connect(lambda text, f=nominal_field: self.field_manually_edited.emit(f))
                 grid.addWidget(nominal_field, 1, col_start)
                 self.nominal_fields.append(nominal_field)
-                grid.addWidget(QLabel("Messmittel", alignment=Qt.AlignCenter), 2, col_start)
+                grid.addWidget(QLabel("ISO-Fit", alignment=Qt.AlignCenter), 2, col_start)
+
+                # === ÄNDERUNG: Dropdown mit der dynamisch geladenen Liste füllen ===
+                iso_fit_combo = QComboBox();
+                iso_fit_combo.setEditable(True);
+                iso_fit_combo.addItems(self.iso_calculator.available_fits)
+                grid.addWidget(iso_fit_combo, 3, col_start)
+                self.iso_fit_combos.append(iso_fit_combo)
+
+                grid.addWidget(QLabel("Messmittel", alignment=Qt.AlignCenter), 4, col_start)
                 messmittel_combo = QComboBox();
                 messmittel_combo.addItems(self.MESSMITTEL_OPTIONS)
-                grid.addWidget(messmittel_combo, 3, col_start)
+                grid.addWidget(messmittel_combo, 5, col_start)
                 tol_layout = QGridLayout()
                 upper_tol_combo = QComboBox();
-                upper_tol_combo.addItems(self.UPPER_TOLERANCE_VALUES);
+                upper_tol_combo.addItems(self.TOLERANCE_VALUES);
                 upper_tol_combo.setEditable(True)
                 lower_tol_combo = QComboBox();
-                lower_tol_combo.addItems(self.LOWER_TOLERANCE_VALUES);
+                lower_tol_combo.addItems(self.TOLERANCE_VALUES);
                 lower_tol_combo.setEditable(True)
                 tol_layout.addWidget(upper_tol_combo, 0, 0);
                 tol_layout.addWidget(QLabel("Größtmaß"), 0, 1)
@@ -211,14 +269,38 @@ class MessprotokollWidget(QWidget):
                 self.lower_tol_combos.append(lower_tol_combo)
                 soll_label = QLabel("---", alignment=Qt.AlignCenter,
                                     styleSheet="font-weight: bold; border: 1px solid #ccc; padding: 6px;")
-                grid.addLayout(tol_layout, 4, col_start)
-                grid.addWidget(soll_label, 5, col_start)
+                grid.addLayout(tol_layout, 6, col_start)
+                grid.addWidget(soll_label, 7, col_start)
                 self.soll_labels.append(soll_label)
-                nominal_field.textChanged.connect(lambda _, idx=measure_index: self._update_soll_wert(idx))
+                nominal_field.textChanged.connect(lambda _, idx=measure_index: self._trigger_iso_fit_calculation(idx))
+                iso_fit_combo.currentTextChanged.connect(
+                    lambda _, idx=measure_index: self._trigger_iso_fit_calculation(idx))
                 upper_tol_combo.currentTextChanged.connect(lambda _, idx=measure_index: self._update_soll_wert(idx))
                 lower_tol_combo.currentTextChanged.connect(lambda _, idx=measure_index: self._update_soll_wert(idx))
             main_layout.addWidget(block_frame)
         main_layout.addStretch()
+
+    def _trigger_iso_fit_calculation(self, index):
+        nominal_text = self.nominal_fields[index].text().replace(',', '.')
+        fit_string = self.iso_fit_combos[index].currentText().strip()
+        self._update_soll_wert(index)
+        if not nominal_text or not fit_string: return
+        try:
+            nominal_value = float(nominal_text)
+            result = self.iso_calculator.calculate(nominal_value, fit_string)
+            if result is None: return
+            upper_dev, lower_dev = result
+            upper_str = f"{upper_dev:+.3f}"
+            lower_str = f"{lower_dev:+.3f}"
+            self.upper_tol_combos[index].blockSignals(True)
+            self.lower_tol_combos[index].blockSignals(True)
+            self.upper_tol_combos[index].setCurrentText(upper_str)
+            self.lower_tol_combos[index].setCurrentText(lower_str)
+            self.upper_tol_combos[index].blockSignals(False)
+            self.lower_tol_combos[index].blockSignals(False)
+            self._update_soll_wert(index)
+        except Exception as e:
+            print(f"Fehler bei ISO-Fit-Verarbeitung für Index {index}: {e}")
 
     def _update_soll_wert(self, index):
         try:
@@ -238,6 +320,7 @@ class MessprotokollWidget(QWidget):
 #      4. HAUPTFENSTER (MAIN WINDOW)
 # ==============================================================================
 class MainWindow(QMainWindow):
+    # (Unverändert)
     def __init__(self):
         super().__init__()
         self._set_application_style()
@@ -262,7 +345,6 @@ class MainWindow(QMainWindow):
         self.protokoll_widget.field_manually_edited.connect(self.on_field_manually_edited)
 
     def _set_application_style(self):
-        # (Unverändert)
         app = QApplication.instance()
         macos_style_found = False
         if sys.platform == "darwin":
@@ -306,12 +388,9 @@ class MainWindow(QMainWindow):
         path, _ = QFileDialog.getOpenFileName(self, "DXF-Datei öffnen", "", "DXF-Dateien (*.dxf)")
         if path: self.dxf_widget.load_dxf(path)
 
-    # --------------------------------------------------------------------------
-    #      4.1 Drag-and-Drop-Funktionalität
-    # --------------------------------------------------------------------------
     def dragEnterEvent(self, event: QDragEnterEvent):
         if event.mimeData().hasUrls():
-            for url in event.mimeData().urls():
+            for url in event.mimeData.urls():
                 if url.isLocalFile() and url.toLocalFile().lower().endswith('.dxf'):
                     event.acceptProposedAction()
                     return
@@ -319,7 +398,7 @@ class MainWindow(QMainWindow):
 
     def dropEvent(self, event: QDropEvent):
         if event.mimeData().hasUrls():
-            for url in event.mimeData().urls():
+            for url in event.mimeData.urls():
                 file_path = url.toLocalFile()
                 if file_path.lower().endswith('.dxf'):
                     print(f"INFO: Lade DXF-Datei per Drag & Drop: {file_path}")
