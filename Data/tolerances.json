@@ -1,0 +1,6582 @@
+[
+  {
+    "es": 60,
+    "ei": 20,
+    "toleranzklasse": "D10",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 78,
+    "ei": 30,
+    "toleranzklasse": "D10",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 98,
+    "ei": 40,
+    "toleranzklasse": "D10",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 120,
+    "ei": 50,
+    "toleranzklasse": "D10",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 149,
+    "ei": 65,
+    "toleranzklasse": "D10",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 180,
+    "ei": 80,
+    "toleranzklasse": "D10",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 220,
+    "ei": 100,
+    "toleranzklasse": "D10",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 220,
+    "ei": 100,
+    "toleranzklasse": "D10",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 260,
+    "ei": 120,
+    "toleranzklasse": "D10",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 260,
+    "ei": 120,
+    "toleranzklasse": "D10",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 305,
+    "ei": 145,
+    "toleranzklasse": "D10",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 305,
+    "ei": 145,
+    "toleranzklasse": "D10",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 305,
+    "ei": 145,
+    "toleranzklasse": "D10",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 335,
+    "ei": 170,
+    "toleranzklasse": "D10",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 335,
+    "ei": 170,
+    "toleranzklasse": "D10",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 335,
+    "ei": 170,
+    "toleranzklasse": "D10",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 400,
+    "ei": 190,
+    "toleranzklasse": "D10",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 400,
+    "ei": 190,
+    "toleranzklasse": "D10",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 440,
+    "ei": 210,
+    "toleranzklasse": "D10",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 440,
+    "ei": 210,
+    "toleranzklasse": "D10",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 39,
+    "ei": 14,
+    "toleranzklasse": "E9",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 50,
+    "ei": 20,
+    "toleranzklasse": "E9",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 61,
+    "ei": 25,
+    "toleranzklasse": "E9",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 75,
+    "ei": 32,
+    "toleranzklasse": "E9",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 92,
+    "ei": 40,
+    "toleranzklasse": "E9",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 112,
+    "ei": 50,
+    "toleranzklasse": "E9",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 134,
+    "ei": 60,
+    "toleranzklasse": "E9",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 134,
+    "ei": 60,
+    "toleranzklasse": "E9",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 159,
+    "ei": 72,
+    "toleranzklasse": "E9",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 159,
+    "ei": 72,
+    "toleranzklasse": "E9",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 185,
+    "ei": 85,
+    "toleranzklasse": "E9",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 185,
+    "ei": 85,
+    "toleranzklasse": "E9",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 185,
+    "ei": 85,
+    "toleranzklasse": "E9",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 215,
+    "ei": 110,
+    "toleranzklasse": "E9",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 215,
+    "ei": 110,
+    "toleranzklasse": "E9",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 215,
+    "ei": 110,
+    "toleranzklasse": "E9",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 240,
+    "ei": 110,
+    "toleranzklasse": "E9",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 240,
+    "ei": 110,
+    "toleranzklasse": "E9",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 265,
+    "ei": 125,
+    "toleranzklasse": "E9",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 265,
+    "ei": 125,
+    "toleranzklasse": "E9",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 16,
+    "ei": 6,
+    "toleranzklasse": "F7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 22,
+    "ei": 10,
+    "toleranzklasse": "F7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 28,
+    "ei": 13,
+    "toleranzklasse": "F7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 34,
+    "ei": 16,
+    "toleranzklasse": "F7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 41,
+    "ei": 20,
+    "toleranzklasse": "F7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 50,
+    "ei": 25,
+    "toleranzklasse": "F7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 60,
+    "ei": 30,
+    "toleranzklasse": "F7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 60,
+    "ei": 30,
+    "toleranzklasse": "F7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 71,
+    "ei": 36,
+    "toleranzklasse": "F7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 71,
+    "ei": 36,
+    "toleranzklasse": "F7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 83,
+    "ei": 43,
+    "toleranzklasse": "F7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 83,
+    "ei": 43,
+    "toleranzklasse": "F7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 83,
+    "ei": 43,
+    "toleranzklasse": "F7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 96,
+    "ei": 50,
+    "toleranzklasse": "F7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 96,
+    "ei": 50,
+    "toleranzklasse": "F7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 96,
+    "ei": 50,
+    "toleranzklasse": "F7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 108,
+    "ei": 56,
+    "toleranzklasse": "F7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 108,
+    "ei": 56,
+    "toleranzklasse": "F7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 119,
+    "ei": 62,
+    "toleranzklasse": "F7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 119,
+    "ei": 62,
+    "toleranzklasse": "F7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 20,
+    "ei": 10,
+    "toleranzklasse": "F8",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 28,
+    "ei": 10,
+    "toleranzklasse": "F8",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 35,
+    "ei": 13,
+    "toleranzklasse": "F8",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 43,
+    "ei": 16,
+    "toleranzklasse": "F8",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 53,
+    "ei": 20,
+    "toleranzklasse": "F8",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 64,
+    "ei": 25,
+    "toleranzklasse": "F8",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 76,
+    "ei": 30,
+    "toleranzklasse": "F8",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 76,
+    "ei": 30,
+    "toleranzklasse": "F8",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 90,
+    "ei": 36,
+    "toleranzklasse": "F8",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 90,
+    "ei": 36,
+    "toleranzklasse": "F8",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 106,
+    "ei": 43,
+    "toleranzklasse": "F8",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 106,
+    "ei": 43,
+    "toleranzklasse": "F8",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 106,
+    "ei": 43,
+    "toleranzklasse": "F8",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 122,
+    "ei": 50,
+    "toleranzklasse": "F8",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 122,
+    "ei": 50,
+    "toleranzklasse": "F8",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 122,
+    "ei": 50,
+    "toleranzklasse": "F8",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 137,
+    "ei": 56,
+    "toleranzklasse": "F8",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 137,
+    "ei": 56,
+    "toleranzklasse": "F8",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 151,
+    "ei": 62,
+    "toleranzklasse": "F8",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 151,
+    "ei": 62,
+    "toleranzklasse": "F8",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 12,
+    "ei": 2,
+    "toleranzklasse": "G7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 16,
+    "ei": 4,
+    "toleranzklasse": "G7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 20,
+    "ei": 5,
+    "toleranzklasse": "G7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 24,
+    "ei": 6,
+    "toleranzklasse": "G7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 28,
+    "ei": 7,
+    "toleranzklasse": "G7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 34,
+    "ei": 9,
+    "toleranzklasse": "G7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 40,
+    "ei": 10,
+    "toleranzklasse": "G7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 40,
+    "ei": 10,
+    "toleranzklasse": "G7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 47,
+    "ei": 12,
+    "toleranzklasse": "G7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 47,
+    "ei": 12,
+    "toleranzklasse": "G7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 54,
+    "ei": 14,
+    "toleranzklasse": "G7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 54,
+    "ei": 14,
+    "toleranzklasse": "G7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 54,
+    "ei": 14,
+    "toleranzklasse": "G7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 61,
+    "ei": 15,
+    "toleranzklasse": "G7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 61,
+    "ei": 15,
+    "toleranzklasse": "G7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 61,
+    "ei": 15,
+    "toleranzklasse": "G7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 69,
+    "ei": 17,
+    "toleranzklasse": "G7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 69,
+    "ei": 17,
+    "toleranzklasse": "G7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 75,
+    "ei": 18,
+    "toleranzklasse": "G7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 75,
+    "ei": 18,
+    "toleranzklasse": "G7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 27,
+    "ei": 2,
+    "toleranzklasse": "G9",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 34,
+    "ei": 4,
+    "toleranzklasse": "G9",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 41,
+    "ei": 5,
+    "toleranzklasse": "G9",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 49,
+    "ei": 6,
+    "toleranzklasse": "G9",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 59,
+    "ei": 7,
+    "toleranzklasse": "G9",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 71,
+    "ei": 9,
+    "toleranzklasse": "G9",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 0,
+    "ei": 0,
+    "toleranzklasse": "G9",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 0,
+    "ei": 0,
+    "toleranzklasse": "G9",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 0,
+    "ei": 0,
+    "toleranzklasse": "G9",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 0,
+    "ei": 0,
+    "toleranzklasse": "G9",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 0,
+    "ei": 0,
+    "toleranzklasse": "G9",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": -50,
+    "ei": -90,
+    "toleranzklasse": "G9",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": -53,
+    "ei": -93,
+    "toleranzklasse": "G9",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 0,
+    "ei": 0,
+    "toleranzklasse": "G9",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": -63,
+    "ei": -109,
+    "toleranzklasse": "G9",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": -67,
+    "ei": -113,
+    "toleranzklasse": "G9",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 0,
+    "ei": 0,
+    "toleranzklasse": "G9",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": -78,
+    "ei": -130,
+    "toleranzklasse": "G9",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 0,
+    "ei": 0,
+    "toleranzklasse": "G9",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": -93,
+    "ei": -150,
+    "toleranzklasse": "G9",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 6,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 8,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 9,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 11,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 13,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 16,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 19,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 19,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 22,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 22,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 25,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 25,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 25,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 29,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 29,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 29,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 32,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 32,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 36,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 36,
+    "ei": 0,
+    "toleranzklasse": "H6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 10,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 12,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 15,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 18,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 21,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 25,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 30,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 30,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 35,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 35,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 40,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 40,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 40,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 46,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 46,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 46,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 52,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 52,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 57,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 57,
+    "ei": 0,
+    "toleranzklasse": "H7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 14,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 18,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 22,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 27,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 33,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 39,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 46,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 46,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 54,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 54,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 63,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 63,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 63,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 72,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 72,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 72,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 81,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 81,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 89,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 89,
+    "ei": 0,
+    "toleranzklasse": "H8",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 25,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 30,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 36,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 43,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 52,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 62,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 74,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 74,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 87,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 87,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 100,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 100,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 100,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 115,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 115,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 115,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 130,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 130,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 140,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 140,
+    "ei": 0,
+    "toleranzklasse": "H9",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 60,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 75,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 90,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 110,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 130,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 160,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 190,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 190,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 220,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 220,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 250,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 250,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 250,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 290,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 290,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 290,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 320,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 320,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 360,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 360,
+    "ei": 0,
+    "toleranzklasse": "H11",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 100,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 120,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 150,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 180,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 210,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 250,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 300,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 300,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 350,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 350,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 400,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 400,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 400,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 460,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 460,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 460,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 520,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 520,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 570,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 570,
+    "ei": 0,
+    "toleranzklasse": "H12",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 140,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 180,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 220,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 270,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 330,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 390,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 460,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 460,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 540,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 540,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 630,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 630,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 630,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 720,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 720,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 720,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 810,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 810,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 890,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 890,
+    "ei": 0,
+    "toleranzklasse": "H13",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 5,
+    "ei": -5,
+    "toleranzklasse": "JS7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 6,
+    "ei": -6,
+    "toleranzklasse": "JS7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 7.5,
+    "ei": -7.5,
+    "toleranzklasse": "JS7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 9,
+    "ei": -9,
+    "toleranzklasse": "JS7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 10.5,
+    "ei": -10.5,
+    "toleranzklasse": "JS7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 12.5,
+    "ei": -12.5,
+    "toleranzklasse": "JS7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 15,
+    "ei": -15,
+    "toleranzklasse": "JS7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 15,
+    "ei": -15,
+    "toleranzklasse": "JS7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 17.5,
+    "ei": -17.5,
+    "toleranzklasse": "JS7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 17.5,
+    "ei": -17.5,
+    "toleranzklasse": "JS7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 20,
+    "ei": -20,
+    "toleranzklasse": "JS7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 20,
+    "ei": -20,
+    "toleranzklasse": "JS7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 20,
+    "ei": -20,
+    "toleranzklasse": "JS7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 23,
+    "ei": -23,
+    "toleranzklasse": "JS7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 23,
+    "ei": -23,
+    "toleranzklasse": "JS7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 23,
+    "ei": -23,
+    "toleranzklasse": "JS7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 26,
+    "ei": -26,
+    "toleranzklasse": "JS7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 26,
+    "ei": -26,
+    "toleranzklasse": "JS7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 28.5,
+    "ei": -28.5,
+    "toleranzklasse": "JS7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 28.5,
+    "ei": -28.5,
+    "toleranzklasse": "JS7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 12.5,
+    "ei": -12.5,
+    "toleranzklasse": "JS9",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 15,
+    "ei": -15,
+    "toleranzklasse": "JS9",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 18,
+    "ei": -18,
+    "toleranzklasse": "JS9",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 21.5,
+    "ei": -21.5,
+    "toleranzklasse": "JS9",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 26,
+    "ei": -26,
+    "toleranzklasse": "JS9",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 31,
+    "ei": -31,
+    "toleranzklasse": "JS9",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 37,
+    "ei": -37,
+    "toleranzklasse": "JS9",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 37,
+    "ei": -37,
+    "toleranzklasse": "JS9",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 43.5,
+    "ei": -43.5,
+    "toleranzklasse": "JS9",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 43.5,
+    "ei": -43.5,
+    "toleranzklasse": "JS9",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 50,
+    "ei": -50,
+    "toleranzklasse": "JS9",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 50,
+    "ei": -50,
+    "toleranzklasse": "JS9",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 50,
+    "ei": -50,
+    "toleranzklasse": "JS9",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 57.5,
+    "ei": -57.5,
+    "toleranzklasse": "JS9",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 57.5,
+    "ei": -57.5,
+    "toleranzklasse": "JS9",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 57.5,
+    "ei": -57.5,
+    "toleranzklasse": "JS9",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 65,
+    "ei": -65,
+    "toleranzklasse": "JS9",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 65,
+    "ei": -65,
+    "toleranzklasse": "JS9",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 70,
+    "ei": -70,
+    "toleranzklasse": "JS9",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 70,
+    "ei": -70,
+    "toleranzklasse": "JS9",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 0,
+    "ei": -6,
+    "toleranzklasse": "K6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 2,
+    "ei": -6,
+    "toleranzklasse": "K6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 2,
+    "ei": -7,
+    "toleranzklasse": "K6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 2,
+    "ei": -9,
+    "toleranzklasse": "K6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 2,
+    "ei": -11,
+    "toleranzklasse": "K6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 3,
+    "ei": -13,
+    "toleranzklasse": "K6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 4,
+    "ei": -15,
+    "toleranzklasse": "K6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 4,
+    "ei": -15,
+    "toleranzklasse": "K6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 4,
+    "ei": -18,
+    "toleranzklasse": "K6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 4,
+    "ei": -18,
+    "toleranzklasse": "K6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 4,
+    "ei": -21,
+    "toleranzklasse": "K6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 4,
+    "ei": -21,
+    "toleranzklasse": "K6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 4,
+    "ei": -21,
+    "toleranzklasse": "K6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 5,
+    "ei": -24,
+    "toleranzklasse": "K6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 5,
+    "ei": -24,
+    "toleranzklasse": "K6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 5,
+    "ei": -24,
+    "toleranzklasse": "K6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 5,
+    "ei": -27,
+    "toleranzklasse": "K6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 5,
+    "ei": -27,
+    "toleranzklasse": "K6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 7,
+    "ei": -29,
+    "toleranzklasse": "K6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 7,
+    "ei": -29,
+    "toleranzklasse": "K6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 0,
+    "ei": -10,
+    "toleranzklasse": "K7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 3,
+    "ei": -9,
+    "toleranzklasse": "K7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 5,
+    "ei": -10,
+    "toleranzklasse": "K7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 6,
+    "ei": -12,
+    "toleranzklasse": "K7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 6,
+    "ei": -15,
+    "toleranzklasse": "K7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 7,
+    "ei": -18,
+    "toleranzklasse": "K7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 9,
+    "ei": -21,
+    "toleranzklasse": "K7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 9,
+    "ei": -21,
+    "toleranzklasse": "K7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 10,
+    "ei": -25,
+    "toleranzklasse": "K7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 10,
+    "ei": -25,
+    "toleranzklasse": "K7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 12,
+    "ei": -28,
+    "toleranzklasse": "K7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 12,
+    "ei": -28,
+    "toleranzklasse": "K7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 12,
+    "ei": -28,
+    "toleranzklasse": "K7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 13,
+    "ei": -33,
+    "toleranzklasse": "K7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 13,
+    "ei": -33,
+    "toleranzklasse": "K7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 13,
+    "ei": -33,
+    "toleranzklasse": "K7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 16,
+    "ei": -36,
+    "toleranzklasse": "K7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 16,
+    "ei": -36,
+    "toleranzklasse": "K7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 17,
+    "ei": -40,
+    "toleranzklasse": "K7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 17,
+    "ei": -40,
+    "toleranzklasse": "K7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": -2,
+    "ei": -8,
+    "toleranzklasse": "M6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": -1,
+    "ei": -9,
+    "toleranzklasse": "M6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": -3,
+    "ei": -12,
+    "toleranzklasse": "M6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": -4,
+    "ei": -15,
+    "toleranzklasse": "M6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": -4,
+    "ei": -17,
+    "toleranzklasse": "M6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": -4,
+    "ei": -20,
+    "toleranzklasse": "M6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": -5,
+    "ei": -24,
+    "toleranzklasse": "M6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": -5,
+    "ei": -24,
+    "toleranzklasse": "M6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": -6,
+    "ei": -28,
+    "toleranzklasse": "M6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": -6,
+    "ei": -28,
+    "toleranzklasse": "M6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": -8,
+    "ei": -33,
+    "toleranzklasse": "M6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": -8,
+    "ei": -33,
+    "toleranzklasse": "M6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": -8,
+    "ei": -33,
+    "toleranzklasse": "M6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": -8,
+    "ei": -37,
+    "toleranzklasse": "M6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": -8,
+    "ei": -37,
+    "toleranzklasse": "M6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": -8,
+    "ei": -37,
+    "toleranzklasse": "M6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": -9,
+    "ei": -41,
+    "toleranzklasse": "M6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": -9,
+    "ei": -41,
+    "toleranzklasse": "M6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": -10,
+    "ei": -46,
+    "toleranzklasse": "M6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": -10,
+    "ei": -46,
+    "toleranzklasse": "M6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": -2,
+    "ei": -12,
+    "toleranzklasse": "M7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 0,
+    "ei": -12,
+    "toleranzklasse": "M7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 0,
+    "ei": -15,
+    "toleranzklasse": "M7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 0,
+    "ei": -18,
+    "toleranzklasse": "M7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 0,
+    "ei": -21,
+    "toleranzklasse": "M7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 0,
+    "ei": -25,
+    "toleranzklasse": "M7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 0,
+    "ei": -30,
+    "toleranzklasse": "M7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 0,
+    "ei": -30,
+    "toleranzklasse": "M7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 0,
+    "ei": -35,
+    "toleranzklasse": "M7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 0,
+    "ei": -35,
+    "toleranzklasse": "M7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 0,
+    "ei": -40,
+    "toleranzklasse": "M7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 0,
+    "ei": -40,
+    "toleranzklasse": "M7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 0,
+    "ei": -40,
+    "toleranzklasse": "M7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 0,
+    "ei": -46,
+    "toleranzklasse": "M7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 0,
+    "ei": -46,
+    "toleranzklasse": "M7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 0,
+    "ei": -46,
+    "toleranzklasse": "M7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 0,
+    "ei": -52,
+    "toleranzklasse": "M7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 0,
+    "ei": -52,
+    "toleranzklasse": "M7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 0,
+    "ei": -57,
+    "toleranzklasse": "M7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 0,
+    "ei": -57,
+    "toleranzklasse": "M7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": -4,
+    "ei": -14,
+    "toleranzklasse": "N7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": -4,
+    "ei": -16,
+    "toleranzklasse": "N7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": -4,
+    "ei": -19,
+    "toleranzklasse": "N7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": -5,
+    "ei": -23,
+    "toleranzklasse": "N7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": -7,
+    "ei": -28,
+    "toleranzklasse": "N7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": -8,
+    "ei": -33,
+    "toleranzklasse": "N7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": -9,
+    "ei": -39,
+    "toleranzklasse": "N7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": -9,
+    "ei": -39,
+    "toleranzklasse": "N7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": -10,
+    "ei": -45,
+    "toleranzklasse": "N7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": -10,
+    "ei": -45,
+    "toleranzklasse": "N7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": -12,
+    "ei": -52,
+    "toleranzklasse": "N7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": -12,
+    "ei": -52,
+    "toleranzklasse": "N7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": -12,
+    "ei": -52,
+    "toleranzklasse": "N7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": -14,
+    "ei": -60,
+    "toleranzklasse": "N7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": -14,
+    "ei": -60,
+    "toleranzklasse": "N7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": -14,
+    "ei": -60,
+    "toleranzklasse": "N7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": -14,
+    "ei": -66,
+    "toleranzklasse": "N7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": -14,
+    "ei": -66,
+    "toleranzklasse": "N7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": -16,
+    "ei": -73,
+    "toleranzklasse": "N7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": -16,
+    "ei": -73,
+    "toleranzklasse": "N7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": -4,
+    "ei": -29,
+    "toleranzklasse": "N9",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 0,
+    "ei": -30,
+    "toleranzklasse": "N9",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 0,
+    "ei": -36,
+    "toleranzklasse": "N9",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 0,
+    "ei": -43,
+    "toleranzklasse": "N9",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 0,
+    "ei": -52,
+    "toleranzklasse": "N9",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 0,
+    "ei": -62,
+    "toleranzklasse": "N9",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 0,
+    "ei": -74,
+    "toleranzklasse": "N9",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 0,
+    "ei": -74,
+    "toleranzklasse": "N9",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 0,
+    "ei": -87,
+    "toleranzklasse": "N9",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 0,
+    "ei": -87,
+    "toleranzklasse": "N9",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 0,
+    "ei": -100,
+    "toleranzklasse": "N9",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 0,
+    "ei": -100,
+    "toleranzklasse": "N9",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 0,
+    "ei": -100,
+    "toleranzklasse": "N9",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 0,
+    "ei": -115,
+    "toleranzklasse": "N9",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 0,
+    "ei": -115,
+    "toleranzklasse": "N9",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 0,
+    "ei": -115,
+    "toleranzklasse": "N9",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 0,
+    "ei": -130,
+    "toleranzklasse": "N9",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 0,
+    "ei": -130,
+    "toleranzklasse": "N9",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 0,
+    "ei": -140,
+    "toleranzklasse": "N9",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 0,
+    "ei": -140,
+    "toleranzklasse": "N9",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": -6,
+    "ei": -16,
+    "toleranzklasse": "P7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": -8,
+    "ei": -20,
+    "toleranzklasse": "P7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": -9,
+    "ei": -24,
+    "toleranzklasse": "P7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": -11,
+    "ei": -29,
+    "toleranzklasse": "P7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": -14,
+    "ei": -35,
+    "toleranzklasse": "P7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": -17,
+    "ei": -42,
+    "toleranzklasse": "P7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": -21,
+    "ei": -51,
+    "toleranzklasse": "P7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": -21,
+    "ei": -51,
+    "toleranzklasse": "P7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": -24,
+    "ei": -59,
+    "toleranzklasse": "P7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": -24,
+    "ei": -59,
+    "toleranzklasse": "P7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": -28,
+    "ei": -68,
+    "toleranzklasse": "P7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": -28,
+    "ei": -68,
+    "toleranzklasse": "P7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": -28,
+    "ei": -68,
+    "toleranzklasse": "P7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": -33,
+    "ei": -79,
+    "toleranzklasse": "P7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": -33,
+    "ei": -79,
+    "toleranzklasse": "P7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": -33,
+    "ei": -79,
+    "toleranzklasse": "P7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": -36,
+    "ei": -88,
+    "toleranzklasse": "P7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": -36,
+    "ei": -88,
+    "toleranzklasse": "P7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": -41,
+    "ei": -98,
+    "toleranzklasse": "P7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": -41,
+    "ei": -98,
+    "toleranzklasse": "P7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": -6,
+    "ei": -31,
+    "toleranzklasse": "P9",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": -12,
+    "ei": -42,
+    "toleranzklasse": "P9",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": -15,
+    "ei": -51,
+    "toleranzklasse": "P9",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": -18,
+    "ei": -61,
+    "toleranzklasse": "P9",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": -22,
+    "ei": -74,
+    "toleranzklasse": "P9",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": -26,
+    "ei": -88,
+    "toleranzklasse": "P9",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": -32,
+    "ei": -106,
+    "toleranzklasse": "P9",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": -32,
+    "ei": -106,
+    "toleranzklasse": "P9",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": -37,
+    "ei": -124,
+    "toleranzklasse": "P9",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": -37,
+    "ei": -124,
+    "toleranzklasse": "P9",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": -43,
+    "ei": -143,
+    "toleranzklasse": "P9",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": -43,
+    "ei": -143,
+    "toleranzklasse": "P9",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": -43,
+    "ei": -143,
+    "toleranzklasse": "P9",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": -50,
+    "ei": -165,
+    "toleranzklasse": "P9",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": -50,
+    "ei": -165,
+    "toleranzklasse": "P9",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": -50,
+    "ei": -165,
+    "toleranzklasse": "P9",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": -56,
+    "ei": -186,
+    "toleranzklasse": "P9",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": -56,
+    "ei": -186,
+    "toleranzklasse": "P9",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": -62,
+    "ei": -202,
+    "toleranzklasse": "P9",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": -62,
+    "ei": -202,
+    "toleranzklasse": "P9",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": -20,
+    "ei": -45,
+    "toleranzklasse": "d9",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": -30,
+    "ei": -60,
+    "toleranzklasse": "d9",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": -40,
+    "ei": -76,
+    "toleranzklasse": "d9",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": -50,
+    "ei": -93,
+    "toleranzklasse": "d9",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": -65,
+    "ei": -117,
+    "toleranzklasse": "d9",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": -80,
+    "ei": -142,
+    "toleranzklasse": "d9",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": -100,
+    "ei": -174,
+    "toleranzklasse": "d9",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": -100,
+    "ei": -174,
+    "toleranzklasse": "d9",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": -120,
+    "ei": -207,
+    "toleranzklasse": "d9",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": -120,
+    "ei": -207,
+    "toleranzklasse": "d9",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": -145,
+    "ei": -245,
+    "toleranzklasse": "d9",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": -145,
+    "ei": -245,
+    "toleranzklasse": "d9",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": -145,
+    "ei": -245,
+    "toleranzklasse": "d9",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": -170,
+    "ei": -285,
+    "toleranzklasse": "d9",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": -170,
+    "ei": -285,
+    "toleranzklasse": "d9",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": -170,
+    "ei": -285,
+    "toleranzklasse": "d9",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": -190,
+    "ei": -320,
+    "toleranzklasse": "d9",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": -190,
+    "ei": -320,
+    "toleranzklasse": "d9",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": -210,
+    "ei": -350,
+    "toleranzklasse": "d9",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": -210,
+    "ei": -350,
+    "toleranzklasse": "d9",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": -14,
+    "ei": -28,
+    "toleranzklasse": "e8",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": -20,
+    "ei": -38,
+    "toleranzklasse": "e8",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": -25,
+    "ei": -47,
+    "toleranzklasse": "e8",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": -32,
+    "ei": -59,
+    "toleranzklasse": "e8",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": -40,
+    "ei": -73,
+    "toleranzklasse": "e8",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": -50,
+    "ei": -89,
+    "toleranzklasse": "e8",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": -60,
+    "ei": -106,
+    "toleranzklasse": "e8",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": -60,
+    "ei": -106,
+    "toleranzklasse": "e8",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": -72,
+    "ei": -126,
+    "toleranzklasse": "e8",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": -72,
+    "ei": -126,
+    "toleranzklasse": "e8",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": -85,
+    "ei": -148,
+    "toleranzklasse": "e8",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": -85,
+    "ei": -148,
+    "toleranzklasse": "e8",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": -85,
+    "ei": -148,
+    "toleranzklasse": "e8",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": -100,
+    "ei": -172,
+    "toleranzklasse": "e8",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": -100,
+    "ei": -172,
+    "toleranzklasse": "e8",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": -100,
+    "ei": -172,
+    "toleranzklasse": "e8",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": -110,
+    "ei": -191,
+    "toleranzklasse": "e8",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": -110,
+    "ei": -191,
+    "toleranzklasse": "e8",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": -125,
+    "ei": -214,
+    "toleranzklasse": "e8",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": -125,
+    "ei": -214,
+    "toleranzklasse": "e8",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": -6,
+    "ei": -16,
+    "toleranzklasse": "f7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": -10,
+    "ei": -22,
+    "toleranzklasse": "f7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": -13,
+    "ei": -28,
+    "toleranzklasse": "f7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": -16,
+    "ei": -34,
+    "toleranzklasse": "f7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": -20,
+    "ei": -41,
+    "toleranzklasse": "f7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": -25,
+    "ei": -50,
+    "toleranzklasse": "f7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": -30,
+    "ei": -60,
+    "toleranzklasse": "f7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": -30,
+    "ei": -60,
+    "toleranzklasse": "f7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": -36,
+    "ei": -71,
+    "toleranzklasse": "f7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": -36,
+    "ei": -71,
+    "toleranzklasse": "f7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": -43,
+    "ei": -83,
+    "toleranzklasse": "f7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": -43,
+    "ei": -83,
+    "toleranzklasse": "f7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": -43,
+    "ei": -83,
+    "toleranzklasse": "f7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": -50,
+    "ei": -96,
+    "toleranzklasse": "f7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": -50,
+    "ei": -96,
+    "toleranzklasse": "f7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": -50,
+    "ei": -96,
+    "toleranzklasse": "f7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": -56,
+    "ei": -108,
+    "toleranzklasse": "f7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": -56,
+    "ei": -108,
+    "toleranzklasse": "f7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": -62,
+    "ei": -119,
+    "toleranzklasse": "f7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": -62,
+    "ei": -119,
+    "toleranzklasse": "f7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": -2,
+    "ei": -8,
+    "toleranzklasse": "g6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": -4,
+    "ei": -12,
+    "toleranzklasse": "g6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": -5,
+    "ei": -14,
+    "toleranzklasse": "g6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": -6,
+    "ei": -17,
+    "toleranzklasse": "g6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": -7,
+    "ei": -20,
+    "toleranzklasse": "g6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": -9,
+    "ei": -25,
+    "toleranzklasse": "g6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": -10,
+    "ei": -29,
+    "toleranzklasse": "g6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": -10,
+    "ei": -29,
+    "toleranzklasse": "g6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": -12,
+    "ei": -34,
+    "toleranzklasse": "g6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": -12,
+    "ei": -34,
+    "toleranzklasse": "g6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": -14,
+    "ei": -39,
+    "toleranzklasse": "g6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": -14,
+    "ei": -39,
+    "toleranzklasse": "g6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": -14,
+    "ei": -39,
+    "toleranzklasse": "g6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": -15,
+    "ei": -44,
+    "toleranzklasse": "g6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": -15,
+    "ei": -44,
+    "toleranzklasse": "g6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": -15,
+    "ei": -44,
+    "toleranzklasse": "g6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": -17,
+    "ei": -49,
+    "toleranzklasse": "g6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": -17,
+    "ei": -49,
+    "toleranzklasse": "g6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": -18,
+    "ei": -54,
+    "toleranzklasse": "g6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": -18,
+    "ei": -54,
+    "toleranzklasse": "g6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 0,
+    "ei": -4,
+    "toleranzklasse": "h5",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 0,
+    "ei": -5,
+    "toleranzklasse": "h5",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 0,
+    "ei": -6,
+    "toleranzklasse": "h5",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 0,
+    "ei": -8,
+    "toleranzklasse": "h5",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 0,
+    "ei": -9,
+    "toleranzklasse": "h5",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 0,
+    "ei": -11,
+    "toleranzklasse": "h5",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 0,
+    "ei": -13,
+    "toleranzklasse": "h5",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 0,
+    "ei": -13,
+    "toleranzklasse": "h5",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 0,
+    "ei": -15,
+    "toleranzklasse": "h5",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 0,
+    "ei": -15,
+    "toleranzklasse": "h5",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 0,
+    "ei": -18,
+    "toleranzklasse": "h5",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 0,
+    "ei": -18,
+    "toleranzklasse": "h5",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 0,
+    "ei": -18,
+    "toleranzklasse": "h5",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 0,
+    "ei": -20,
+    "toleranzklasse": "h5",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 0,
+    "ei": -20,
+    "toleranzklasse": "h5",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 0,
+    "ei": -20,
+    "toleranzklasse": "h5",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 0,
+    "ei": -23,
+    "toleranzklasse": "h5",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 0,
+    "ei": -23,
+    "toleranzklasse": "h5",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 0,
+    "ei": -25,
+    "toleranzklasse": "h5",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 0,
+    "ei": -25,
+    "toleranzklasse": "h5",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 0,
+    "ei": -6,
+    "toleranzklasse": "h6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 0,
+    "ei": -8,
+    "toleranzklasse": "h6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 0,
+    "ei": -9,
+    "toleranzklasse": "h6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 0,
+    "ei": -11,
+    "toleranzklasse": "h6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 0,
+    "ei": -13,
+    "toleranzklasse": "h6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 0,
+    "ei": -16,
+    "toleranzklasse": "h6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 0,
+    "ei": -19,
+    "toleranzklasse": "h6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 0,
+    "ei": -19,
+    "toleranzklasse": "h6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 0,
+    "ei": -22,
+    "toleranzklasse": "h6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 0,
+    "ei": -22,
+    "toleranzklasse": "h6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 0,
+    "ei": -25,
+    "toleranzklasse": "h6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 0,
+    "ei": -25,
+    "toleranzklasse": "h6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 0,
+    "ei": -25,
+    "toleranzklasse": "h6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 0,
+    "ei": -29,
+    "toleranzklasse": "h6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 0,
+    "ei": -29,
+    "toleranzklasse": "h6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 0,
+    "ei": -29,
+    "toleranzklasse": "h6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 0,
+    "ei": -32,
+    "toleranzklasse": "h6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 0,
+    "ei": -32,
+    "toleranzklasse": "h6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 0,
+    "ei": -36,
+    "toleranzklasse": "h6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 0,
+    "ei": -36,
+    "toleranzklasse": "h6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 0,
+    "ei": -10,
+    "toleranzklasse": "h7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 0,
+    "ei": -12,
+    "toleranzklasse": "h7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 0,
+    "ei": -15,
+    "toleranzklasse": "h7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 0,
+    "ei": -18,
+    "toleranzklasse": "h7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 0,
+    "ei": -21,
+    "toleranzklasse": "h7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 0,
+    "ei": -25,
+    "toleranzklasse": "h7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 0,
+    "ei": -30,
+    "toleranzklasse": "h7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 0,
+    "ei": -30,
+    "toleranzklasse": "h7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 0,
+    "ei": -35,
+    "toleranzklasse": "h7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 0,
+    "ei": -35,
+    "toleranzklasse": "h7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 0,
+    "ei": -40,
+    "toleranzklasse": "h7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 0,
+    "ei": -40,
+    "toleranzklasse": "h7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 0,
+    "ei": -40,
+    "toleranzklasse": "h7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 0,
+    "ei": -46,
+    "toleranzklasse": "h7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 0,
+    "ei": -46,
+    "toleranzklasse": "h7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 0,
+    "ei": -46,
+    "toleranzklasse": "h7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 0,
+    "ei": -52,
+    "toleranzklasse": "h7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 0,
+    "ei": -52,
+    "toleranzklasse": "h7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 0,
+    "ei": -57,
+    "toleranzklasse": "h7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 0,
+    "ei": -57,
+    "toleranzklasse": "h7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 0,
+    "ei": -14,
+    "toleranzklasse": "h8",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 0,
+    "ei": -18,
+    "toleranzklasse": "h8",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 0,
+    "ei": -22,
+    "toleranzklasse": "h8",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 0,
+    "ei": -27,
+    "toleranzklasse": "h8",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 0,
+    "ei": -33,
+    "toleranzklasse": "h8",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 0,
+    "ei": -39,
+    "toleranzklasse": "h8",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 0,
+    "ei": -46,
+    "toleranzklasse": "h8",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 0,
+    "ei": -46,
+    "toleranzklasse": "h8",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 0,
+    "ei": -54,
+    "toleranzklasse": "h8",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 0,
+    "ei": -54,
+    "toleranzklasse": "h8",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 0,
+    "ei": -63,
+    "toleranzklasse": "h8",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 0,
+    "ei": -63,
+    "toleranzklasse": "h8",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 0,
+    "ei": -63,
+    "toleranzklasse": "h8",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 0,
+    "ei": -72,
+    "toleranzklasse": "h8",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 0,
+    "ei": -72,
+    "toleranzklasse": "h8",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 0,
+    "ei": -72,
+    "toleranzklasse": "h8",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 0,
+    "ei": -81,
+    "toleranzklasse": "h8",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 0,
+    "ei": -81,
+    "toleranzklasse": "h8",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 0,
+    "ei": -89,
+    "toleranzklasse": "h8",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 0,
+    "ei": -89,
+    "toleranzklasse": "h8",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 0,
+    "ei": -25,
+    "toleranzklasse": "h9",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 0,
+    "ei": -30,
+    "toleranzklasse": "h9",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 0,
+    "ei": -36,
+    "toleranzklasse": "h9",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 0,
+    "ei": -43,
+    "toleranzklasse": "h9",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 0,
+    "ei": -52,
+    "toleranzklasse": "h9",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 0,
+    "ei": -62,
+    "toleranzklasse": "h9",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 0,
+    "ei": -74,
+    "toleranzklasse": "h9",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 0,
+    "ei": -74,
+    "toleranzklasse": "h9",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 0,
+    "ei": -87,
+    "toleranzklasse": "h9",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 0,
+    "ei": -87,
+    "toleranzklasse": "h9",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 0,
+    "ei": -100,
+    "toleranzklasse": "h9",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 0,
+    "ei": -100,
+    "toleranzklasse": "h9",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 0,
+    "ei": -100,
+    "toleranzklasse": "h9",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 0,
+    "ei": -115,
+    "toleranzklasse": "h9",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 0,
+    "ei": -115,
+    "toleranzklasse": "h9",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 0,
+    "ei": -115,
+    "toleranzklasse": "h9",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 0,
+    "ei": -130,
+    "toleranzklasse": "h9",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 0,
+    "ei": -130,
+    "toleranzklasse": "h9",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 0,
+    "ei": -140,
+    "toleranzklasse": "h9",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 0,
+    "ei": -140,
+    "toleranzklasse": "h9",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 0,
+    "ei": -60,
+    "toleranzklasse": "h11",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 0,
+    "ei": -75,
+    "toleranzklasse": "h11",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 0,
+    "ei": -90,
+    "toleranzklasse": "h11",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 0,
+    "ei": -110,
+    "toleranzklasse": "h11",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 0,
+    "ei": -130,
+    "toleranzklasse": "h11",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 0,
+    "ei": -160,
+    "toleranzklasse": "h11",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 0,
+    "ei": -190,
+    "toleranzklasse": "h11",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 0,
+    "ei": -190,
+    "toleranzklasse": "h11",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 0,
+    "ei": -220,
+    "toleranzklasse": "h11",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 0,
+    "ei": -220,
+    "toleranzklasse": "h11",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 0,
+    "ei": -250,
+    "toleranzklasse": "h11",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 0,
+    "ei": -250,
+    "toleranzklasse": "h11",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 0,
+    "ei": -250,
+    "toleranzklasse": "h11",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 0,
+    "ei": -290,
+    "toleranzklasse": "h11",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 0,
+    "ei": -290,
+    "toleranzklasse": "h11",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 0,
+    "ei": -290,
+    "toleranzklasse": "h11",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 0,
+    "ei": -320,
+    "toleranzklasse": "h11",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 0,
+    "ei": -320,
+    "toleranzklasse": "h11",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 0,
+    "ei": -360,
+    "toleranzklasse": "h11",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 0,
+    "ei": -360,
+    "toleranzklasse": "h11",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 2,
+    "ei": -2,
+    "toleranzklasse": "js5",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 2.5,
+    "ei": -2.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 3,
+    "ei": -3,
+    "toleranzklasse": "js5",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 4,
+    "ei": -4,
+    "toleranzklasse": "js5",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 4.5,
+    "ei": -4.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 5.5,
+    "ei": -5.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 6.5,
+    "ei": -6.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 6.5,
+    "ei": -6.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 7.5,
+    "ei": -7.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 7.5,
+    "ei": -7.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 9,
+    "ei": -9,
+    "toleranzklasse": "js5",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 9,
+    "ei": -9,
+    "toleranzklasse": "js5",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 9,
+    "ei": -9,
+    "toleranzklasse": "js5",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 10,
+    "ei": -10,
+    "toleranzklasse": "js5",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 10,
+    "ei": -10,
+    "toleranzklasse": "js5",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 10,
+    "ei": -10,
+    "toleranzklasse": "js5",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 11.5,
+    "ei": -11.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 11.5,
+    "ei": -11.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 12.5,
+    "ei": -12.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 12.5,
+    "ei": -12.5,
+    "toleranzklasse": "js5",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 3,
+    "ei": -3,
+    "toleranzklasse": "js6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 4,
+    "ei": -4,
+    "toleranzklasse": "js6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 4.5,
+    "ei": -4.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 5.5,
+    "ei": -5.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 6.5,
+    "ei": -6.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 8,
+    "ei": -8,
+    "toleranzklasse": "js6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 9.5,
+    "ei": -9.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 9.5,
+    "ei": -9.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 11,
+    "ei": -11,
+    "toleranzklasse": "js6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 11,
+    "ei": -11,
+    "toleranzklasse": "js6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 12.5,
+    "ei": -12.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 12.5,
+    "ei": -12.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 12.5,
+    "ei": -12.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 14.5,
+    "ei": -14.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 14.5,
+    "ei": -14.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 14.5,
+    "ei": -14.5,
+    "toleranzklasse": "js6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 16,
+    "ei": -16,
+    "toleranzklasse": "js6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 16,
+    "ei": -16,
+    "toleranzklasse": "js6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 18,
+    "ei": -18,
+    "toleranzklasse": "js6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 18,
+    "ei": -18,
+    "toleranzklasse": "js6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 70,
+    "ei": -70,
+    "toleranzklasse": "js13",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 90,
+    "ei": -90,
+    "toleranzklasse": "js13",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 110,
+    "ei": -110,
+    "toleranzklasse": "js13",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 135,
+    "ei": -135,
+    "toleranzklasse": "js13",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 165,
+    "ei": -165,
+    "toleranzklasse": "js13",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 195,
+    "ei": -195,
+    "toleranzklasse": "js13",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 230,
+    "ei": -230,
+    "toleranzklasse": "js13",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 230,
+    "ei": -230,
+    "toleranzklasse": "js13",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 270,
+    "ei": -270,
+    "toleranzklasse": "js13",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 270,
+    "ei": -270,
+    "toleranzklasse": "js13",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 315,
+    "ei": -315,
+    "toleranzklasse": "js13",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 315,
+    "ei": -315,
+    "toleranzklasse": "js13",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 315,
+    "ei": -315,
+    "toleranzklasse": "js13",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 360,
+    "ei": -360,
+    "toleranzklasse": "js13",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 360,
+    "ei": -360,
+    "toleranzklasse": "js13",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 360,
+    "ei": -360,
+    "toleranzklasse": "js13",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 405,
+    "ei": -405,
+    "toleranzklasse": "js13",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 405,
+    "ei": -405,
+    "toleranzklasse": "js13",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 445,
+    "ei": -445,
+    "toleranzklasse": "js13",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 445,
+    "ei": -445,
+    "toleranzklasse": "js13",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 125,
+    "ei": -125,
+    "toleranzklasse": "js14",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 150,
+    "ei": -150,
+    "toleranzklasse": "js14",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 180,
+    "ei": -180,
+    "toleranzklasse": "js14",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 215,
+    "ei": -215,
+    "toleranzklasse": "js14",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 260,
+    "ei": -260,
+    "toleranzklasse": "js14",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 310,
+    "ei": -310,
+    "toleranzklasse": "js14",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 370,
+    "ei": -370,
+    "toleranzklasse": "js14",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 370,
+    "ei": -370,
+    "toleranzklasse": "js14",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 435,
+    "ei": -435,
+    "toleranzklasse": "js14",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 435,
+    "ei": -435,
+    "toleranzklasse": "js14",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 500,
+    "ei": -500,
+    "toleranzklasse": "js14",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 500,
+    "ei": -500,
+    "toleranzklasse": "js14",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 500,
+    "ei": -500,
+    "toleranzklasse": "js14",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 575,
+    "ei": -575,
+    "toleranzklasse": "js14",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 575,
+    "ei": -575,
+    "toleranzklasse": "js14",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 575,
+    "ei": -575,
+    "toleranzklasse": "js14",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 650,
+    "ei": -650,
+    "toleranzklasse": "js14",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 650,
+    "ei": -650,
+    "toleranzklasse": "js14",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 700,
+    "ei": -700,
+    "toleranzklasse": "js14",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 700,
+    "ei": -700,
+    "toleranzklasse": "js14",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 4,
+    "ei": 0,
+    "toleranzklasse": "k5",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 6,
+    "ei": 1,
+    "toleranzklasse": "k5",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 7,
+    "ei": 1,
+    "toleranzklasse": "k5",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 9,
+    "ei": 1,
+    "toleranzklasse": "k5",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 11,
+    "ei": 2,
+    "toleranzklasse": "k5",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 13,
+    "ei": 2,
+    "toleranzklasse": "k5",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 15,
+    "ei": 2,
+    "toleranzklasse": "k5",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 15,
+    "ei": 2,
+    "toleranzklasse": "k5",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 18,
+    "ei": 3,
+    "toleranzklasse": "k5",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 18,
+    "ei": 3,
+    "toleranzklasse": "k5",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 21,
+    "ei": 3,
+    "toleranzklasse": "k5",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 21,
+    "ei": 3,
+    "toleranzklasse": "k5",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 21,
+    "ei": 3,
+    "toleranzklasse": "k5",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 24,
+    "ei": 4,
+    "toleranzklasse": "k5",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 24,
+    "ei": 4,
+    "toleranzklasse": "k5",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 24,
+    "ei": 4,
+    "toleranzklasse": "k5",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 27,
+    "ei": 4,
+    "toleranzklasse": "k5",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 27,
+    "ei": 4,
+    "toleranzklasse": "k5",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 29,
+    "ei": 4,
+    "toleranzklasse": "k5",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 29,
+    "ei": 4,
+    "toleranzklasse": "k5",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 6,
+    "ei": 0,
+    "toleranzklasse": "k6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 9,
+    "ei": 1,
+    "toleranzklasse": "k6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 10,
+    "ei": 1,
+    "toleranzklasse": "k6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 12,
+    "ei": 1,
+    "toleranzklasse": "k6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 15,
+    "ei": 2,
+    "toleranzklasse": "k6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 18,
+    "ei": 2,
+    "toleranzklasse": "k6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 21,
+    "ei": 2,
+    "toleranzklasse": "k6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 21,
+    "ei": 2,
+    "toleranzklasse": "k6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 25,
+    "ei": 3,
+    "toleranzklasse": "k6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 25,
+    "ei": 3,
+    "toleranzklasse": "k6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 28,
+    "ei": 3,
+    "toleranzklasse": "k6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 28,
+    "ei": 3,
+    "toleranzklasse": "k6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 28,
+    "ei": 3,
+    "toleranzklasse": "k6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 33,
+    "ei": 4,
+    "toleranzklasse": "k6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 33,
+    "ei": 4,
+    "toleranzklasse": "k6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 33,
+    "ei": 4,
+    "toleranzklasse": "k6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 36,
+    "ei": 4,
+    "toleranzklasse": "k6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 36,
+    "ei": 4,
+    "toleranzklasse": "k6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 40,
+    "ei": 4,
+    "toleranzklasse": "k6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 40,
+    "ei": 4,
+    "toleranzklasse": "k6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 6,
+    "ei": 2,
+    "toleranzklasse": "m5",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 9,
+    "ei": 4,
+    "toleranzklasse": "m5",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 12,
+    "ei": 6,
+    "toleranzklasse": "m5",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 15,
+    "ei": 7,
+    "toleranzklasse": "m5",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 17,
+    "ei": 8,
+    "toleranzklasse": "m5",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 20,
+    "ei": 9,
+    "toleranzklasse": "m5",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 24,
+    "ei": 11,
+    "toleranzklasse": "m5",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 24,
+    "ei": 11,
+    "toleranzklasse": "m5",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 28,
+    "ei": 13,
+    "toleranzklasse": "m5",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 28,
+    "ei": 13,
+    "toleranzklasse": "m5",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 33,
+    "ei": 15,
+    "toleranzklasse": "m5",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 33,
+    "ei": 15,
+    "toleranzklasse": "m5",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 33,
+    "ei": 15,
+    "toleranzklasse": "m5",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 37,
+    "ei": 17,
+    "toleranzklasse": "m5",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 37,
+    "ei": 17,
+    "toleranzklasse": "m5",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 37,
+    "ei": 17,
+    "toleranzklasse": "m5",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 43,
+    "ei": 20,
+    "toleranzklasse": "m5",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 43,
+    "ei": 20,
+    "toleranzklasse": "m5",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 46,
+    "ei": 21,
+    "toleranzklasse": "m5",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 46,
+    "ei": 21,
+    "toleranzklasse": "m5",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 8,
+    "ei": 2,
+    "toleranzklasse": "m6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 12,
+    "ei": 4,
+    "toleranzklasse": "m6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 15,
+    "ei": 6,
+    "toleranzklasse": "m6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 18,
+    "ei": 7,
+    "toleranzklasse": "m6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 21,
+    "ei": 8,
+    "toleranzklasse": "m6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 25,
+    "ei": 9,
+    "toleranzklasse": "m6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 30,
+    "ei": 11,
+    "toleranzklasse": "m6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 30,
+    "ei": 11,
+    "toleranzklasse": "m6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 35,
+    "ei": 13,
+    "toleranzklasse": "m6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 35,
+    "ei": 13,
+    "toleranzklasse": "m6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 40,
+    "ei": 15,
+    "toleranzklasse": "m6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 40,
+    "ei": 15,
+    "toleranzklasse": "m6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 40,
+    "ei": 15,
+    "toleranzklasse": "m6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 46,
+    "ei": 17,
+    "toleranzklasse": "m6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 46,
+    "ei": 17,
+    "toleranzklasse": "m6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 46,
+    "ei": 17,
+    "toleranzklasse": "m6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 52,
+    "ei": 20,
+    "toleranzklasse": "m6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 52,
+    "ei": 20,
+    "toleranzklasse": "m6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 57,
+    "ei": 21,
+    "toleranzklasse": "m6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 57,
+    "ei": 21,
+    "toleranzklasse": "m6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 8,
+    "ei": 4,
+    "toleranzklasse": "n5",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 13,
+    "ei": 8,
+    "toleranzklasse": "n5",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 16,
+    "ei": 10,
+    "toleranzklasse": "n5",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 20,
+    "ei": 12,
+    "toleranzklasse": "n5",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 24,
+    "ei": 15,
+    "toleranzklasse": "n5",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 28,
+    "ei": 17,
+    "toleranzklasse": "n5",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 33,
+    "ei": 20,
+    "toleranzklasse": "n5",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 33,
+    "ei": 20,
+    "toleranzklasse": "n5",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 38,
+    "ei": 23,
+    "toleranzklasse": "n5",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 38,
+    "ei": 23,
+    "toleranzklasse": "n5",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 45,
+    "ei": 27,
+    "toleranzklasse": "n5",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 45,
+    "ei": 27,
+    "toleranzklasse": "n5",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 45,
+    "ei": 27,
+    "toleranzklasse": "n5",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 51,
+    "ei": 31,
+    "toleranzklasse": "n5",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 51,
+    "ei": 31,
+    "toleranzklasse": "n5",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 51,
+    "ei": 31,
+    "toleranzklasse": "n5",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 57,
+    "ei": 34,
+    "toleranzklasse": "n5",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 57,
+    "ei": 34,
+    "toleranzklasse": "n5",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 62,
+    "ei": 37,
+    "toleranzklasse": "n5",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 62,
+    "ei": 37,
+    "toleranzklasse": "n5",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 10,
+    "ei": 4,
+    "toleranzklasse": "n6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 16,
+    "ei": 8,
+    "toleranzklasse": "n6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 19,
+    "ei": 10,
+    "toleranzklasse": "n6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 23,
+    "ei": 12,
+    "toleranzklasse": "n6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 28,
+    "ei": 15,
+    "toleranzklasse": "n6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 33,
+    "ei": 17,
+    "toleranzklasse": "n6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 39,
+    "ei": 20,
+    "toleranzklasse": "n6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 39,
+    "ei": 20,
+    "toleranzklasse": "n6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 45,
+    "ei": 23,
+    "toleranzklasse": "n6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 45,
+    "ei": 23,
+    "toleranzklasse": "n6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 52,
+    "ei": 27,
+    "toleranzklasse": "n6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 52,
+    "ei": 27,
+    "toleranzklasse": "n6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 52,
+    "ei": 27,
+    "toleranzklasse": "n6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 60,
+    "ei": 31,
+    "toleranzklasse": "n6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 60,
+    "ei": 31,
+    "toleranzklasse": "n6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 60,
+    "ei": 31,
+    "toleranzklasse": "n6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 66,
+    "ei": 34,
+    "toleranzklasse": "n6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 66,
+    "ei": 34,
+    "toleranzklasse": "n6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 73,
+    "ei": 37,
+    "toleranzklasse": "n6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 73,
+    "ei": 37,
+    "toleranzklasse": "n6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 12,
+    "ei": 6,
+    "toleranzklasse": "p6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 20,
+    "ei": 12,
+    "toleranzklasse": "p6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 24,
+    "ei": 15,
+    "toleranzklasse": "p6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 29,
+    "ei": 18,
+    "toleranzklasse": "p6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 35,
+    "ei": 22,
+    "toleranzklasse": "p6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 42,
+    "ei": 26,
+    "toleranzklasse": "p6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 51,
+    "ei": 32,
+    "toleranzklasse": "p6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 51,
+    "ei": 32,
+    "toleranzklasse": "p6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 59,
+    "ei": 37,
+    "toleranzklasse": "p6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 59,
+    "ei": 37,
+    "toleranzklasse": "p6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 68,
+    "ei": 43,
+    "toleranzklasse": "p6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 68,
+    "ei": 43,
+    "toleranzklasse": "p6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 68,
+    "ei": 43,
+    "toleranzklasse": "p6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 79,
+    "ei": 50,
+    "toleranzklasse": "p6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 79,
+    "ei": 50,
+    "toleranzklasse": "p6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 79,
+    "ei": 50,
+    "toleranzklasse": "p6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 88,
+    "ei": 56,
+    "toleranzklasse": "p6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 88,
+    "ei": 56,
+    "toleranzklasse": "p6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 98,
+    "ei": 62,
+    "toleranzklasse": "p6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 98,
+    "ei": 62,
+    "toleranzklasse": "p6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 16,
+    "ei": 10,
+    "toleranzklasse": "r6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 23,
+    "ei": 15,
+    "toleranzklasse": "r6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 28,
+    "ei": 19,
+    "toleranzklasse": "r6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 34,
+    "ei": 23,
+    "toleranzklasse": "r6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 41,
+    "ei": 28,
+    "toleranzklasse": "r6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 50,
+    "ei": 34,
+    "toleranzklasse": "r6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 60,
+    "ei": 41,
+    "toleranzklasse": "r6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 62,
+    "ei": 43,
+    "toleranzklasse": "r6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 73,
+    "ei": 51,
+    "toleranzklasse": "r6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 76,
+    "ei": 54,
+    "toleranzklasse": "r6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 88,
+    "ei": 63,
+    "toleranzklasse": "r6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 90,
+    "ei": 65,
+    "toleranzklasse": "r6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 93,
+    "ei": 68,
+    "toleranzklasse": "r6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 106,
+    "ei": 77,
+    "toleranzklasse": "r6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 109,
+    "ei": 80,
+    "toleranzklasse": "r6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 113,
+    "ei": 84,
+    "toleranzklasse": "r6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 126,
+    "ei": 94,
+    "toleranzklasse": "r6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 130,
+    "ei": 98,
+    "toleranzklasse": "r6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 144,
+    "ei": 108,
+    "toleranzklasse": "r6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 150,
+    "ei": 114,
+    "toleranzklasse": "r6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 20,
+    "ei": 14,
+    "toleranzklasse": "s6",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 27,
+    "ei": 19,
+    "toleranzklasse": "s6",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 32,
+    "ei": 23,
+    "toleranzklasse": "s6",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 39,
+    "ei": 28,
+    "toleranzklasse": "s6",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 48,
+    "ei": 35,
+    "toleranzklasse": "s6",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 59,
+    "ei": 43,
+    "toleranzklasse": "s6",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 72,
+    "ei": 53,
+    "toleranzklasse": "s6",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 78,
+    "ei": 59,
+    "toleranzklasse": "s6",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 93,
+    "ei": 71,
+    "toleranzklasse": "s6",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 101,
+    "ei": 79,
+    "toleranzklasse": "s6",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 117,
+    "ei": 92,
+    "toleranzklasse": "s6",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 125,
+    "ei": 100,
+    "toleranzklasse": "s6",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 133,
+    "ei": 108,
+    "toleranzklasse": "s6",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 151,
+    "ei": 122,
+    "toleranzklasse": "s6",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 159,
+    "ei": 130,
+    "toleranzklasse": "s6",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 169,
+    "ei": 140,
+    "toleranzklasse": "s6",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 190,
+    "ei": 158,
+    "toleranzklasse": "s6",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 202,
+    "ei": 170,
+    "toleranzklasse": "s6",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 226,
+    "ei": 190,
+    "toleranzklasse": "s6",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 244,
+    "ei": 208,
+    "toleranzklasse": "s6",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  },
+  {
+    "es": 24,
+    "ei": 14,
+    "toleranzklasse": "s7",
+    "upperlimit": 3,
+    "lowerlimit": 0
+  },
+  {
+    "es": 31,
+    "ei": 19,
+    "toleranzklasse": "s7",
+    "upperlimit": 6,
+    "lowerlimit": 3
+  },
+  {
+    "es": 38,
+    "ei": 23,
+    "toleranzklasse": "s7",
+    "upperlimit": 10,
+    "lowerlimit": 6
+  },
+  {
+    "es": 46,
+    "ei": 28,
+    "toleranzklasse": "s7",
+    "upperlimit": 18,
+    "lowerlimit": 10
+  },
+  {
+    "es": 56,
+    "ei": 35,
+    "toleranzklasse": "s7",
+    "upperlimit": 30,
+    "lowerlimit": 18
+  },
+  {
+    "es": 68,
+    "ei": 43,
+    "toleranzklasse": "s7",
+    "upperlimit": 50,
+    "lowerlimit": 30
+  },
+  {
+    "es": 83,
+    "ei": 53,
+    "toleranzklasse": "s7",
+    "upperlimit": 65,
+    "lowerlimit": 50
+  },
+  {
+    "es": 89,
+    "ei": 59,
+    "toleranzklasse": "s7",
+    "upperlimit": 80,
+    "lowerlimit": 65
+  },
+  {
+    "es": 106,
+    "ei": 71,
+    "toleranzklasse": "s7",
+    "upperlimit": 100,
+    "lowerlimit": 80
+  },
+  {
+    "es": 114,
+    "ei": 79,
+    "toleranzklasse": "s7",
+    "upperlimit": 120,
+    "lowerlimit": 100
+  },
+  {
+    "es": 132,
+    "ei": 92,
+    "toleranzklasse": "s7",
+    "upperlimit": 140,
+    "lowerlimit": 120
+  },
+  {
+    "es": 140,
+    "ei": 100,
+    "toleranzklasse": "s7",
+    "upperlimit": 160,
+    "lowerlimit": 140
+  },
+  {
+    "es": 148,
+    "ei": 108,
+    "toleranzklasse": "s7",
+    "upperlimit": 180,
+    "lowerlimit": 160
+  },
+  {
+    "es": 168,
+    "ei": 122,
+    "toleranzklasse": "s7",
+    "upperlimit": 200,
+    "lowerlimit": 180
+  },
+  {
+    "es": 176,
+    "ei": 130,
+    "toleranzklasse": "s7",
+    "upperlimit": 225,
+    "lowerlimit": 200
+  },
+  {
+    "es": 186,
+    "ei": 140,
+    "toleranzklasse": "s7",
+    "upperlimit": 250,
+    "lowerlimit": 225
+  },
+  {
+    "es": 210,
+    "ei": 158,
+    "toleranzklasse": "s7",
+    "upperlimit": 280,
+    "lowerlimit": 250
+  },
+  {
+    "es": 222,
+    "ei": 170,
+    "toleranzklasse": "s7",
+    "upperlimit": 315,
+    "lowerlimit": 280
+  },
+  {
+    "es": 247,
+    "ei": 190,
+    "toleranzklasse": "s7",
+    "upperlimit": 355,
+    "lowerlimit": 315
+  },
+  {
+    "es": 265,
+    "ei": 208,
+    "toleranzklasse": "s7",
+    "upperlimit": 400,
+    "lowerlimit": 355
+  }
+]
