@@ -178,8 +178,82 @@ class MessprotokollWidget(QWidget):
     _pos_vals = [f"+{i / 1000.0:.3f}" for i in range(5, 201, 5)]
     _neg_vals = [f"-{i / 1000.0:.3f}" for i in range(5, 201, 5)]
     TOLERANCE_VALUES = ["", "0"] + _neg_vals[::-1] + _pos_vals
-    MESSMITTEL_OPTIONS = ["", "optisch", "Messschieber", "Bügelmessschraube", "Höhenmessgerät", "3D-Messmaschine"]
-    KUNDEN_LISTE = ["", "Tool Service GmbH", "Musterfirma AG", "Projekt X Kunde"]
+    MESSMITTEL_OPTIONS = [
+        "",
+        "Aussen Mikrometer",
+        "Digimar",
+        "Endmaß",
+        "Gewinde-lehrdorn",
+        "Gewinde-lehrring",
+        "Haarlineal",
+        "Innen Mikrometer",
+        "Innenschnell-taster",
+        "Lehrdorn",
+        "Lehrring",
+        "MahrSurf M 310",
+        "Maschinen- taster",
+        "Mess-schieber",
+        "Messuhr",
+        "optisch",
+        "Prüfstifte",
+        "Radius Lehre",
+        "Rugotest",
+        "Steigungs-lehre",
+        "Subito",
+        "Tiefenmaß",
+        "Winkel-messer",
+        "Zeiss",
+        "Zoller"
+    ]
+
+    KUNDEN_LISTE = [
+        "",
+        "AGILOX Services GmbH",
+        "Alpina Tec",
+        "Alpine Metal Tech",
+        "AMB",
+        "Cloeren",
+        "Collin",
+        "Dtech",
+        "Econ",
+        "Eicon",
+        "Eiermacher",
+        "Fill",
+        "Gewa",
+        "Gföllner",
+        "Global Hydro Energy",
+        "Gottfried",
+        "GreinerBio-One",
+        "Gtech",
+        "Haidlmair GmbH",
+        "Hainzl",
+        "HFP",
+        "IFW",
+        "IKIPM",
+        "Kässbohrer",
+        "KI Automation",
+        "Kiefel",
+        "Knorr Bremse",
+        "Kwapil & Co",
+        "Laska",
+        "Mark",
+        "MBK Rinnerberger",
+        "MIBA Sinter",
+        "Myonic",
+        "Peak Technoligy",
+        "Plastic Omnium",
+        "Puhl",
+        "RO-RA",
+        "Rotax",
+        "Schell",
+        "Schröckenfux",
+        "Seisenbacher",
+        "Sema",
+        "SK Blechtechnik",
+        "SMW",
+        "STIWA",
+        "Wuppermann"
+    ]
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -338,7 +412,7 @@ class MainWindow(QMainWindow):
         open_action = QAction("DXF Öffnen...", self);
         open_action.triggered.connect(self.open_file);
         file_menu.addAction(open_action)
-        self.setWindowTitle("Messprotokoll-Assistent (Fusion Style)");
+        self.setWindowTitle("Messprotokoll-Assistent");
         self.setGeometry(50, 50, 1800, 1000)
         self.protokoll_widget.field_selected.connect(self.on_protokoll_field_selected)
         self.dxf_widget.dimension_clicked.connect(self.on_dimension_value_received)
