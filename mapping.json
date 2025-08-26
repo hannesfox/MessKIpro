@@ -9,22 +9,24 @@
   },
   "measures": [
     { "nominal": "G8", "upper_tol": "H8", "lower_tol": "H9", "soll": "G10", "messmittel": "G5" },
-    { "nominal": "B13", "upper_tol": "D13", "lower_tol": "E13", "soll": "F13", "messmittel": "G13" },
-    { "nominal": "B14", "upper_tol": "D14", "lower_tol": "E14", "soll": "F14", "messmittel": "G14" },
-    { "nominal": "B15", "upper_tol": "D15", "lower_tol": "E15", "soll": "F15", "messmittel": "G15" },
-    { "nominal": "B16", "upper_tol": "D16", "lower_tol": "E16", "soll": "F16", "messmittel": "G16" },
-    { "nominal": "B17", "upper_tol": "D17", "lower_tol": "E17", "soll": "F17", "messmittel": "G17" },
-    { "nominal": "B18", "upper_tol": "D18", "lower_tol": "E18", "soll": "F18", "messmittel": "G18" },
-    { "nominal": "B19", "upper_tol": "D19", "lower_tol": "E19", "soll": "F19", "messmittel": "G19" },
-    { "nominal": "B20", "upper_tol": "D20", "lower_tol": "E20", "soll": "F20", "messmittel": "G20" },
-    { "nominal": "B21", "upper_tol": "D21", "lower_tol": "E21", "soll": "F21", "messmittel": "G21" },
-    { "nominal": "B22", "upper_tol": "D22", "lower_tol": "E22", "soll": "F22", "messmittel": "G22" },
-    { "nominal": "B23", "upper_tol": "D23", "lower_tol": "E23", "soll": "F23", "messmittel": "G23" },
-    { "nominal": "B24", "upper_tol": "D24", "lower_tol": "E24", "soll": "F24", "messmittel": "G24" },
-    { "nominal": "B25", "upper_tol": "D25", "lower_tol": "E25", "soll": "F25", "messmittel": "G25" },
-    { "nominal": "B26", "upper_tol": "D26", "lower_tol": "E26", "soll": "F26", "messmittel": "G26" },
-    { "nominal": "B27", "upper_tol": "D27", "lower_tol": "E27", "soll": "F27", "messmittel": "G27" },
-    { "nominal": "B28", "upper_tol": "D28", "lower_tol": "E28", "soll": "F28", "messmittel": "G28" },
-    { "nominal": "B29", "upper_tol": "D29", "lower_tol": "E29", "soll": "F29", "messmittel": "G29" }
+    { "nominal": "I8", "upper_tol": "J8", "lower_tol": "J9", "soll": "I10", "messmittel": "I5" },
+    { "nominal": "K8", "upper_tol": "L8", "lower_tol": "L9", "soll": "K10", "messmittel": "K5" },
+    { "nominal": "M8", "upper_tol": "N8", "lower_tol": "N9", "soll": "M10", "messmittel": "M5" },
+    { "nominal": "O8", "upper_tol": "P8", "lower_tol": "P9", "soll": "O10", "messmittel": "O5" },
+    { "nominal": "Q8", "upper_tol": "R8", "lower_tol": "R9", "soll": "Q10", "messmittel": "Q5" },
+    { "nominal": "S8", "upper_tol": "T8", "lower_tol": "T9", "soll": "S10", "messmittel": "S5" },
+    { "nominal": "U8", "upper_tol": "V8", "lower_tol": "V9", "soll": "U10", "messmittel": "U5" },
+
+    { "nominal": "C32", "upper_tol": "D32", "lower_tol": "D33", "soll": "C34", "messmittel": "C29" },
+    { "nominal": "E32", "upper_tol": "F32", "lower_tol": "F33", "soll": "E34", "messmittel": "E29" },
+
+    { "nominal": "G32", "upper_tol": "H32", "lower_tol": "H33", "soll": "G34", "messmittel": "G29" },
+    { "nominal": "I32", "upper_tol": "J32", "lower_tol": "J33", "soll": "I34", "messmittel": "I29" },
+    { "nominal": "K32", "upper_tol": "L32", "lower_tol": "L33", "soll": "K34", "messmittel": "K29" },
+    { "nominal": "M32", "upper_tol": "N32", "lower_tol": "N33", "soll": "M34", "messmittel": "M29" },
+    { "nominal": "O32", "upper_tol": "P32", "lower_tol": "P33", "soll": "O34", "messmittel": "O29" },
+    { "nominal": "Q32", "upper_tol": "R32", "lower_tol": "R33", "soll": "Q34", "messmittel": "Q29" },
+    { "nominal": "S32", "upper_tol": "T32", "lower_tol": "T33", "soll": "S34", "messmittel": "S29" },
+    { "nominal": "U32", "upper_tol": "V32", "lower_tol": "V33", "soll": "U34", "messmittel": "U29" }
   ]
 }
