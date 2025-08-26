@@ -4,6 +4,7 @@
 import sys
 import os
 import json  # Für das Laden der Toleranzdaten
+import math  # Für die Berechnung der Seitenanzahl
 import ezdxf
 from ezdxf.recover import readfile as recover_readfile
 from ezdxf.addons.drawing.pyqt import PyQtBackend
@@ -12,16 +13,133 @@ from ezdxf.math import Vec3
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QGraphicsScene, QGraphicsView, QMessageBox,
     QFileDialog, QWidget, QSplitter, QVBoxLayout, QGridLayout, QLabel,
-    QLineEdit, QComboBox, QFrame, QHBoxLayout, QDateEdit, QStyleFactory
+    QLineEdit, QComboBox, QFrame, QHBoxLayout, QDateEdit, QStyleFactory,
+    QPushButton
 )
-from PySide6.QtGui import QColor, QWheelEvent, QAction, QFont, QDragEnterEvent, QDropEvent, QPixmap
+from PySide6.QtGui import (
+    QColor, QWheelEvent, QAction, QFont, QDragEnterEvent, QDropEvent, QPixmap,
+    QFontDatabase
+)
 from PySide6.QtCore import Qt, QPoint, QPointF, Signal, QDate
 
 # ==============================================================================
-#      2. KONSTANTEN UND HILFSKLASSEN
+#      2. KONSTANTEN, THEME UND HILFSKLASSEN
 # ==============================================================================
 
 ZOOM_FACTOR = 1.2
+
+LIGHT_THEME_QSS = """
+/* Allgemeines Widget-Styling */
+QWidget {{
+    /* Der Platzhalter {font_family} wird dynamisch ersetzt */
+    font-family: '{font_family}', Arial, sans-serif;
+    font-size: 10pt;
+    color: #333333;
+    background-color: #f5f5f5; /* Leicht grauer Hintergrund */
+}}
+
+/* Hauptfenster und Splitter */
+QMainWindow {{
+    background-color: #e9e9e9;
+}}
+
+QSplitter::handle {{
+    background-color: #cccccc;
+}}
+
+QSplitter::handle:horizontal {{
+    width: 2px;
+}}
+
+QSplitter::handle:vertical {{
+    height: 2px;
+}}
+
+/* Eingabefelder: QLineEdit, QComboBox, QDateEdit */
+QLineEdit, QComboBox, QDateEdit {{
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 6px;
+    selection-background-color: #0078d7;
+    selection-color: #ffffff;
+}}
+
+QLineEdit:focus, QComboBox:focus, QDateEdit:focus {{
+    border: 1px solid #0078d7; /* Blauer Akzent bei Fokus */
+}}
+
+QComboBox::drop-down {{
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left-width: 1px;
+    border-left-color: #cccccc;
+    border-left-style: solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}}
+
+QComboBox::down-arrow {{
+    image: url(down_arrow.png); /* Fallback, falls kein Icon gefunden wird */
+}}
+
+/* Buttons */
+QPushButton {{
+    background-color: #e1e1e1;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: bold;
+}}
+
+QPushButton:hover {{
+    background-color: #d1d1d1;
+    border-color: #bbbbbb;
+}}
+
+QPushButton:pressed {{
+    background-color: #c1c1c1;
+}}
+
+QPushButton:disabled {{
+    background-color: #eeeeee;
+    color: #aaaaaa;
+    border-color: #dddddd;
+}}
+
+/* Labels */
+QLabel {{
+    background-color: transparent; /* Labels sollen den Hintergrund des Parents haben */
+}}
+
+/* Rahmen (Frames) für die Maß-Blöcke */
+QFrame {{
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+}}
+
+/* Menü-Bar */
+QMenuBar {{
+    background-color: #f0f0f0;
+}}
+QMenuBar::item {{
+    padding: 4px 8px;
+    background: transparent;
+}}
+QMenuBar::item:selected {{
+    background-color: #d6d6d6;
+}}
+QMenu {{
+    background-color: #fdfdfd;
+    border: 1px solid #cccccc;
+}}
+QMenu::item:selected {{
+    background-color: #0078d7;
+    color: #ffffff;
+}}
+"""
 
 
 class ClickableLineEdit(QLineEdit):
@@ -32,16 +150,14 @@ class ClickableLineEdit(QLineEdit):
         super().mousePressEvent(event)
 
 
-# === FINALER, JSON-BASIERTER ISO-TOLERANZ-RECHNER ===
 class IsoFitsCalculator:
     """
-    Kapselt die Logik zur Berechnung von ISO 286-1 Passungen, indem es die Daten
-    aus einer externen tolerances.json liest und durchsucht.
+    Kapselt die Logik zur Berechnung von ISO 286-1 Passungen.
     """
 
     def __init__(self, data_folder_path):
         self.tolerances_data = []
-        self.available_fits = [""]  # Wird dynamisch gefüllt
+        self.available_fits = [""]
         self._load_data(data_folder_path)
 
     def _load_data(self, data_folder_path):
@@ -49,18 +165,13 @@ class IsoFitsCalculator:
         try:
             with open(tolerances_path, 'r', encoding='utf-8') as f:
                 self.tolerances_data = json.load(f)
-            print(f"INFO: {len(self.tolerances_data)} Toleranzdatensätze erfolgreich aus '{tolerances_path}' geladen.")
+            print(f"INFO: {len(self.tolerances_data)} Toleranzdatensätze geladen.")
 
-            # === NEU: Dropdown-Liste dynamisch aus tolerances.json erstellen ===
-            all_fits = set()
-            for entry in self.tolerances_data:
-                all_fits.add(entry["toleranzklasse"])
+            all_fits = set(entry["toleranzklasse"] for entry in self.tolerances_data)
             self.available_fits.extend(sorted(list(all_fits)))
-            print(f"INFO: {len(all_fits)} einzigartige Toleranzklassen für die Dropdown-Auswahl geladen.")
-
+            print(f"INFO: {len(all_fits)} einzigartige Toleranzklassen geladen.")
         except (FileNotFoundError, json.JSONDecodeError) as e:
-            QMessageBox.critical(None, "Fataler Fehler",
-                                 f"Die Datei 'tolerances.json' konnte nicht im 'Data'-Ordner gefunden oder gelesen werden.\n\n{e}\n\nDas Programm kann ohne diese Datei nicht funktionieren.")
+            QMessageBox.critical(None, "Fataler Fehler", f"Datei 'tolerances.json' nicht gefunden/lesbar: {e}")
             sys.exit(1)
 
     def calculate(self, nominal_size, fit_string):
@@ -69,15 +180,10 @@ class IsoFitsCalculator:
             for entry in self.tolerances_data:
                 if (entry["toleranzklasse"].lower() == fit_string.lower() and
                         entry["lowerlimit"] < nominal_size <= entry["upperlimit"]):
-                    upper_dev_um = entry["es"]
-                    lower_dev_um = entry["ei"]
-
-                    return upper_dev_um / 1000.0, lower_dev_um / 1000.0
-
-            print(f"WARNUNG: Passung '{fit_string}' für Nennmaß {nominal_size}mm nicht in tolerances.json gefunden.")
+                    return entry["es"] / 1000.0, entry["ei"] / 1000.0
             return None
         except Exception as e:
-            print(f"Fehler bei der Suche in Toleranzdaten: {e}")
+            print(f"Fehler bei Toleranzberechnung: {e}")
             return None
 
 
@@ -89,7 +195,6 @@ class IsoFitsCalculator:
 #      3.1 DXFWidget: Linke Seite (DXF-Anzeige)
 # ------------------------------------------------------------------------------
 class DXFWidget(QWidget):
-    # (Unverändert)
     dimension_clicked = Signal(str)
     CLICK_RADIUS_PIXELS = 50
 
@@ -111,10 +216,8 @@ class DXFWidget(QWidget):
         self.view.wheelEvent = self.handle_wheel_event
 
     def handle_wheel_event(self, event: QWheelEvent):
-        if event.angleDelta().y() > 0:
-            self.view.scale(ZOOM_FACTOR, ZOOM_FACTOR)
-        else:
-            self.view.scale(1 / ZOOM_FACTOR, 1 / ZOOM_FACTOR)
+        factor = ZOOM_FACTOR if event.angleDelta().y() > 0 else 1 / ZOOM_FACTOR
+        self.view.scale(factor, factor)
         super(QGraphicsView, self.view).wheelEvent(event)
 
     def load_dxf(self, filepath):
@@ -130,9 +233,9 @@ class DXFWidget(QWidget):
         self.scene.clear();
         self.view.setBackgroundBrush(QColor(30, 30, 30))
         try:
+            backend = PyQtBackend(self.scene)
             from ezdxf.addons.drawing.frontend import Frontend
             from ezdxf.addons.drawing.properties import RenderContext
-            backend = PyQtBackend(self.scene);
             ctx = RenderContext(self.doc)
             frontend = Frontend(ctx, backend);
             frontend.draw_layout(self.msp, finalize=True)
@@ -144,12 +247,10 @@ class DXFWidget(QWidget):
     def handle_mouse_press(self, event):
         super(QGraphicsView, self.view).mousePressEvent(event)
         if event.button() == Qt.MouseButton.LeftButton and self.msp:
-            view_pos_f = event.position();
-            view_pos_int = view_pos_f.toPoint()
-            scene_pos = self.view.mapToScene(view_pos_int)
+            scene_pos = self.view.mapToScene(event.position().toPoint())
             world_pos = Vec3(scene_pos.x(), scene_pos.y())
-            p1 = self.view.mapToScene(view_pos_int)
-            p2_pos = view_pos_f + QPointF(self.CLICK_RADIUS_PIXELS, 0)
+            p1 = self.view.mapToScene(event.position().toPoint())
+            p2_pos = event.position() + QPointF(self.CLICK_RADIUS_PIXELS, 0)
             p2 = self.view.mapToScene(p2_pos.toPoint())
             search_radius_world = abs(p2.x() - p1.x())
             found_dimension, min_dist = None, float('inf')
@@ -165,7 +266,7 @@ class DXFWidget(QWidget):
                     measurement = found_dimension.get_measurement()
                     self.dimension_clicked.emit(f"{measurement:.4f}")
                 except Exception as e:
-                    QMessageBox.warning(self, "Fehler", f"Konnte Messwert nicht auslesen: {e}")
+                    QMessageBox.warning(self, "Fehler", f"Messwert konnte nicht ausgelesen werden: {e}")
 
 
 # ------------------------------------------------------------------------------
@@ -174,102 +275,52 @@ class DXFWidget(QWidget):
 class MessprotokollWidget(QWidget):
     field_selected = Signal(object)
     field_manually_edited = Signal(object)
-
+    TOTAL_MEASURES = 18
+    MEASURES_PER_PAGE = 6
+    BLOCKS_PER_PAGE = 2
+    MEASURES_PER_BLOCK = 3
+    TOTAL_BLOCKS = TOTAL_MEASURES // MEASURES_PER_BLOCK
     _pos_vals = [f"+{i / 1000.0:.3f}" for i in range(5, 201, 5)]
     _neg_vals = [f"-{i / 1000.0:.3f}" for i in range(5, 201, 5)]
     TOLERANCE_VALUES = ["", "0"] + _neg_vals[::-1] + _pos_vals
-    MESSMITTEL_OPTIONS = [
-        "",
-        "Aussen Mikrometer",
-        "Digimar",
-        "Endmaß",
-        "Gewinde-lehrdorn",
-        "Gewinde-lehrring",
-        "Haarlineal",
-        "Innen Mikrometer",
-        "Innenschnell-taster",
-        "Lehrdorn",
-        "Lehrring",
-        "MahrSurf M 310",
-        "Maschinen- taster",
-        "Mess-schieber",
-        "Messuhr",
-        "optisch",
-        "Prüfstifte",
-        "Radius Lehre",
-        "Rugotest",
-        "Steigungs-lehre",
-        "Subito",
-        "Tiefenmaß",
-        "Winkel-messer",
-        "Zeiss",
-        "Zoller"
-    ]
-
-    KUNDEN_LISTE = [
-        "",
-        "AGILOX Services GmbH",
-        "Alpina Tec",
-        "Alpine Metal Tech",
-        "AMB",
-        "Cloeren",
-        "Collin",
-        "Dtech",
-        "Econ",
-        "Eicon",
-        "Eiermacher",
-        "Fill",
-        "Gewa",
-        "Gföllner",
-        "Global Hydro Energy",
-        "Gottfried",
-        "GreinerBio-One",
-        "Gtech",
-        "Haidlmair GmbH",
-        "Hainzl",
-        "HFP",
-        "IFW",
-        "IKIPM",
-        "Kässbohrer",
-        "KI Automation",
-        "Kiefel",
-        "Knorr Bremse",
-        "Kwapil & Co",
-        "Laska",
-        "Mark",
-        "MBK Rinnerberger",
-        "MIBA Sinter",
-        "Myonic",
-        "Peak Technoligy",
-        "Plastic Omnium",
-        "Puhl",
-        "RO-RA",
-        "Rotax",
-        "Schell",
-        "Schröckenfux",
-        "Seisenbacher",
-        "Sema",
-        "SK Blechtechnik",
-        "SMW",
-        "STIWA",
-        "Wuppermann"
-    ]
+    MESSMITTEL_OPTIONS = ["", "Aussen Mikrometer", "Digimar", "Endmaß", "Gewinde-lehrdorn", "Gewinde-lehrring",
+                          "Haarlineal", "Innen Mikrometer", "Innenschnell-taster", "Lehrdorn", "Lehrring",
+                          "MahrSurf M 310", "Maschinen- taster", "Mess-schieber", "Messuhr", "optisch", "Prüfstifte",
+                          "Radius Lehre", "Rugotest", "Steigungs-lehre", "Subito", "Tiefenmaß", "Winkel-messer",
+                          "Zeiss", "Zoller"]
+    KUNDEN_LISTE = ["", "AGILOX Services GmbH", "Alpina Tec", "Alpine Metal Tech", "AMB", "Cloeren", "Collin", "Dtech",
+                    "Econ", "Eicon", "Eiermacher", "Fill", "Gewa", "Gföllner", "Global Hydro Energy", "Gottfried",
+                    "GreinerBio-One", "Gtech", "Haidlmair GmbH", "Hainzl", "HFP", "IFW", "IKIPM", "Kässbohrer",
+                    "KI Automation", "Kiefel", "Knorr Bremse", "Kwapil & Co", "Laska", "Mark", "MBK Rinnerberger",
+                    "MIBA Sinter", "Myonic", "Peak Technoligy", "Plastic Omnium", "Puhl", "RO-RA", "Rotax", "Schell",
+                    "Schröckenfux", "Seisenbacher", "Sema", "SK Blechtechnik", "SMW", "STIWA", "Wuppermann"]
 
     def __init__(self, parent=None):
         super().__init__(parent)
         main_layout = QVBoxLayout(self);
         main_layout.setSpacing(15)
-
         script_dir = os.path.dirname(os.path.realpath(__file__))
         data_dir = os.path.join(script_dir, "Data")
         self.iso_calculator = IsoFitsCalculator(data_dir)
-
         self.nominal_fields, self.upper_tol_combos, self.lower_tol_combos, self.soll_labels, self.iso_fit_combos = [], [], [], [], []
-
+        self.measure_blocks = []
+        self.current_page = 0
+        self.total_pages = math.ceil(self.TOTAL_BLOCKS / self.BLOCKS_PER_PAGE)
         header_grid = QGridLayout()
         header_grid.setColumnStretch(1, 2);
         header_grid.setColumnStretch(10, 1)
-        header_grid.addWidget(QLabel("Messprotokoll-Assistent", font=QFont("Arial", 30, QFont.Bold)), 0, 0, 1, 5)
+
+        # === ÄNDERUNG: Titel mit spezifischem Stylesheet vergrößern ===
+        title_label = QLabel("Messprotokoll-Assistent")
+        # Dieses spezifische Stylesheet überschreibt die globale QSS-Regel.
+        title_label.setStyleSheet("""
+            font-size: 32pt;
+            font-weight: bold;
+            color: #2c3e50;
+            background-color: transparent;
+        """)
+        header_grid.addWidget(title_label, 0, 0, 1, 5)
+
         kunde_combo = QComboBox();
         kunde_combo.setEditable(True);
         kunde_combo.addItems(self.KUNDEN_LISTE)
@@ -287,43 +338,37 @@ class MessprotokollWidget(QWidget):
         header_grid.addWidget(QLabel("Datum:"), 1, 8);
         header_grid.addWidget(date_edit, 1, 9)
         logo_label = QLabel();
-        logo_label.setFixedSize(200, 200);
+        logo_label.setFixedSize(150, 150);
         logo_label.setScaledContents(True)
         logo_path = "app-logo.png"
         if os.path.exists(logo_path):
             logo_label.setPixmap(QPixmap(logo_path))
-        else:
-            print(f"WARNUNG: Logo-Datei '{logo_path}' nicht gefunden.")
         header_grid.addWidget(logo_label, 0, 11, 2, 1, alignment=Qt.AlignTop | Qt.AlignRight)
         main_layout.addLayout(header_grid)
 
-        for block_idx in range(2):
+        for block_idx in range(self.TOTAL_BLOCKS):
             block_frame = QFrame();
-            block_frame.setFrameShape(QFrame.StyledPanel)
             grid = QGridLayout(block_frame);
             grid.setSpacing(10)
             grid.addWidget(QLabel("Maß lt.\nZeichnung"), 0, 0, 7, 1)
-            grid.addWidget(QLabel("SOLL ➡", font=QFont("Arial", 10, QFont.Bold)), 6, 0, 1, 1)
-
-            for col_idx in range(4):
-                measure_index = block_idx * 4 + col_idx
+            soll_qlabel = QLabel("SOLL ➡")
+            soll_qlabel.setStyleSheet("font-weight: bold;")
+            grid.addWidget(soll_qlabel, 6, 0, 1, 1)
+            for col_idx in range(self.MEASURES_PER_BLOCK):
+                measure_index = block_idx * self.MEASURES_PER_BLOCK + col_idx
                 col_start = 1 + col_idx
                 grid.addWidget(QLabel(f"Maß {measure_index + 1}", alignment=Qt.AlignCenter), 0, col_start)
-                nominal_field = ClickableLineEdit(alignment=Qt.AlignCenter,
-                                                  styleSheet="background-color: #e9f5e9; color: #333333;")
+                nominal_field = ClickableLineEdit(alignment=Qt.AlignCenter)
                 nominal_field.clicked.connect(lambda f=nominal_field: self.field_selected.emit(f))
                 nominal_field.textEdited.connect(lambda text, f=nominal_field: self.field_manually_edited.emit(f))
                 grid.addWidget(nominal_field, 1, col_start)
                 self.nominal_fields.append(nominal_field)
-                grid.addWidget(QLabel("ISO-Fit", alignment=Qt.AlignCenter), 2, col_start)
-
-                # === ÄNDERUNG: Dropdown mit der dynamisch geladenen Liste füllen ===
+                grid.addWidget(QLabel("ISO-Toleranz", alignment=Qt.AlignCenter), 2, col_start)
                 iso_fit_combo = QComboBox();
                 iso_fit_combo.setEditable(True);
                 iso_fit_combo.addItems(self.iso_calculator.available_fits)
                 grid.addWidget(iso_fit_combo, 3, col_start)
                 self.iso_fit_combos.append(iso_fit_combo)
-
                 grid.addWidget(QLabel("Messmittel", alignment=Qt.AlignCenter), 4, col_start)
                 messmittel_combo = QComboBox();
                 messmittel_combo.addItems(self.MESSMITTEL_OPTIONS)
@@ -342,7 +387,7 @@ class MessprotokollWidget(QWidget):
                 self.upper_tol_combos.append(upper_tol_combo);
                 self.lower_tol_combos.append(lower_tol_combo)
                 soll_label = QLabel("---", alignment=Qt.AlignCenter,
-                                    styleSheet="font-weight: bold; border: 1px solid #ccc; padding: 6px;")
+                                    styleSheet="font-weight: bold; border: 1px solid #ccc; padding: 6px; background-color: #f0f0f0;")
                 grid.addLayout(tol_layout, 6, col_start)
                 grid.addWidget(soll_label, 7, col_start)
                 self.soll_labels.append(soll_label)
@@ -352,7 +397,41 @@ class MessprotokollWidget(QWidget):
                 upper_tol_combo.currentTextChanged.connect(lambda _, idx=measure_index: self._update_soll_wert(idx))
                 lower_tol_combo.currentTextChanged.connect(lambda _, idx=measure_index: self._update_soll_wert(idx))
             main_layout.addWidget(block_frame)
+            self.measure_blocks.append(block_frame)
+
         main_layout.addStretch()
+        pagination_layout = QHBoxLayout()
+        self.prev_button = QPushButton("<< Zurück")
+        self.prev_button.clicked.connect(self._previous_page)
+        self.page_label = QLabel("", alignment=Qt.AlignCenter)
+        self.next_button = QPushButton("Vor >>")
+        self.next_button.clicked.connect(self._next_page)
+        pagination_layout.addStretch()
+        pagination_layout.addWidget(self.prev_button)
+        pagination_layout.addWidget(self.page_label)
+        pagination_layout.addWidget(self.next_button)
+        pagination_layout.addStretch()
+        main_layout.addLayout(pagination_layout)
+        self._update_page_view()
+
+    def _update_page_view(self):
+        start_block_idx = self.current_page * self.BLOCKS_PER_PAGE
+        end_block_idx = start_block_idx + self.BLOCKS_PER_PAGE
+        for i, block in enumerate(self.measure_blocks):
+            block.setVisible(start_block_idx <= i < end_block_idx)
+        self.page_label.setText(f"Seite {self.current_page + 1} / {self.total_pages}")
+        self.prev_button.setEnabled(self.current_page > 0)
+        self.next_button.setEnabled(self.current_page < self.total_pages - 1)
+
+    def _previous_page(self):
+        if self.current_page > 0:
+            self.current_page -= 1
+            self._update_page_view()
+
+    def _next_page(self):
+        if self.current_page < self.total_pages - 1:
+            self.current_page += 1
+            self._update_page_view()
 
     def _trigger_iso_fit_calculation(self, index):
         nominal_text = self.nominal_fields[index].text().replace(',', '.')
@@ -364,26 +443,21 @@ class MessprotokollWidget(QWidget):
             result = self.iso_calculator.calculate(nominal_value, fit_string)
             if result is None: return
             upper_dev, lower_dev = result
-            upper_str = f"{upper_dev:+.3f}"
-            lower_str = f"{lower_dev:+.3f}"
             self.upper_tol_combos[index].blockSignals(True)
             self.lower_tol_combos[index].blockSignals(True)
-            self.upper_tol_combos[index].setCurrentText(upper_str)
-            self.lower_tol_combos[index].setCurrentText(lower_str)
+            self.upper_tol_combos[index].setCurrentText(f"{upper_dev:+.3f}")
+            self.lower_tol_combos[index].setCurrentText(f"{lower_dev:+.3f}")
             self.upper_tol_combos[index].blockSignals(False)
             self.lower_tol_combos[index].blockSignals(False)
             self._update_soll_wert(index)
-        except Exception as e:
-            print(f"Fehler bei ISO-Fit-Verarbeitung für Index {index}: {e}")
+        except (ValueError, TypeError) as e:
+            print(f"Fehler bei ISO-Toleranz-Verarbeitung für Index {index}: {e}")
 
     def _update_soll_wert(self, index):
         try:
-            nominal_text = self.nominal_fields[index].text().replace(',', '.')
-            upper_tol_text = self.upper_tol_combos[index].currentText().replace(',', '.')
-            lower_tol_text = self.lower_tol_combos[index].currentText().replace(',', '.')
-            nominal = float(nominal_text or 0);
-            upper_tol = float(upper_tol_text or 0);
-            lower_tol = float(lower_tol_text or 0)
+            nominal = float(self.nominal_fields[index].text().replace(',', '.') or 0)
+            upper_tol = float(self.upper_tol_combos[index].currentText().replace(',', '.') or 0)
+            lower_tol = float(self.lower_tol_combos[index].currentText().replace(',', '.') or 0)
             soll_wert = nominal + (upper_tol + lower_tol) / 2.0
             self.soll_labels[index].setText(f"{soll_wert:.4f}".replace('.', ','))
         except (ValueError, TypeError):
@@ -394,12 +468,11 @@ class MessprotokollWidget(QWidget):
 #      4. HAUPTFENSTER (MAIN WINDOW)
 # ==============================================================================
 class MainWindow(QMainWindow):
-    # (Unverändert)
     def __init__(self):
         super().__init__()
+        self.target_widget = None
         self._set_application_style()
         self.setAcceptDrops(True)
-        self.target_widget = None
         self.dxf_widget = DXFWidget()
         self.protokoll_widget = MessprotokollWidget()
         splitter = QSplitter(Qt.Horizontal);
@@ -419,43 +492,34 @@ class MainWindow(QMainWindow):
         self.protokoll_widget.field_manually_edited.connect(self.on_field_manually_edited)
 
     def _set_application_style(self):
+        """Wendet den globalen Stil und das Theme an."""
         app = QApplication.instance()
-        macos_style_found = False
-        if sys.platform == "darwin":
-            for style_key in QStyleFactory.keys():
-                if style_key in ["Macintosh", "macOS"]:
-                    app.setStyle(QStyleFactory.create(style_key))
-                    macos_style_found = True
-                    print(f"INFO: Nativer '{style_key}'-Stil angewendet.")
-                    break
-        if not macos_style_found:
-            try:
-                app.setStyle(QStyleFactory.create("Fusion"))
-                print("INFO: Nativer macOS-Stil nicht gefunden oder nicht macOS. Fallback auf Fusion-Stil angewendet.")
-            except Exception:
-                print("WARNUNG: Fusion-Stil nicht verfügbar. Verwende Systemstandard-Stil.")
-        app.setPalette(app.style().standardPalette())
-        app.setStyleSheet("")
+        app.setStyle(QStyleFactory.create("Fusion"))
+        default_font = QFontDatabase.systemFont(QFontDatabase.GeneralFont)
+        font_family = default_font.family()
+        print(f"INFO: Verwende System-Schriftart: '{font_family}'")
+        formatted_qss = LIGHT_THEME_QSS.format(font_family=font_family)
+        app.setStyleSheet(formatted_qss)
 
     def on_protokoll_field_selected(self, widget):
-        if self.target_widget: self.target_widget.setStyleSheet("background-color: #e9f5e9; color: #333333;")
+        if self.target_widget:
+            self.target_widget.setStyleSheet("")
         self.target_widget = widget
-        self.target_widget.setStyleSheet("background-color: #0078d7; color: white;")
+        self.target_widget.setStyleSheet("background-color: #0078d7; color: white; border: 1px solid #005a9e;")
         print("Ziel für Nennmaß gesetzt.")
 
     def on_dimension_value_received(self, value):
         if self.target_widget:
             self.target_widget.setText(value.replace('.', ','))
-            self.target_widget.setStyleSheet("background-color: #e9f5e9; color: #333333;")
+            self.target_widget.setStyleSheet("")
             self.target_widget = None
         else:
-            QMessageBox.information(self, "Hinweis",
-                                    "Bitte klicken Sie zuerst in ein 'Maß lt. Zeichnung'-Feld im Protokoll.")
+            QMessageBox.information(self, "Hinweis", "Bitte klicken Sie zuerst in ein 'Maß lt. Zeichnung'-Feld.")
 
     def on_field_manually_edited(self, widget):
         if self.target_widget == widget:
             print("Manuelle Eingabe erkannt. DXF-Ziel wird deaktiviert.")
-            self.target_widget.setStyleSheet("background-color: #e9f5e9; color: #333333;")
+            self.target_widget.setStyleSheet("")
             self.target_widget = None
 
     def open_file(self):
@@ -464,22 +528,25 @@ class MainWindow(QMainWindow):
 
     def dragEnterEvent(self, event: QDragEnterEvent):
         if event.mimeData().hasUrls():
-            for url in event.mimeData.urls():
-                if url.isLocalFile() and url.toLocalFile().lower().endswith('.dxf'):
-                    event.acceptProposedAction()
-                    return
-        event.ignore()
+            url = event.mimeData().urls()[0]
+            if url.isLocalFile() and url.toLocalFile().lower().endswith('.dxf'):
+                event.acceptProposedAction()
+            else:
+                event.ignore()
+        else:
+            event.ignore()
 
     def dropEvent(self, event: QDropEvent):
         if event.mimeData().hasUrls():
-            for url in event.mimeData.urls():
-                file_path = url.toLocalFile()
-                if file_path.lower().endswith('.dxf'):
-                    print(f"INFO: Lade DXF-Datei per Drag & Drop: {file_path}")
-                    self.dxf_widget.load_dxf(file_path)
-                    event.acceptProposedAction()
-                    return
-        event.ignore()
+            file_path = event.mimeData().urls()[0].toLocalFile()
+            if file_path.lower().endswith('.dxf'):
+                print(f"INFO: Lade DXF-Datei per Drag & Drop: {file_path}")
+                self.dxf_widget.load_dxf(file_path)
+                event.acceptProposedAction()
+            else:
+                event.ignore()
+        else:
+            event.ignore()
 
 
 # ==============================================================================
