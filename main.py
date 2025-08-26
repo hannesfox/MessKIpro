@@ -3,9 +3,12 @@
 # ==============================================================================
 import sys
 import os
-import json  # Für das Laden der Toleranzdaten
-import math  # Für die Berechnung der Seitenanzahl
+import json
+import math
 import ezdxf
+import openpyxl
+from openpyxl.cell.cell import MergedCell
+
 from ezdxf.recover import readfile as recover_readfile
 from ezdxf.addons.drawing.pyqt import PyQtBackend
 from ezdxf.math import Vec3
@@ -27,118 +30,26 @@ from PySide6.QtCore import Qt, QPoint, QPointF, Signal, QDate
 # ==============================================================================
 
 ZOOM_FACTOR = 1.2
-
 LIGHT_THEME_QSS = """
-/* Allgemeines Widget-Styling */
-QWidget {{
-    /* Der Platzhalter {font_family} wird dynamisch ersetzt */
-    font-family: '{font_family}', Arial, sans-serif;
-    font-size: 10pt;
-    color: #333333;
-    background-color: #f5f5f5; /* Leicht grauer Hintergrund */
-}}
-
-/* Hauptfenster und Splitter */
-QMainWindow {{
-    background-color: #e9e9e9;
-}}
-
-QSplitter::handle {{
-    background-color: #cccccc;
-}}
-
-QSplitter::handle:horizontal {{
-    width: 2px;
-}}
-
-QSplitter::handle:vertical {{
-    height: 2px;
-}}
-
-/* Eingabefelder: QLineEdit, QComboBox, QDateEdit */
-QLineEdit, QComboBox, QDateEdit {{
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    padding: 6px;
-    selection-background-color: #0078d7;
-    selection-color: #ffffff;
-}}
-
-QLineEdit:focus, QComboBox:focus, QDateEdit:focus {{
-    border: 1px solid #0078d7; /* Blauer Akzent bei Fokus */
-}}
-
-QComboBox::drop-down {{
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 20px;
-    border-left-width: 1px;
-    border-left-color: #cccccc;
-    border-left-style: solid;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}}
-
-QComboBox::down-arrow {{
-    image: url(down_arrow.png); /* Fallback, falls kein Icon gefunden wird */
-}}
-
-/* Buttons */
-QPushButton {{
-    background-color: #e1e1e1;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    padding: 8px 16px;
-    font-weight: bold;
-}}
-
-QPushButton:hover {{
-    background-color: #d1d1d1;
-    border-color: #bbbbbb;
-}}
-
-QPushButton:pressed {{
-    background-color: #c1c1c1;
-}}
-
-QPushButton:disabled {{
-    background-color: #eeeeee;
-    color: #aaaaaa;
-    border-color: #dddddd;
-}}
-
-/* Labels */
-QLabel {{
-    background-color: transparent; /* Labels sollen den Hintergrund des Parents haben */
-}}
-
-/* Rahmen (Frames) für die Maß-Blöcke */
-QFrame {{
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    background-color: #ffffff;
-}}
-
-/* Menü-Bar */
-QMenuBar {{
-    background-color: #f0f0f0;
-}}
-QMenuBar::item {{
-    padding: 4px 8px;
-    background: transparent;
-}}
-QMenuBar::item:selected {{
-    background-color: #d6d6d6;
-}}
-QMenu {{
-    background-color: #fdfdfd;
-    border: 1px solid #cccccc;
-}}
-QMenu::item:selected {{
-    background-color: #0078d7;
-    color: #ffffff;
-}}
+QWidget {{ font-family: '{font_family}'; font-size: 10pt; color: #333333; background-color: #f5f5f5; }}
+QMainWindow {{ background-color: #e9e9e9; }}
+QSplitter::handle {{ background-color: #cccccc; }}
+QSplitter::handle:horizontal {{ width: 2px; }}
+QSplitter::handle:vertical {{ height: 2px; }}
+QLineEdit, QComboBox, QDateEdit {{ background-color: #ffffff; border: 1px solid #cccccc; border-radius: 4px; padding: 6px; selection-background-color: #0078d7; selection-color: #ffffff; }}
+QLineEdit:focus, QComboBox:focus, QDateEdit:focus {{ border: 1px solid #0078d7; }}
+QComboBox::drop-down {{ subcontrol-origin: padding; subcontrol-position: top right; width: 20px; border-left-width: 1px; border-left-color: #cccccc; border-left-style: solid; border-top-right-radius: 3px; border-bottom-right-radius: 3px; }}
+QPushButton {{ background-color: #e1e1e1; border: 1px solid #cccccc; border-radius: 4px; padding: 8px 16px; font-weight: bold; }}
+QPushButton:hover {{ background-color: #d1d1d1; border-color: #bbbbbb; }}
+QPushButton:pressed {{ background-color: #c1c1c1; }}
+QPushButton:disabled {{ background-color: #eeeeee; color: #aaaaaa; border-color: #dddddd; }}
+QLabel {{ background-color: transparent; }}
+QFrame {{ border: 2px solid #dddddd; border-radius: 5px; background-color: #ffffff; }}
+QMenuBar {{ background-color: #f0f0f0; }}
+QMenuBar::item {{ padding: 4px 8px; background: transparent; }}
+QMenuBar::item:selected {{ background-color: #d6d6d6; }}
+QMenu {{ background-color: #fdfdfd; border: 1px solid #cccccc; }}
+QMenu::item:selected {{ background-color: #0078d7; color: #ffffff; }}
 """
 
 
@@ -151,12 +62,8 @@ class ClickableLineEdit(QLineEdit):
 
 
 class IsoFitsCalculator:
-    """
-    Kapselt die Logik zur Berechnung von ISO 286-1 Passungen.
-    """
-
     def __init__(self, data_folder_path):
-        self.tolerances_data = []
+        self.tolerances_data = [];
         self.available_fits = [""]
         self._load_data(data_folder_path)
 
@@ -165,25 +72,21 @@ class IsoFitsCalculator:
         try:
             with open(tolerances_path, 'r', encoding='utf-8') as f:
                 self.tolerances_data = json.load(f)
-            print(f"INFO: {len(self.tolerances_data)} Toleranzdatensätze geladen.")
-
             all_fits = set(entry["toleranzklasse"] for entry in self.tolerances_data)
             self.available_fits.extend(sorted(list(all_fits)))
-            print(f"INFO: {len(all_fits)} einzigartige Toleranzklassen geladen.")
         except (FileNotFoundError, json.JSONDecodeError) as e:
-            QMessageBox.critical(None, "Fataler Fehler", f"Datei 'tolerances.json' nicht gefunden/lesbar: {e}")
+            QMessageBox.critical(None, "Fataler Fehler", f"Datei 'tolerances.json' nicht gefunden/lesbar: {e}");
             sys.exit(1)
 
     def calculate(self, nominal_size, fit_string):
         if not self.tolerances_data: return None
         try:
             for entry in self.tolerances_data:
-                if (entry["toleranzklasse"].lower() == fit_string.lower() and
-                        entry["lowerlimit"] < nominal_size <= entry["upperlimit"]):
+                if (entry["toleranzklasse"].lower() == fit_string.lower() and entry["lowerlimit"] < nominal_size <=
+                        entry["upperlimit"]):
                     return entry["es"] / 1000.0, entry["ei"] / 1000.0
             return None
-        except Exception as e:
-            print(f"Fehler bei Toleranzberechnung: {e}")
+        except Exception:
             return None
 
 
@@ -191,10 +94,8 @@ class IsoFitsCalculator:
 #      3. HAUPT-WIDGETS
 # ==============================================================================
 
-# ------------------------------------------------------------------------------
-#      3.1 DXFWidget: Linke Seite (DXF-Anzeige)
-# ------------------------------------------------------------------------------
 class DXFWidget(QWidget):
+    # (Unverändert)
     dimension_clicked = Signal(str)
     CLICK_RADIUS_PIXELS = 50
 
@@ -223,7 +124,6 @@ class DXFWidget(QWidget):
     def load_dxf(self, filepath):
         try:
             self.doc, auditor = recover_readfile(filepath)
-            if auditor.has_errors: print(f"DXF-Fehler: {len(auditor.errors)} Fehler.")
             self.msp = self.doc.modelspace()
             self.draw_dxf()
         except Exception as e:
@@ -239,18 +139,17 @@ class DXFWidget(QWidget):
             ctx = RenderContext(self.doc)
             frontend = Frontend(ctx, backend);
             frontend.draw_layout(self.msp, finalize=True)
+            self.view.fitInView(self.scene.itemsBoundingRect(), Qt.KeepAspectRatio)
         except Exception as e:
             print(f"Zeichnen fehlgeschlagen: {e}")
-        self.view.setSceneRect(self.scene.itemsBoundingRect())
-        self.view.fitInView(self.scene.itemsBoundingRect(), Qt.KeepAspectRatio)
 
     def handle_mouse_press(self, event):
         super(QGraphicsView, self.view).mousePressEvent(event)
         if event.button() == Qt.MouseButton.LeftButton and self.msp:
             scene_pos = self.view.mapToScene(event.position().toPoint())
             world_pos = Vec3(scene_pos.x(), scene_pos.y())
-            p1 = self.view.mapToScene(event.position().toPoint())
-            p2_pos = event.position() + QPointF(self.CLICK_RADIUS_PIXELS, 0)
+            p1 = scene_pos;
+            p2_pos = event.position() + QPointF(self.CLICK_RADIUS_PIXELS, 0);
             p2 = self.view.mapToScene(p2_pos.toPoint())
             search_radius_world = abs(p2.x() - p1.x())
             found_dimension, min_dist = None, float('inf')
@@ -263,25 +162,21 @@ class DXFWidget(QWidget):
                         min_dist, found_dimension = dist, dimension
             if found_dimension:
                 try:
-                    measurement = found_dimension.get_measurement()
-                    self.dimension_clicked.emit(f"{measurement:.4f}")
+                    self.dimension_clicked.emit(f"{found_dimension.get_measurement():.4f}")
                 except Exception as e:
                     QMessageBox.warning(self, "Fehler", f"Messwert konnte nicht ausgelesen werden: {e}")
 
 
-# ------------------------------------------------------------------------------
-#      3.2 MessprotokollWidget: Rechte Seite (Eingabeformular)
-# ------------------------------------------------------------------------------
 class MessprotokollWidget(QWidget):
     field_selected = Signal(object)
     field_manually_edited = Signal(object)
-    TOTAL_MEASURES = 18
-    MEASURES_PER_PAGE = 6
-    BLOCKS_PER_PAGE = 2
-    MEASURES_PER_BLOCK = 3
+    TOTAL_MEASURES = 18;
+    MEASURES_PER_PAGE = 6;
+    BLOCKS_PER_PAGE = 2;
+    MEASURES_PER_BLOCK = 3;
     TOTAL_BLOCKS = TOTAL_MEASURES // MEASURES_PER_BLOCK
-    _pos_vals = [f"+{i / 1000.0:.3f}" for i in range(5, 201, 5)]
-    _neg_vals = [f"-{i / 1000.0:.3f}" for i in range(5, 201, 5)]
+    _pos_vals = [f"+{i / 1000.0:.3f}" for i in range(5, 201, 5)];
+    _neg_vals = [f"-{i / 1000.0:.3f}" for i in range(5, 201, 5)];
     TOLERANCE_VALUES = ["", "0"] + _neg_vals[::-1] + _pos_vals
     MESSMITTEL_OPTIONS = ["", "Aussen Mikrometer", "Digimar", "Endmaß", "Gewinde-lehrdorn", "Gewinde-lehrring",
                           "Haarlineal", "Innen Mikrometer", "Innenschnell-taster", "Lehrdorn", "Lehrring",
@@ -297,169 +192,254 @@ class MessprotokollWidget(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.cell_mapping = {};
+        self._load_mapping()
         main_layout = QVBoxLayout(self);
         main_layout.setSpacing(15)
-        script_dir = os.path.dirname(os.path.realpath(__file__))
+        script_dir = os.path.dirname(os.path.realpath(__file__));
         data_dir = os.path.join(script_dir, "Data")
         self.iso_calculator = IsoFitsCalculator(data_dir)
-        self.nominal_fields, self.upper_tol_combos, self.lower_tol_combos, self.soll_labels, self.iso_fit_combos = [], [], [], [], []
-        self.measure_blocks = []
-        self.current_page = 0
+        self.nominal_fields, self.upper_tol_combos, self.lower_tol_combos, self.soll_labels, self.iso_fit_combos, self.messmittel_combos = [], [], [], [], [], []
+        self.measure_blocks = [];
+        self.current_page = 0;
         self.total_pages = math.ceil(self.TOTAL_BLOCKS / self.BLOCKS_PER_PAGE)
-        header_grid = QGridLayout()
-        header_grid.setColumnStretch(1, 2);
-        header_grid.setColumnStretch(10, 1)
 
-        # === ÄNDERUNG: Titel mit spezifischem Stylesheet vergrößern ===
-        title_label = QLabel("Messprotokoll-Assistent")
-        # Dieses spezifische Stylesheet überschreibt die globale QSS-Regel.
-        title_label.setStyleSheet("""
-            font-size: 32pt;
-            font-weight: bold;
-            color: #2c3e50;
-            background-color: transparent;
-        """)
+        header_grid = QGridLayout();
+        header_grid.setColumnStretch(1, 2);
+        header_grid.setColumnStretch(5, 3)
+        title_label = QLabel("Messprotokoll-Assistent");
+        title_label.setStyleSheet("font-size: 28pt; font-weight: bold; color: #2c3e50; background-color: transparent;")
         header_grid.addWidget(title_label, 0, 0, 1, 5)
 
-        kunde_combo = QComboBox();
-        kunde_combo.setEditable(True);
-        kunde_combo.addItems(self.KUNDEN_LISTE)
+        self.kunde_combo = QComboBox();
+        self.kunde_combo.setEditable(True);
+        self.kunde_combo.addItems(self.KUNDEN_LISTE)
         header_grid.addWidget(QLabel("Kunde:"), 1, 0);
-        header_grid.addWidget(kunde_combo, 1, 1)
+        header_grid.addWidget(self.kunde_combo, 1, 1, 1, 2)
         auftrag_layout = QHBoxLayout();
         auftrag_layout.addWidget(QLabel("Auftrag: AT-25 /"));
-        auftrag_layout.addWidget(QLineEdit())
+        self.auftrag_edit = QLineEdit()
+        auftrag_layout.addWidget(self.auftrag_edit)
         header_grid.addLayout(auftrag_layout, 1, 3)
-        pos_edit = QLineEdit();
-        pos_edit.setFixedWidth(80)
+        self.pos_edit = QLineEdit();
+        self.pos_edit.setFixedWidth(80)
         header_grid.addWidget(QLabel("Pos.:"), 1, 5);
-        header_grid.addWidget(pos_edit, 1, 6)
-        date_edit = QDateEdit(calendarPopup=True, date=QDate.currentDate())
+        header_grid.addWidget(self.pos_edit, 1, 6)
+        self.date_edit = QDateEdit(calendarPopup=True, date=QDate.currentDate())
         header_grid.addWidget(QLabel("Datum:"), 1, 8);
-        header_grid.addWidget(date_edit, 1, 9)
+        header_grid.addWidget(self.date_edit, 1, 9)
+
+        # === NEU: UI-Elemente für Oberflächenbehandlung und Bemerkungen ===
+        self.oberflaeche_edit = QLineEdit()
+        header_grid.addWidget(QLabel("Oberflächenbehandlung:"), 2, 0);
+        header_grid.addWidget(self.oberflaeche_edit, 2, 1, 1, 2)
+        self.bemerkungen_edit = QLineEdit()
+        header_grid.addWidget(QLabel("Bemerkungen:"), 2, 3);
+        header_grid.addWidget(self.bemerkungen_edit, 2, 4, 1, 6)
+
         logo_label = QLabel();
         logo_label.setFixedSize(150, 150);
         logo_label.setScaledContents(True)
-        logo_path = "app-logo.png"
-        if os.path.exists(logo_path):
-            logo_label.setPixmap(QPixmap(logo_path))
-        header_grid.addWidget(logo_label, 0, 11, 2, 1, alignment=Qt.AlignTop | Qt.AlignRight)
+        if os.path.exists("app-logo.png"): logo_label.setPixmap(QPixmap("app-logo.png"))
+        header_grid.addWidget(logo_label, 0, 11, 3, 1,
+                              alignment=Qt.AlignTop | Qt.AlignRight)  # Spannt jetzt über 3 Zeilen
         main_layout.addLayout(header_grid)
+        main_layout.addSpacing(50)
 
+        # (Restlicher Code der UI-Erstellung bleibt unverändert)
         for block_idx in range(self.TOTAL_BLOCKS):
             block_frame = QFrame();
             grid = QGridLayout(block_frame);
             grid.setSpacing(10)
-            grid.addWidget(QLabel("Maß lt.\nZeichnung"), 0, 0, 7, 1)
-            soll_qlabel = QLabel("SOLL ➡")
-            soll_qlabel.setStyleSheet("font-weight: bold;")
+            grid.addWidget(QLabel("Maß lt.\nZeichnung"), 0, 0, 7, 1);
+            soll_qlabel = QLabel("SOLL ➡");
+            soll_qlabel.setStyleSheet("font-weight: bold;");
             grid.addWidget(soll_qlabel, 6, 0, 1, 1)
             for col_idx in range(self.MEASURES_PER_BLOCK):
-                measure_index = block_idx * self.MEASURES_PER_BLOCK + col_idx
-                col_start = 1 + col_idx
-                grid.addWidget(QLabel(f"Maß {measure_index + 1}", alignment=Qt.AlignCenter), 0, col_start)
-                nominal_field = ClickableLineEdit(alignment=Qt.AlignCenter)
-                nominal_field.clicked.connect(lambda f=nominal_field: self.field_selected.emit(f))
-                nominal_field.textEdited.connect(lambda text, f=nominal_field: self.field_manually_edited.emit(f))
-                grid.addWidget(nominal_field, 1, col_start)
-                self.nominal_fields.append(nominal_field)
-                grid.addWidget(QLabel("ISO-Toleranz", alignment=Qt.AlignCenter), 2, col_start)
-                iso_fit_combo = QComboBox();
-                iso_fit_combo.setEditable(True);
-                iso_fit_combo.addItems(self.iso_calculator.available_fits)
-                grid.addWidget(iso_fit_combo, 3, col_start)
-                self.iso_fit_combos.append(iso_fit_combo)
-                grid.addWidget(QLabel("Messmittel", alignment=Qt.AlignCenter), 4, col_start)
-                messmittel_combo = QComboBox();
-                messmittel_combo.addItems(self.MESSMITTEL_OPTIONS)
-                grid.addWidget(messmittel_combo, 5, col_start)
-                tol_layout = QGridLayout()
-                upper_tol_combo = QComboBox();
-                upper_tol_combo.addItems(self.TOLERANCE_VALUES);
-                upper_tol_combo.setEditable(True)
-                lower_tol_combo = QComboBox();
-                lower_tol_combo.addItems(self.TOLERANCE_VALUES);
-                lower_tol_combo.setEditable(True)
-                tol_layout.addWidget(upper_tol_combo, 0, 0);
-                tol_layout.addWidget(QLabel("Größtmaß"), 0, 1)
-                tol_layout.addWidget(lower_tol_combo, 1, 0);
-                tol_layout.addWidget(QLabel("Kleinstmaß"), 1, 1)
-                self.upper_tol_combos.append(upper_tol_combo);
-                self.lower_tol_combos.append(lower_tol_combo)
-                soll_label = QLabel("---", alignment=Qt.AlignCenter,
-                                    styleSheet="font-weight: bold; border: 1px solid #ccc; padding: 6px; background-color: #f0f0f0;")
-                grid.addLayout(tol_layout, 6, col_start)
-                grid.addWidget(soll_label, 7, col_start)
-                self.soll_labels.append(soll_label)
-                nominal_field.textChanged.connect(lambda _, idx=measure_index: self._trigger_iso_fit_calculation(idx))
-                iso_fit_combo.currentTextChanged.connect(
-                    lambda _, idx=measure_index: self._trigger_iso_fit_calculation(idx))
-                upper_tol_combo.currentTextChanged.connect(lambda _, idx=measure_index: self._update_soll_wert(idx))
-                lower_tol_combo.currentTextChanged.connect(lambda _, idx=measure_index: self._update_soll_wert(idx))
-            main_layout.addWidget(block_frame)
+                idx = block_idx * self.MEASURES_PER_BLOCK + col_idx;
+                col = 1 + col_idx
+                grid.addWidget(QLabel(f"Maß {idx + 1}", alignment=Qt.AlignCenter), 0, col)
+                nf = ClickableLineEdit(alignment=Qt.AlignCenter);
+                nf.clicked.connect(lambda f=nf: self.field_selected.emit(f));
+                nf.textEdited.connect(lambda t, f=nf: self.field_manually_edited.emit(f));
+                grid.addWidget(nf, 1, col);
+                self.nominal_fields.append(nf)
+                grid.addWidget(QLabel("ISO-Toleranz"), 2, col, alignment=Qt.AlignCenter)
+                ifc = QComboBox();
+                ifc.setEditable(True);
+                ifc.addItems(self.iso_calculator.available_fits);
+                grid.addWidget(ifc, 3, col);
+                self.iso_fit_combos.append(ifc)
+                grid.addWidget(QLabel("Messmittel"), 4, col, alignment=Qt.AlignCenter)
+                mc = QComboBox();
+                mc.addItems(self.MESSMITTEL_OPTIONS);
+                grid.addWidget(mc, 5, col);
+                self.messmittel_combos.append(mc)
+                tl = QGridLayout();
+                utc = QComboBox();
+                utc.addItems(self.TOLERANCE_VALUES);
+                utc.setEditable(True);
+                ltc = QComboBox();
+                ltc.addItems(self.TOLERANCE_VALUES);
+                ltc.setEditable(True);
+                tl.addWidget(utc, 0, 0);
+                tl.addWidget(QLabel("Größtmaß"), 0, 1);
+                tl.addWidget(ltc, 1, 0);
+                tl.addWidget(QLabel("Kleinstmaß"), 1, 1);
+                self.upper_tol_combos.append(utc);
+                self.lower_tol_combos.append(ltc)
+                sl = QLabel("---", alignment=Qt.AlignCenter,
+                            styleSheet="font-weight: bold; border: 1px solid #ccc; padding: 6px; background-color: #f0f0f0;");
+                grid.addLayout(tl, 6, col);
+                grid.addWidget(sl, 7, col);
+                self.soll_labels.append(sl)
+                nf.textChanged.connect(lambda _, i=idx: self._trigger_iso_fit_calculation(i));
+                ifc.currentTextChanged.connect(lambda _, i=idx: self._trigger_iso_fit_calculation(i));
+                utc.currentTextChanged.connect(lambda _, i=idx: self._update_soll_wert(i));
+                ltc.currentTextChanged.connect(lambda _, i=idx: self._update_soll_wert(i))
+            main_layout.addWidget(block_frame);
             self.measure_blocks.append(block_frame)
 
         main_layout.addStretch()
-        pagination_layout = QHBoxLayout()
-        self.prev_button = QPushButton("<< Zurück")
-        self.prev_button.clicked.connect(self._previous_page)
-        self.page_label = QLabel("", alignment=Qt.AlignCenter)
-        self.next_button = QPushButton("Vor >>")
+        pagination_layout = QHBoxLayout();
+        self.prev_button = QPushButton("<< Zurück");
+        self.prev_button.clicked.connect(self._previous_page);
+        self.page_label = QLabel("", alignment=Qt.AlignCenter);
+        self.next_button = QPushButton("Vor >>");
         self.next_button.clicked.connect(self._next_page)
+        pagination_layout.addStretch();
+        pagination_layout.addWidget(self.prev_button);
+        pagination_layout.addWidget(self.page_label);
+        pagination_layout.addWidget(self.next_button);
         pagination_layout.addStretch()
-        pagination_layout.addWidget(self.prev_button)
-        pagination_layout.addWidget(self.page_label)
-        pagination_layout.addWidget(self.next_button)
-        pagination_layout.addStretch()
-        main_layout.addLayout(pagination_layout)
+        self.save_button = QPushButton("Protokoll Speichern");
+        self.save_button.setStyleSheet(
+            "font-size: 11pt; padding: 10px 20px; background-color: #27ae60; color: white; border: 1px solid #2ecc71;");
+        self.save_button.clicked.connect(self._save_protokoll)
+        bottom_layout = QHBoxLayout();
+        bottom_layout.addLayout(pagination_layout, 2);
+        bottom_layout.addWidget(self.save_button, 1, alignment=Qt.AlignRight)
+        main_layout.addLayout(bottom_layout)
         self._update_page_view()
 
+    def _load_mapping(self):
+        try:
+            with open("mapping.json", 'r', encoding='utf-8') as f:
+                self.cell_mapping = json.load(f)
+            print("INFO: Excel-Mapping 'mapping.json' erfolgreich geladen.")
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            QMessageBox.critical(self, "Mapping Fehler",
+                                 f"Die Datei 'mapping.json' konnte nicht geladen werden.\n\n{e}\n\nDie Speicherfunktion ist deaktiviert.");
+            self.cell_mapping = {}
+
+    def _get_writable_cell(self, sheet, cell_coord):
+        cell = sheet[cell_coord]
+        if isinstance(cell, MergedCell):
+            for merged_range in sheet.merged_cells.ranges:
+                if cell.coordinate in merged_range:
+                    return sheet.cell(row=merged_range.min_row, column=merged_range.min_col)
+        return cell
+
+    def _save_protokoll(self):
+        if not self.cell_mapping:
+            QMessageBox.warning(self, "Speichern nicht möglich", "Die Mapping-Datei ist fehlerhaft oder fehlt.");
+            return
+        auftrag = self.auftrag_edit.text().strip();
+        pos = self.pos_edit.text().strip()
+        if not auftrag or not pos:
+            QMessageBox.warning(self, "Fehlende Eingabe", "Bitte 'Auftrag' und 'Pos' für den Dateinamen ausfüllen.");
+            return
+        template_path = "LEERFORMULAR.xlsx"
+        if not os.path.exists(template_path):
+            QMessageBox.critical(self, "Vorlage fehlt", f"Die Vorlagendatei '{template_path}' wurde nicht gefunden.");
+            return
+
+        new_filename = f"{auftrag}-{pos}.xlsx"
+        try:
+            workbook = openpyxl.load_workbook(template_path)
+            sheet = workbook["Tabelle1"]
+
+            header_map = self.cell_mapping.get("header", {})
+
+            if 'kunde' in header_map: self._get_writable_cell(sheet, header_map[
+                'kunde']).value = self.kunde_combo.currentText()
+            if 'auftrag' in header_map: self._get_writable_cell(sheet, header_map['auftrag']).value = auftrag
+            if 'position' in header_map: self._get_writable_cell(sheet, header_map['position']).value = pos
+            if 'datum' in header_map: self._get_writable_cell(sheet, header_map[
+                'datum']).value = self.date_edit.date().toString("dd.MM.yyyy")
+            # === NEU: Logik zum Speichern der neuen Felder ===
+            if 'oberflaeche' in header_map: self._get_writable_cell(sheet, header_map[
+                'oberflaeche']).value = self.oberflaeche_edit.text()
+            if 'bemerkungen' in header_map: self._get_writable_cell(sheet, header_map[
+                'bemerkungen']).value = self.bemerkungen_edit.text()
+
+            measure_map = self.cell_mapping.get("measures", [])
+            for i in range(self.TOTAL_MEASURES):
+                if i < len(measure_map):
+                    cell_info = measure_map[i]
+                    if 'nominal' in cell_info: self._get_writable_cell(sheet, cell_info['nominal']).value = \
+                    self.nominal_fields[i].text()
+                    if 'iso_fit' in cell_info: self._get_writable_cell(sheet, cell_info['iso_fit']).value = \
+                    self.iso_fit_combos[i].currentText()
+                    if 'messmittel' in cell_info: self._get_writable_cell(sheet, cell_info['messmittel']).value = \
+                    self.messmittel_combos[i].currentText()
+                    if 'upper_tol' in cell_info: self._get_writable_cell(sheet, cell_info['upper_tol']).value = \
+                    self.upper_tol_combos[i].currentText()
+                    if 'lower_tol' in cell_info: self._get_writable_cell(sheet, cell_info['lower_tol']).value = \
+                    self.lower_tol_combos[i].currentText()
+                    if 'soll' in cell_info: self._get_writable_cell(sheet, cell_info['soll']).value = self.soll_labels[
+                        i].text()
+
+            workbook.save(filename=new_filename)
+            QMessageBox.information(self, "Erfolg",
+                                    f"Das Protokoll wurde erfolgreich als '{new_filename}' gespeichert.")
+
+        except KeyError as e:
+            QMessageBox.critical(self, "Excel Fehler",
+                                 f"Ein Schlüssel im Mapping ('{e}') oder das Arbeitsblatt 'Tabelle1' wurde nicht gefunden.")
+        except Exception as e:
+            QMessageBox.critical(self, "Speicherfehler",
+                                 f"Ein unerwarteter Fehler ist beim Speichern aufgetreten:\n\n{e}")
+
     def _update_page_view(self):
-        start_block_idx = self.current_page * self.BLOCKS_PER_PAGE
-        end_block_idx = start_block_idx + self.BLOCKS_PER_PAGE
-        for i, block in enumerate(self.measure_blocks):
-            block.setVisible(start_block_idx <= i < end_block_idx)
+        start = self.current_page * self.BLOCKS_PER_PAGE;
+        end = start + self.BLOCKS_PER_PAGE
+        for i, block in enumerate(self.measure_blocks): block.setVisible(start <= i < end)
         self.page_label.setText(f"Seite {self.current_page + 1} / {self.total_pages}")
-        self.prev_button.setEnabled(self.current_page > 0)
+        self.prev_button.setEnabled(self.current_page > 0);
         self.next_button.setEnabled(self.current_page < self.total_pages - 1)
 
     def _previous_page(self):
-        if self.current_page > 0:
-            self.current_page -= 1
-            self._update_page_view()
+        if self.current_page > 0: self.current_page -= 1; self._update_page_view()
 
     def _next_page(self):
-        if self.current_page < self.total_pages - 1:
-            self.current_page += 1
-            self._update_page_view()
+        if self.current_page < self.total_pages - 1: self.current_page += 1; self._update_page_view()
 
     def _trigger_iso_fit_calculation(self, index):
-        nominal_text = self.nominal_fields[index].text().replace(',', '.')
-        fit_string = self.iso_fit_combos[index].currentText().strip()
         self._update_soll_wert(index)
+        nominal_text = self.nominal_fields[index].text().replace(',', '.');
+        fit_string = self.iso_fit_combos[index].currentText().strip()
         if not nominal_text or not fit_string: return
         try:
-            nominal_value = float(nominal_text)
-            result = self.iso_calculator.calculate(nominal_value, fit_string)
-            if result is None: return
-            upper_dev, lower_dev = result
-            self.upper_tol_combos[index].blockSignals(True)
-            self.lower_tol_combos[index].blockSignals(True)
-            self.upper_tol_combos[index].setCurrentText(f"{upper_dev:+.3f}")
-            self.lower_tol_combos[index].setCurrentText(f"{lower_dev:+.3f}")
-            self.upper_tol_combos[index].blockSignals(False)
-            self.lower_tol_combos[index].blockSignals(False)
-            self._update_soll_wert(index)
-        except (ValueError, TypeError) as e:
-            print(f"Fehler bei ISO-Toleranz-Verarbeitung für Index {index}: {e}")
+            result = self.iso_calculator.calculate(float(nominal_text), fit_string)
+            if result:
+                up_dev, low_dev = result
+                self.upper_tol_combos[index].blockSignals(True);
+                self.lower_tol_combos[index].blockSignals(True)
+                self.upper_tol_combos[index].setCurrentText(f"{up_dev:+.3f}");
+                self.lower_tol_combos[index].setCurrentText(f"{low_dev:+.3f}")
+                self.upper_tol_combos[index].blockSignals(False);
+                self.lower_tol_combos[index].blockSignals(False)
+                self._update_soll_wert(index)
+        except (ValueError, TypeError):
+            pass
 
     def _update_soll_wert(self, index):
         try:
             nominal = float(self.nominal_fields[index].text().replace(',', '.') or 0)
             upper_tol = float(self.upper_tol_combos[index].currentText().replace(',', '.') or 0)
             lower_tol = float(self.lower_tol_combos[index].currentText().replace(',', '.') or 0)
-            soll_wert = nominal + (upper_tol + lower_tol) / 2.0
-            self.soll_labels[index].setText(f"{soll_wert:.4f}".replace('.', ','))
+            self.soll_labels[index].setText(f"{nominal + (upper_tol + lower_tol) / 2.0:.4f}".replace('.', ','))
         except (ValueError, TypeError):
             self.soll_labels[index].setText("---")
 
@@ -473,7 +453,7 @@ class MainWindow(QMainWindow):
         self.target_widget = None
         self._set_application_style()
         self.setAcceptDrops(True)
-        self.dxf_widget = DXFWidget()
+        self.dxf_widget = DXFWidget();
         self.protokoll_widget = MessprotokollWidget()
         splitter = QSplitter(Qt.Horizontal);
         splitter.addWidget(self.dxf_widget);
@@ -492,35 +472,27 @@ class MainWindow(QMainWindow):
         self.protokoll_widget.field_manually_edited.connect(self.on_field_manually_edited)
 
     def _set_application_style(self):
-        """Wendet den globalen Stil und das Theme an."""
         app = QApplication.instance()
         app.setStyle(QStyleFactory.create("Fusion"))
         default_font = QFontDatabase.systemFont(QFontDatabase.GeneralFont)
         font_family = default_font.family()
-        print(f"INFO: Verwende System-Schriftart: '{font_family}'")
-        formatted_qss = LIGHT_THEME_QSS.format(font_family=font_family)
-        app.setStyleSheet(formatted_qss)
+        app.setStyleSheet(LIGHT_THEME_QSS.format(font_family=font_family))
 
     def on_protokoll_field_selected(self, widget):
-        if self.target_widget:
-            self.target_widget.setStyleSheet("")
+        if self.target_widget: self.target_widget.setStyleSheet("")
         self.target_widget = widget
         self.target_widget.setStyleSheet("background-color: #0078d7; color: white; border: 1px solid #005a9e;")
-        print("Ziel für Nennmaß gesetzt.")
 
     def on_dimension_value_received(self, value):
         if self.target_widget:
-            self.target_widget.setText(value.replace('.', ','))
-            self.target_widget.setStyleSheet("")
+            self.target_widget.setText(value.replace('.', ','));
+            self.target_widget.setStyleSheet("");
             self.target_widget = None
         else:
             QMessageBox.information(self, "Hinweis", "Bitte klicken Sie zuerst in ein 'Maß lt. Zeichnung'-Feld.")
 
     def on_field_manually_edited(self, widget):
-        if self.target_widget == widget:
-            print("Manuelle Eingabe erkannt. DXF-Ziel wird deaktiviert.")
-            self.target_widget.setStyleSheet("")
-            self.target_widget = None
+        if self.target_widget == widget: self.target_widget.setStyleSheet(""); self.target_widget = None
 
     def open_file(self):
         path, _ = QFileDialog.getOpenFileName(self, "DXF-Datei öffnen", "", "DXF-Dateien (*.dxf)")
@@ -540,8 +512,7 @@ class MainWindow(QMainWindow):
         if event.mimeData().hasUrls():
             file_path = event.mimeData().urls()[0].toLocalFile()
             if file_path.lower().endswith('.dxf'):
-                print(f"INFO: Lade DXF-Datei per Drag & Drop: {file_path}")
-                self.dxf_widget.load_dxf(file_path)
+                self.dxf_widget.load_dxf(file_path);
                 event.acceptProposedAction()
             else:
                 event.ignore()

@@ -1,0 +1,30 @@
+{
+  "header": {
+    "kunde": "C1",
+    "auftrag": "I1",
+    "position": "M1",
+    "datum": "P1",
+    "oberflaeche": "B3",
+    "bemerkungen": "F3"
+  },
+  "measures": [
+    { "nominal": "G8", "upper_tol": "H8", "lower_tol": "H9", "soll": "G10", "messmittel": "G5" },
+    { "nominal": "B13", "upper_tol": "D13", "lower_tol": "E13", "soll": "F13", "messmittel": "G13" },
+    { "nominal": "B14", "upper_tol": "D14", "lower_tol": "E14", "soll": "F14", "messmittel": "G14" },
+    { "nominal": "B15", "upper_tol": "D15", "lower_tol": "E15", "soll": "F15", "messmittel": "G15" },
+    { "nominal": "B16", "upper_tol": "D16", "lower_tol": "E16", "soll": "F16", "messmittel": "G16" },
+    { "nominal": "B17", "upper_tol": "D17", "lower_tol": "E17", "soll": "F17", "messmittel": "G17" },
+    { "nominal": "B18", "upper_tol": "D18", "lower_tol": "E18", "soll": "F18", "messmittel": "G18" },
+    { "nominal": "B19", "upper_tol": "D19", "lower_tol": "E19", "soll": "F19", "messmittel": "G19" },
+    { "nominal": "B20", "upper_tol": "D20", "lower_tol": "E20", "soll": "F20", "messmittel": "G20" },
+    { "nominal": "B21", "upper_tol": "D21", "lower_tol": "E21", "soll": "F21", "messmittel": "G21" },
+    { "nominal": "B22", "upper_tol": "D22", "lower_tol": "E22", "soll": "F22", "messmittel": "G22" },
+    { "nominal": "B23", "upper_tol": "D23", "lower_tol": "E23", "soll": "F23", "messmittel": "G23" },
+    { "nominal": "B24", "upper_tol": "D24", "lower_tol": "E24", "soll": "F24", "messmittel": "G24" },
+    { "nominal": "B25", "upper_tol": "D25", "lower_tol": "E25", "soll": "F25", "messmittel": "G25" },
+    { "nominal": "B26", "upper_tol": "D26", "lower_tol": "E26", "soll": "F26", "messmittel": "G26" },
+    { "nominal": "B27", "upper_tol": "D27", "lower_tol": "E27", "soll": "F27", "messmittel": "G27" },
+    { "nominal": "B28", "upper_tol": "D28", "lower_tol": "E28", "soll": "F28", "messmittel": "G28" },
+    { "nominal": "B29", "upper_tol": "D29", "lower_tol": "E29", "soll": "F29", "messmittel": "G29" }
+  ]
+}
