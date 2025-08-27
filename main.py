@@ -13,6 +13,7 @@ from ezdxf.recover import readfile as recover_readfile
 from ezdxf.addons.drawing.pyqt import PyQtBackend
 from ezdxf.math import Vec3
 
+# Zuerst die PySide6-Module importieren
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QGraphicsScene, QGraphicsView, QMessageBox,
     QFileDialog, QWidget, QSplitter, QVBoxLayout, QGridLayout, QLabel,
@@ -20,84 +21,18 @@ from PySide6.QtWidgets import (
     QPushButton
 )
 from PySide6.QtGui import (
-    QColor, QWheelEvent, QAction, QFont, QDragEnterEvent, QDropEvent, QPixmap,
-    QFontDatabase
+    QColor, QWheelEvent, QAction, QFont, QDragEnterEvent, QDropEvent, QPixmap
 )
 from PySide6.QtCore import Qt, QPoint, QPointF, Signal, QDate
 
+# qt-material wird NACH PySide6 importiert
+from qt_material import apply_stylesheet
+
 # ==============================================================================
-#      2. KONSTANTEN, THEME UND HILFSKLASSEN
+#      2. KONSTANTEN UND HILFSKLASSEN
 # ==============================================================================
 
 ZOOM_FACTOR = 1.2
-LIGHT_THEME_QSS = """
-QWidget {{ 
-    font-family: '{font_family}'; 
-    font-size: 10pt; 
-    color: #333333; 
-    background-color: #f5f5f5; 
-}}
-QMainWindow {{ background-color: #e9e9e9; }}
-QSplitter::handle {{ background-color: #cccccc; }}
-QSplitter::handle:horizontal {{ width: 2px; }}
-QSplitter::handle:vertical {{ height: 2px; }}
-QLineEdit, QComboBox, QDateEdit {{ 
-    background-color: #ffffff; 
-    border: 1px solid #cccccc; 
-    border-radius: 4px; 
-    padding: 6px; 
-    selection-background-color: #0078d7; 
-    selection-color: #ffffff; 
-}}
-QLineEdit:focus, QComboBox:focus, QDateEdit:focus {{ border: 1px solid #0078d7; }}
-QComboBox::drop-down {{ 
-    subcontrol-origin: padding; 
-    subcontrol-position: top right; 
-    width: 20px; 
-    border-left-width: 1px; 
-    border-left-color: #cccccc; 
-    border-left-style: solid; 
-    border-top-right-radius: 3px; 
-    border-bottom-right-radius: 3px; 
-}}
-QPushButton {{ 
-    background-color: #e1e1e1; 
-    border: 1px solid #cccccc; 
-    border-radius: 4px; 
-    padding: 8px 16px; 
-    font-weight: bold; 
-}}
-QPushButton:hover {{ 
-    background-color: #d1d1d1; 
-    border-color: #bbbbbb; 
-}}
-QPushButton:pressed {{ background-color: #c1c1c1; }}
-QPushButton:disabled {{ 
-    background-color: #eeeeee; 
-    color: #aaaaaa; 
-    border-color: #dddddd; 
-}}
-QLabel {{ background-color: transparent; }}
-QFrame {{ 
-    border: 2px solid #cccccc; 
-    border-radius: 5px; 
-    background-color: #ffffff; 
-}}
-QMenuBar {{ background-color: #f0f0f0; }}
-QMenuBar::item {{ 
-    padding: 4px 8px; 
-    background: transparent; 
-}}
-QMenuBar::item:selected {{ background-color: #d6d6d6; }}
-QMenu {{ 
-    background-color: #fdfdfd; 
-    border: 1px solid #cccccc; 
-}}
-QMenu::item:selected {{ 
-    background-color: #0078d7; 
-    color: #ffffff; 
-}}
-"""
 
 
 class ClickableLineEdit(QLineEdit):
@@ -180,12 +115,13 @@ class DXFWidget(QWidget):
 
     def draw_dxf(self):
         self.scene.clear()
-        self.view.setBackgroundBrush(QColor(30, 30, 30))
+        self.view.setBackgroundBrush(QColor(250, 250, 250))
         try:
             backend = PyQtBackend(self.scene)
             from ezdxf.addons.drawing.frontend import Frontend
             from ezdxf.addons.drawing.properties import RenderContext
             ctx = RenderContext(self.doc)
+            ctx.current_layout.set_colors(bg='#fafafa')
             frontend = Frontend(ctx, backend)
             frontend.draw_layout(self.msp, finalize=True)
             self.view.fitInView(self.scene.itemsBoundingRect(), Qt.KeepAspectRatio)
@@ -223,35 +159,25 @@ class MessprotokollWidget(QWidget):
     field_selected = Signal(object)
     field_manually_edited = Signal(object)
 
-    TOTAL_MEASURES = 18
-    MEASURES_PER_PAGE = 6
-    BLOCKS_PER_PAGE = 2
+    TOTAL_MEASURES = 18;
+    MEASURES_PER_PAGE = 6;
+    BLOCKS_PER_PAGE = 2;
     MEASURES_PER_BLOCK = 3
     TOTAL_BLOCKS = TOTAL_MEASURES // MEASURES_PER_BLOCK
-
     _pos_vals = [f"+{i / 1000.0:.3f}" for i in range(5, 201, 5)]
     _neg_vals = [f"-{i / 1000.0:.3f}" for i in range(5, 201, 5)]
     TOLERANCE_VALUES = ["", "0"] + _neg_vals[::-1] + _pos_vals
-
-    MESSMITTEL_OPTIONS = [
-        "", "Aussen Mikrometer", "Digimar", "Endmaß", "Gewinde-lehrdorn",
-        "Gewinde-lehrring", "Haarlineal", "Innen Mikrometer",
-        "Innenschnell-taster", "Lehrdorn", "Lehrring", "MahrSurf M 310",
-        "Maschinen- taster", "Mess-schieber", "Messuhr", "optisch",
-        "Prüfstifte", "Radius Lehre", "Rugotest", "Steigungs-lehre", "Subito",
-        "Tiefenmaß", "Winkel-messer", "Zeiss", "Zoller"
-    ]
-    KUNDEN_LISTE = [
-        "", "AGILOX Services GmbH", "Alpina Tec", "Alpine Metal Tech", "AMB",
-        "Cloeren", "Collin", "Dtech", "Econ", "Eicon", "Eiermacher", "Fill",
-        "Gewa", "Gföllner", "Global Hydro Energy", "Gottfried",
-        "GreinerBio-One", "Gtech", "Haidlmair GmbH", "Hainzl", "HFP", "IFW",
-        "IKIPM", "Kässbohrer", "KI Automation", "Kiefel", "Knorr Bremse",
-        "Kwapil & Co", "Laska", "Mark", "MBK Rinnerberger", "MIBA Sinter",
-        "Myonic", "Peak Technoligy", "Plastic Omnium", "Puhl", "RO-RA",
-        "Rotax", "Schell", "Schröckenfux", "Seisenbacher", "Sema",
-        "SK Blechtechnik", "SMW", "STIWA", "Wuppermann"
-    ]
+    MESSMITTEL_OPTIONS = ["", "Aussen Mikrometer", "Digimar", "Endmaß", "Gewinde-lehrdorn", "Gewinde-lehrring",
+                          "Haarlineal", "Innen Mikrometer", "Innenschnell-taster", "Lehrdorn", "Lehrring",
+                          "MahrSurf M 310", "Maschinen- taster", "Mess-schieber", "Messuhr", "optisch", "Prüfstifte",
+                          "Radius Lehre", "Rugotest", "Steigungs-lehre", "Subito", "Tiefenmaß", "Winkel-messer",
+                          "Zeiss", "Zoller"]
+    KUNDEN_LISTE = ["", "AGILOX Services GmbH", "Alpina Tec", "Alpine Metal Tech", "AMB", "Cloeren", "Collin", "Dtech",
+                    "Econ", "Eicon", "Eiermacher", "Fill", "Gewa", "Gföllner", "Global Hydro Energy", "Gottfried",
+                    "GreinerBio-One", "Gtech", "Haidlmair GmbH", "Hainzl", "HFP", "IFW", "IKIPM", "Kässbohrer",
+                    "KI Automation", "Kiefel", "Knorr Bremse", "Kwapil & Co", "Laska", "Mark", "MBK Rinnerberger",
+                    "MIBA Sinter", "Myonic", "Peak Technoligy", "Plastic Omnium", "Puhl", "RO-RA", "Rotax", "Schell",
+                    "Schröckenfux", "Seisenbacher", "Sema", "SK Blechtechnik", "SMW", "STIWA", "Wuppermann"]
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -272,11 +198,8 @@ class MessprotokollWidget(QWidget):
         self.total_pages = math.ceil(self.TOTAL_BLOCKS / self.BLOCKS_PER_PAGE)
 
         self._create_header(main_layout)
-
         main_layout.addSpacing(25)
-
         self._create_measure_blocks(main_layout)
-
         main_layout.addStretch()
         self._create_footer_controls(main_layout)
         self._update_page_view()
@@ -287,9 +210,7 @@ class MessprotokollWidget(QWidget):
         header_grid.setColumnStretch(5, 3)
 
         title_label = QLabel("Messprotokoll-Assistent")
-        title_label.setStyleSheet(
-            "font-size: 28pt; font-weight: bold; color: #2c3e50; background-color: transparent;"
-        )
+        title_label.setStyleSheet("font-size: 28pt; font-weight: bold;")
         header_grid.addWidget(title_label, 0, 0, 1, 5)
 
         self.kunde_combo = QComboBox()
@@ -381,7 +302,7 @@ class MessprotokollWidget(QWidget):
                 self.lower_tol_combos.append(ltc)
 
                 sl = QLabel("---", alignment=Qt.AlignCenter,
-                            styleSheet="font-weight: bold; border: 1px solid #ccc; padding: 6px; background-color: #f0f0f0;")
+                            styleSheet="font-weight: bold; border: 1px solid grey; padding: 6px;")
                 grid.addLayout(tol_layout, 6, col)
                 grid.addWidget(sl, 7, col)
                 self.soll_labels.append(sl)
@@ -409,9 +330,7 @@ class MessprotokollWidget(QWidget):
         pagination_layout.addStretch()
 
         self.save_button = QPushButton("Protokoll Speichern")
-        self.save_button.setStyleSheet(
-            "font-size: 11pt; padding: 10px 20px; background-color: #27ae60; color: white; border: 1px solid #2ecc71;"
-        )
+        self.save_button.setProperty('class', 'success-color')
         self.save_button.clicked.connect(self._save_protokoll)
 
         bottom_layout = QHBoxLayout()
@@ -425,10 +344,8 @@ class MessprotokollWidget(QWidget):
                 self.cell_mapping = json.load(f)
             print("INFO: Excel-Mapping 'mapping.json' erfolgreich geladen.")
         except (FileNotFoundError, json.JSONDecodeError) as e:
-            QMessageBox.critical(
-                self, "Mapping Fehler",
-                f"Die Datei 'mapping.json' konnte nicht geladen werden.\n\n{e}\n\nDie Speicherfunktion ist deaktiviert."
-            )
+            QMessageBox.critical(self, "Mapping Fehler",
+                                 f"Die Datei 'mapping.json' konnte nicht geladen werden.\n\n{e}\n\nDie Speicherfunktion ist deaktiviert.")
             self.cell_mapping = {}
 
     def _get_writable_cell(self, sheet, cell_coord):
@@ -459,47 +376,39 @@ class MessprotokollWidget(QWidget):
         try:
             workbook = openpyxl.load_workbook(template_path)
             sheet = workbook["Tabelle1"]
-
             header_map = self.cell_mapping.get("header", {})
 
-            if 'kunde' in header_map:
-                self._get_writable_cell(sheet, header_map['kunde']).value = self.kunde_combo.currentText()
-            if 'auftrag' in header_map:
-                self._get_writable_cell(sheet, header_map['auftrag']).value = auftrag
-            if 'position' in header_map:
-                self._get_writable_cell(sheet, header_map['position']).value = pos
-            if 'datum' in header_map:
-                self._get_writable_cell(sheet, header_map['datum']).value = self.date_edit.date().toString("dd.MM.yyyy")
-            if 'oberflaeche' in header_map:
-                self._get_writable_cell(sheet, header_map['oberflaeche']).value = self.oberflaeche_edit.text()
-            if 'bemerkungen' in header_map:
-                self._get_writable_cell(sheet, header_map['bemerkungen']).value = self.bemerkungen_edit.text()
+            if 'kunde' in header_map: self._get_writable_cell(sheet, header_map[
+                'kunde']).value = self.kunde_combo.currentText()
+            if 'auftrag' in header_map: self._get_writable_cell(sheet, header_map['auftrag']).value = auftrag
+            if 'position' in header_map: self._get_writable_cell(sheet, header_map['position']).value = pos
+            if 'datum' in header_map: self._get_writable_cell(sheet, header_map[
+                'datum']).value = self.date_edit.date().toString("dd.MM.yyyy")
+            if 'oberflaeche' in header_map: self._get_writable_cell(sheet, header_map[
+                'oberflaeche']).value = self.oberflaeche_edit.text()
+            if 'bemerkungen' in header_map: self._get_writable_cell(sheet, header_map[
+                'bemerkungen']).value = self.bemerkungen_edit.text()
 
             measure_map = self.cell_mapping.get("measures", [])
             for i in range(self.TOTAL_MEASURES):
                 if i < len(measure_map):
                     cell_info = measure_map[i]
-                    if 'nominal' in cell_info:
-                        self._get_writable_cell(sheet, cell_info['nominal']).value = self.nominal_fields[i].text()
-                    if 'iso_fit' in cell_info:
-                        self._get_writable_cell(sheet, cell_info['iso_fit']).value = self.iso_fit_combos[
-                            i].currentText()
-                    if 'messmittel' in cell_info:
-                        self._get_writable_cell(sheet, cell_info['messmittel']).value = self.messmittel_combos[
-                            i].currentText()
-                    if 'upper_tol' in cell_info:
-                        self._get_writable_cell(sheet, cell_info['upper_tol']).value = self.upper_tol_combos[
-                            i].currentText()
-                    if 'lower_tol' in cell_info:
-                        self._get_writable_cell(sheet, cell_info['lower_tol']).value = self.lower_tol_combos[
-                            i].currentText()
-                    if 'soll' in cell_info:
-                        self._get_writable_cell(sheet, cell_info['soll']).value = self.soll_labels[i].text()
+                    if 'nominal' in cell_info: self._get_writable_cell(sheet, cell_info['nominal']).value = \
+                    self.nominal_fields[i].text()
+                    if 'iso_fit' in cell_info: self._get_writable_cell(sheet, cell_info['iso_fit']).value = \
+                    self.iso_fit_combos[i].currentText()
+                    if 'messmittel' in cell_info: self._get_writable_cell(sheet, cell_info['messmittel']).value = \
+                    self.messmittel_combos[i].currentText()
+                    if 'upper_tol' in cell_info: self._get_writable_cell(sheet, cell_info['upper_tol']).value = \
+                    self.upper_tol_combos[i].currentText()
+                    if 'lower_tol' in cell_info: self._get_writable_cell(sheet, cell_info['lower_tol']).value = \
+                    self.lower_tol_combos[i].currentText()
+                    if 'soll' in cell_info: self._get_writable_cell(sheet, cell_info['soll']).value = self.soll_labels[
+                        i].text()
 
             workbook.save(filename=new_filename)
             QMessageBox.information(self, "Erfolg",
                                     f"Das Protokoll wurde erfolgreich als '{new_filename}' gespeichert.")
-
         except KeyError as e:
             QMessageBox.critical(self, "Excel Fehler",
                                  f"Ein Schlüssel im Mapping ('{e}') oder das Arbeitsblatt 'Tabelle1' wurde nicht gefunden.")
@@ -592,17 +501,26 @@ class MainWindow(QMainWindow):
         self.protokoll_widget.field_manually_edited.connect(self.on_field_manually_edited)
 
     def _set_application_style(self):
+        """Wendet das globale qt-material Theme an und überschreibt die Akzentfarbe."""
         app = QApplication.instance()
-        app.setStyle(QStyleFactory.create("Fusion"))
-        default_font = QFontDatabase.systemFont(QFontDatabase.GeneralFont)
-        font_family = default_font.family()
-        app.setStyleSheet(LIGHT_THEME_QSS.format(font_family=font_family))
+
+        # === HIER IST DIE ÄNDERUNG ===
+        # Definiere ein Wörterbuch mit den Farb-Überschreibungen
+        extra = {
+            # Ändere die Akzentfarbe von Cyan zu einem passenden Blauton
+            'accent_color': '#448AFF',
+        }
+
+        # Wende das Theme an und übergebe die extra Farben
+        apply_stylesheet(app, theme='dark_blue.xml', extra=extra)
 
     def on_protokoll_field_selected(self, widget):
         if self.target_widget:
             self.target_widget.setStyleSheet("")
         self.target_widget = widget
-        self.target_widget.setStyleSheet("background-color: #0078d7; color: white; border: 1px solid #005a9e;")
+        # Die Highlight-Farbe wird jetzt durch die neue accent_color gesteuert,
+        # ein zusätzlicher Rahmen ist aber oft hilfreich.
+        self.target_widget.setStyleSheet("border: 2px solid #448AFF;")
 
     def on_dimension_value_received(self, value):
         if self.target_widget:
