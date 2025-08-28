@@ -585,7 +585,7 @@ class MainWindow(QMainWindow):
         file_menu.addAction(open_action)
 
         self.setWindowTitle("Messprotokoll-Assistent")
-        self.setGeometry(50, 50, 1800, 1000)
+        self.setGeometry(400, 50, 2400, 1300)
 
         self.protokoll_widget.field_selected.connect(self.on_protokoll_field_selected)
         self.dxf_widget.dimension_clicked.connect(self.on_dimension_value_received)
