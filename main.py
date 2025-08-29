@@ -33,6 +33,20 @@ from qt_material import apply_stylesheet
 
 ZOOM_FACTOR = 1.15
 
+# +++ NEUE HELFERFUNKTION +++
+def resource_path(relative_path: str) -> str:
+    """
+    Ermittelt den absoluten Pfad zu einer Ressource, funktioniert für den
+    Entwicklungsmodus und für eine mit PyInstaller gepackte Anwendung.
+    """
+    try:
+        # PyInstaller erstellt einen temporären Ordner und speichert den Pfad in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        # _MEIPASS ist nicht gesetzt, wir sind also im Entwicklungsmodus
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 class ClickableLineEdit(QLineEdit):
     clicked = Signal()
@@ -260,8 +274,13 @@ class MessprotokollWidget(QWidget):
         self._load_mapping()
         main_layout = QVBoxLayout(self)
         main_layout.setSpacing(15)
-        script_dir = os.path.dirname(os.path.realpath(__file__))
-        data_dir = os.path.join(script_dir, "Data")
+
+        #script_dir = os.path.dirname(os.path.realpath(__file__))
+        #data_dir = os.path.join(script_dir, "Data")
+        data_dir = resource_path("Data")
+
+        self.iso_calculator = IsoFitsCalculator(data_dir)
+
         self.iso_calculator = IsoFitsCalculator(data_dir)
         self.nominal_fields, self.upper_tol_combos, self.lower_tol_combos = [], [], []
         self.soll_labels, self.iso_fit_combos, self.messmittel_combos = [], [], []
@@ -341,8 +360,9 @@ class MessprotokollWidget(QWidget):
         logo_label.setFixedSize(200, 200)
         logo_label.setScaledContents(True)
 
-        if os.path.exists("assets/logo.png"):
-            logo_label.setPixmap(QPixmap("assets/logo.png"))
+        logo_path = resource_path("assets/logo.png")
+        if os.path.exists(logo_path):
+            logo_label.setPixmap(QPixmap(logo_path))
 
         # Das Logo dehnt sich nicht aus und ist oben rechts ausgerichtet
         header_layout.addWidget(logo_label, 0, alignment=Qt.AlignTop | Qt.AlignRight)
@@ -442,7 +462,8 @@ class MessprotokollWidget(QWidget):
 
     def _load_mapping(self):
         try:
-            with open("mapping.json", 'r', encoding='utf-8') as f:
+            mapping_file_path = resource_path("mapping.json")
+            with open(mapping_file_path, 'r', encoding='utf-8') as f:
                 self.cell_mapping = json.load(f)
         except (FileNotFoundError, json.JSONDecodeError) as e:
             QMessageBox.critical(self, "Mapping Fehler",
@@ -559,7 +580,8 @@ class MessprotokollWidget(QWidget):
             QMessageBox.warning(self, "Fehlende Eingabe", "Bitte 'Zeichnungsnummer', 'Auftrag' und 'Pos' ausfüllen.")
             return
 
-        template_path = "LEERFORMULAR.xlsx"
+        template_path = resource_path("LEERFORMULAR.xlsx")
+
         if not os.path.exists(template_path):
             QMessageBox.critical(self, "Vorlage fehlt", f"Die Vorlagendatei '{template_path}' wurde nicht gefunden.")
             return
