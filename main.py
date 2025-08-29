@@ -27,8 +27,6 @@ from PySide6.QtCore import Qt, QPoint, QPointF, Signal, QDate
 # qt-material wird NACH PySide6 importiert
 from qt_material import apply_stylesheet
 
-
-
 # ==============================================================================
 #      2. KONSTANTEN UND HILFSKLASSEN
 # ==============================================================================
@@ -98,7 +96,13 @@ class DXFWidget(QWidget):
         self.view.setTransformationAnchor(QGraphicsView.ViewportAnchor.AnchorUnderMouse)
         self.view.setResizeAnchor(QGraphicsView.ViewportAnchor.AnchorViewCenter)
         self.view.setDragMode(QGraphicsView.DragMode.NoDrag)
+
+        self._is_panning = False
+        self._pan_start_pos = QPointF()
+
         self.view.mousePressEvent = self.handle_mouse_press
+        self.view.mouseMoveEvent = self.handle_mouse_move
+        self.view.mouseReleaseEvent = self.handle_mouse_release
         self.view.wheelEvent = self.handle_wheel_event
 
     def set_selection_mode(self, mode: str):
@@ -136,37 +140,97 @@ class DXFWidget(QWidget):
             print(f"Zeichnen fehlgeschlagen: {e}")
 
     def handle_mouse_press(self, event):
-        super(QGraphicsView, self.view).mousePressEvent(event)
-        if event.button() != Qt.MouseButton.LeftButton or not self.msp:
-            return
+        if event.button() == Qt.MouseButton.RightButton:
+            self._is_panning = True
+            self._pan_start_pos = event.position()
+            self.view.setCursor(Qt.CursorShape.ClosedHandCursor)
+            event.accept()
+        elif event.button() == Qt.MouseButton.LeftButton:
+            if not self.msp:
+                super(QGraphicsView, self.view).mousePressEvent(event)
+                return
 
-        scene_pos = self.view.mapToScene(event.position().toPoint())
-        world_pos = Vec3(scene_pos.x(), scene_pos.y())
-        p1 = scene_pos
-        p2_pos = event.position() + QPointF(self.CLICK_RADIUS_PIXELS, 0)
-        p2 = self.view.mapToScene(p2_pos.toPoint())
-        search_radius_world = abs(p2.x() - p1.x())
+            scene_pos = self.view.mapToScene(event.position().toPoint())
+            world_pos = Vec3(scene_pos.x(), scene_pos.y())
+            p1 = scene_pos
+            p2_pos = event.position() + QPointF(self.CLICK_RADIUS_PIXELS, 0)
+            p2 = self.view.mapToScene(p2_pos.toPoint())
+            search_radius = abs(p2.x() - p1.x())
 
-        if self.selection_mode == 'dimension':
-            self.find_closest_dimension(world_pos, search_radius_world)
-        elif self.selection_mode == 'text':
-            self.find_closest_text(world_pos, search_radius_world)
+            if self.selection_mode == 'dimension':
+                self.find_closest_dimension(world_pos, search_radius)
+            elif self.selection_mode == 'text':
+                self.find_closest_text(world_pos, search_radius)
+            event.accept()
+        else:
+            super(QGraphicsView, self.view).mousePressEvent(event)
+
+    def handle_mouse_move(self, event):
+        if self._is_panning:
+            delta = event.position() - self._pan_start_pos
+            self._pan_start_pos = event.position()
+            h_bar = self.view.horizontalScrollBar()
+            v_bar = self.view.verticalScrollBar()
+            h_bar.setValue(h_bar.value() - int(delta.x()))
+            v_bar.setValue(v_bar.value() - int(delta.y()))
+            event.accept()
+        else:
+            super(QGraphicsView, self.view).mouseMoveEvent(event)
+
+    def handle_mouse_release(self, event):
+        if event.button() == Qt.MouseButton.RightButton and self._is_panning:
+            self._is_panning = False
+            self.view.setCursor(Qt.CursorShape.ArrowCursor)
+            event.accept()
+        else:
+            super(QGraphicsView, self.view).mouseReleaseEvent(event)
 
     def find_closest_dimension(self, world_pos, radius):
-        found_entity, min_dist = None, float('inf')
+        def point_to_line_segment_dist(p: Vec3, a: Vec3, b: Vec3) -> float:
+            ab = b - a
+            ap = p - a
+            ab_mag_sq = ab.magnitude_square
+            if ab_mag_sq == 0:
+                return ap.magnitude
+            t = ap.dot(ab) / ab_mag_sq
+            if t < 0.0:
+                closest_point = a
+            elif t > 1.0:
+                closest_point = b
+            else:
+                closest_point = a + ab * t
+            return p.distance(closest_point)
+
+        found_dimensions_in_radius = []
         for dimension in self.msp.query('DIMENSION'):
-            points_to_check = [p for p in
-                               [getattr(dimension.dxf, 'defpoint', None), getattr(dimension.dxf, 'text_midpoint', None)]
-                               if p]
-            for point in points_to_check:
-                dist = world_pos.distance(point)
-                if dist < radius and dist < min_dist:
-                    min_dist, found_entity = dist, dimension
-        if found_entity:
             try:
-                self.dimension_clicked.emit(f"{found_entity.get_measurement():.4f}")
-            except Exception as e:
-                QMessageBox.warning(self, "Fehler", f"Messwert konnte nicht ausgelesen werden: {e}")
+                virtual_primitives = dimension.virtual_entities()
+                min_dist_for_this_dim = float('inf')
+                found_primitive = False
+                for primitive in virtual_primitives:
+                    dist = -1
+                    if primitive.dxftype() == 'TEXT':
+                        text_pos = primitive.dxf.get('insert', None)
+                        if text_pos: dist = world_pos.distance(text_pos)
+                    elif primitive.dxftype() == 'LINE':
+                        start = Vec3(primitive.dxf.start)
+                        end = Vec3(primitive.dxf.end)
+                        dist = point_to_line_segment_dist(world_pos, start, end)
+                    if 0 <= dist < radius:
+                        found_primitive = True
+                        if dist < min_dist_for_this_dim:
+                            min_dist_for_this_dim = dist
+                if found_primitive:
+                    measurement = dimension.get_measurement()
+                    if isinstance(measurement, (int, float)):
+                        found_dimensions_in_radius.append((min_dist_for_this_dim, measurement, dimension))
+            except Exception:
+                continue
+
+        if found_dimensions_in_radius:
+            found_dimensions_in_radius.sort(key=lambda x: x[0])
+            closest_measurement = float(found_dimensions_in_radius[0][1])
+            self.dimension_clicked.emit(f"{closest_measurement:.4f}")
 
     def find_closest_text(self, world_pos, radius):
         found_entity, min_dist = None, float('inf')
@@ -181,8 +245,7 @@ class DXFWidget(QWidget):
                 text_content = found_entity.dxf.text
             elif found_entity.dxftype() == 'MTEXT':
                 text_content = found_entity.plain_text()
-            if text_content:
-                self.text_clicked.emit(text_content.strip())
+            if text_content: self.text_clicked.emit(text_content.strip())
 
 
 class MessprotokollWidget(QWidget):
@@ -197,9 +260,9 @@ class MessprotokollWidget(QWidget):
     _pos_vals = [f"+{i / 1000.0:.3f}" for i in range(5, 201, 5)]
     _neg_vals = [f"-{i / 1000.0:.3f}" for i in range(5, 201, 5)]
     TOLERANCE_VALUES = ["", "0"] + _neg_vals[::-1] + _pos_vals
-    MESSMITTEL_OPTIONS = ["", "Aussen Mikrometer", "Digimar", "Endmaß", "Gewinde-lehrdorn", "Gewinde-lehrring",
+    MESSMITTEL_OPTIONS = ["", "Mess-schieber", "Aussen Mikrometer", "Digimar", "Endmaß", "Gewinde-lehrdorn", "Gewinde-lehrring",
                           "Haarlineal", "Innen Mikrometer", "Innenschnell-taster", "Lehrdorn", "Lehrring",
-                          "MahrSurf M 310", "Maschinen- taster", "Mess-schieber", "Messuhr", "optisch", "Prüfstifte",
+                          "MahrSurf M 310", "Maschinen- taster", "Messuhr", "optisch", "Prüfstifte",
                           "Radius Lehre", "Rugotest", "Steigungs-lehre", "Subito", "Tiefenmaß", "Winkel-messer",
                           "Zeiss", "Zoller"]
 
@@ -279,36 +342,36 @@ class MessprotokollWidget(QWidget):
                 nf = ClickableLineEdit(alignment=Qt.AlignCenter)
                 nf.clicked.connect(lambda widget=nf: self._on_measure_field_selected(widget))
                 nf.textEdited.connect(lambda t, f=nf: self.field_manually_edited.emit(f))
-                grid.addWidget(nf, 1, col)
+                grid.addWidget(nf, 1, col);
                 self.nominal_fields.append(nf)
                 grid.addWidget(QLabel("ISO-Toleranz"), 2, col, alignment=Qt.AlignCenter)
-                ifc = QComboBox()
-                ifc.setEditable(True)
+                ifc = QComboBox();
+                ifc.setEditable(True);
                 ifc.addItems(self.iso_calculator.available_fits)
-                grid.addWidget(ifc, 3, col)
+                grid.addWidget(ifc, 3, col);
                 self.iso_fit_combos.append(ifc)
                 grid.addWidget(QLabel("Messmittel"), 4, col, alignment=Qt.AlignCenter)
-                mc = QComboBox()
+                mc = QComboBox();
                 mc.addItems(self.MESSMITTEL_OPTIONS)
-                grid.addWidget(mc, 5, col)
+                grid.addWidget(mc, 5, col);
                 self.messmittel_combos.append(mc)
                 tol_layout = QGridLayout()
-                utc = QComboBox()
-                utc.addItems(self.TOLERANCE_VALUES)
+                utc = QComboBox();
+                utc.addItems(self.TOLERANCE_VALUES);
                 utc.setEditable(True)
-                ltc = QComboBox()
-                ltc.addItems(self.TOLERANCE_VALUES)
+                ltc = QComboBox();
+                ltc.addItems(self.TOLERANCE_VALUES);
                 ltc.setEditable(True)
-                tol_layout.addWidget(utc, 0, 0)
+                tol_layout.addWidget(utc, 0, 0);
                 tol_layout.addWidget(QLabel("Größtmaß"), 0, 1)
-                tol_layout.addWidget(ltc, 1, 0)
+                tol_layout.addWidget(ltc, 1, 0);
                 tol_layout.addWidget(QLabel("Kleinstmaß"), 1, 1)
-                self.upper_tol_combos.append(utc)
+                self.upper_tol_combos.append(utc);
                 self.lower_tol_combos.append(ltc)
                 sl = QLabel("---", alignment=Qt.AlignCenter,
                             styleSheet="font-weight: bold; border: 1px solid grey; padding: 6px;")
-                grid.addLayout(tol_layout, 6, col)
-                grid.addWidget(sl, 7, col)
+                grid.addLayout(tol_layout, 6, col);
+                grid.addWidget(sl, 7, col);
                 self.soll_labels.append(sl)
                 nf.textChanged.connect(lambda _, i=idx: self._trigger_iso_fit_calculation(i))
                 ifc.currentTextChanged.connect(lambda _, i=idx: self._trigger_iso_fit_calculation(i))
@@ -326,6 +389,7 @@ class MessprotokollWidget(QWidget):
         self.selection_mode_changed.emit('dimension')
 
     def _create_footer_controls(self, main_layout):
+        # === GEÄNDERT: Layout für Buttons angepasst ===
         pagination_layout = QHBoxLayout()
         self.prev_button = QPushButton("<< Zurück")
         self.prev_button.clicked.connect(self._previous_page)
@@ -337,19 +401,26 @@ class MessprotokollWidget(QWidget):
         pagination_layout.addWidget(self.page_label)
         pagination_layout.addWidget(self.next_button)
         pagination_layout.addStretch()
+
+        # === NEU: Editieren-Button erstellen und verbinden ===
+        self.edit_button = QPushButton("Vorhandenes Protokoll editieren")
+        self.edit_button.clicked.connect(self._edit_protokoll)
+
         self.save_button = QPushButton("Protokoll Speichern")
         self.save_button.setProperty('class', 'success-color')
         self.save_button.clicked.connect(self._save_protokoll)
+
         bottom_layout = QHBoxLayout()
-        bottom_layout.addLayout(pagination_layout, 2)
-        bottom_layout.addWidget(self.save_button, 1, alignment=Qt.AlignRight)
+        bottom_layout.addLayout(pagination_layout, 1)
+        bottom_layout.addStretch(1)
+        bottom_layout.addWidget(self.edit_button)  # Button hinzugefügt
+        bottom_layout.addWidget(self.save_button)
         main_layout.addLayout(bottom_layout)
 
     def _load_mapping(self):
         try:
             with open("mapping.json", 'r', encoding='utf-8') as f:
                 self.cell_mapping = json.load(f)
-            print("INFO: Excel-Mapping 'mapping.json' erfolgreich geladen.")
         except (FileNotFoundError, json.JSONDecodeError) as e:
             QMessageBox.critical(self, "Mapping Fehler",
                                  f"Die Datei 'mapping.json' konnte nicht geladen werden.\n\n{e}\n\nDie Speicherfunktion ist deaktiviert.")
@@ -362,6 +433,98 @@ class MessprotokollWidget(QWidget):
                 if cell.coordinate in merged_range:
                     return sheet.cell(row=merged_range.min_row, column=merged_range.min_col)
         return cell
+
+    # ==========================================================================
+    # === NEUE METHODE ZUM EDITIEREN EINES BESTEHENDEN PROTOKOLLS ===
+    # ==========================================================================
+    def _edit_protokoll(self):
+        """Lädt ein bestehendes Excel-Protokoll und aktualisiert es mit den
+        in der GUI ausgefüllten Werten."""
+        if not self.cell_mapping:
+            QMessageBox.warning(self, "Aktion nicht möglich", "Die Mapping-Datei ist fehlerhaft oder fehlt.")
+            return
+
+        open_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Bestehendes Protokoll zum Editieren auswählen...",
+            "",
+            "Excel-Dateien (*.xlsx)"
+        )
+
+        if not open_path:
+            return  # Benutzer hat den Dialog abgebrochen
+
+        try:
+            workbook = openpyxl.load_workbook(open_path)
+            sheet = workbook["Tabelle1"]
+
+            # --- Header-Daten schreiben (nur wenn ausgefüllt) ---
+            header_map = self.cell_mapping.get("header", {})
+
+            znr = self.zeichnungsnummer_field.text().strip()
+            if znr and 'zeichnungsnummer' in header_map:
+                self._get_writable_cell(sheet, header_map['zeichnungsnummer']).value = znr
+
+            auftrag = self.auftrag_edit.text().strip()
+            if auftrag and 'auftrag' in header_map:
+                self._get_writable_cell(sheet, header_map['auftrag']).value = auftrag
+
+            pos = self.pos_edit.text().strip()
+            if pos and 'position' in header_map:
+                self._get_writable_cell(sheet, header_map['position']).value = pos
+
+            # Datum wird immer aktualisiert, da es einen Standardwert hat
+            if 'datum' in header_map:
+                self._get_writable_cell(sheet, header_map['datum']).value = self.date_edit.date().toString("dd.MM.yyyy")
+
+            oberflaeche = self.oberflaeche_edit.text().strip()
+            if oberflaeche and 'oberflaeche' in header_map:
+                self._get_writable_cell(sheet,
+                                        header_map['oberflaeche']).value = f"Oberflächenbehandlung: {oberflaeche}"
+
+            bemerkungen = self.bemerkungen_edit.text().strip()
+            if bemerkungen and 'bemerkungen' in header_map:
+                self._get_writable_cell(sheet, header_map['bemerkungen']).value = f"Bemerkungen: {bemerkungen}"
+
+            # --- Messdaten schreiben (nur wenn ausgefüllt) ---
+            measure_map = self.cell_mapping.get("measures", [])
+            for i in range(self.TOTAL_MEASURES):
+                if i < len(measure_map):
+                    cell_info = measure_map[i]
+
+                    val = self.nominal_fields[i].text().strip()
+                    if val and 'nominal' in cell_info: self._get_writable_cell(sheet, cell_info['nominal']).value = val
+
+                    val = self.iso_fit_combos[i].currentText().strip()
+                    if val and 'iso_fit' in cell_info: self._get_writable_cell(sheet, cell_info['iso_fit']).value = val
+
+                    val = self.messmittel_combos[i].currentText().strip()
+                    if val and 'messmittel' in cell_info: self._get_writable_cell(sheet,
+                                                                                  cell_info['messmittel']).value = val
+
+                    val = self.upper_tol_combos[i].currentText().strip()
+                    if val and 'upper_tol' in cell_info: self._get_writable_cell(sheet,
+                                                                                 cell_info['upper_tol']).value = val
+
+                    val = self.lower_tol_combos[i].currentText().strip()
+                    if val and 'lower_tol' in cell_info: self._get_writable_cell(sheet,
+                                                                                 cell_info['lower_tol']).value = val
+
+                    val = self.soll_labels[i].text().strip()
+                    if val != "---" and 'soll' in cell_info: self._get_writable_cell(sheet,
+                                                                                     cell_info['soll']).value = val
+
+            workbook.save(filename=open_path)
+            QMessageBox.information(self, "Erfolg",
+                                    f"Das Protokoll '{os.path.basename(open_path)}' wurde erfolgreich aktualisiert.")
+
+        except FileNotFoundError:
+            QMessageBox.critical(self, "Fehler", f"Die Datei '{open_path}' wurde nicht gefunden.")
+        except KeyError as e:
+            QMessageBox.critical(self, "Excel Fehler",
+                                 f"Ein Schlüssel im Mapping ('{e}') oder das Arbeitsblatt 'Tabelle1' wurde nicht gefunden.")
+        except Exception as e:
+            QMessageBox.critical(self, "Aktualisierungsfehler", f"Ein unerwarteter Fehler ist aufgetreten:\n\n{e}")
 
     def _save_protokoll(self):
         if not self.cell_mapping:
@@ -382,19 +545,11 @@ class MessprotokollWidget(QWidget):
             QMessageBox.critical(self, "Vorlage fehlt", f"Die Vorlagendatei '{template_path}' wurde nicht gefunden.")
             return
 
-        # === NEU: Dateiname wird dynamisch zusammengesetzt ===
         suggested_filename = f"{zeichnungsnummer}+{auftrag}+{pos}.xlsx"
-
-        # === NEU: Datei-Dialog zum Auswählen des Speicherorts ===
-        save_path, _ = QFileDialog.getSaveFileName(
-            self,
-            "Protokoll speichern unter...",
-            suggested_filename,
-            "Excel-Dateien (*.xlsx)"
-        )
+        save_path, _ = QFileDialog.getSaveFileName(self, "Protokoll speichern unter...", suggested_filename,
+                                                   "Excel-Dateien (*.xlsx)")
 
         if not save_path:
-            # Benutzer hat den Dialog abgebrochen
             return
 
         try:
@@ -402,23 +557,21 @@ class MessprotokollWidget(QWidget):
             sheet = workbook["Tabelle1"]
             header_map = self.cell_mapping.get("header", {})
 
-            if 'zeichnungsnummer' in header_map:
-                self._get_writable_cell(sheet, header_map['zeichnungsnummer']).value = zeichnungsnummer
-            if 'auftrag' in header_map:
-                self._get_writable_cell(sheet, header_map['auftrag']).value = auftrag
-            if 'position' in header_map:
-                self._get_writable_cell(sheet, header_map['position']).value = pos
-            if 'datum' in header_map:
-                self._get_writable_cell(sheet, header_map['datum']).value = self.date_edit.date().toString("dd.MM.yyyy")
-            if 'oberflaeche' in header_map:
-                text_oberflaeche = self.oberflaeche_edit.text()
-                if text_oberflaeche:  # Nur schreiben, wenn das Feld nicht leer ist
-                    self._get_writable_cell(sheet, header_map[
-                        'oberflaeche']).value = f"Oberflächenbehandlung: {text_oberflaeche}"
-            if 'bemerkungen' in header_map:
-                text_bemerkungen = self.bemerkungen_edit.text()
-                if text_bemerkungen:  # Nur schreiben, wenn das Feld nicht leer ist
-                    self._get_writable_cell(sheet, header_map['bemerkungen']).value = f"Bemerkungen: {text_bemerkungen}"
+            if 'zeichnungsnummer' in header_map: self._get_writable_cell(sheet, header_map[
+                'zeichnungsnummer']).value = zeichnungsnummer
+            if 'auftrag' in header_map: self._get_writable_cell(sheet, header_map['auftrag']).value = auftrag
+            if 'position' in header_map: self._get_writable_cell(sheet, header_map['position']).value = pos
+            if 'datum' in header_map: self._get_writable_cell(sheet, header_map[
+                'datum']).value = self.date_edit.date().toString("dd.MM.yyyy")
+
+            text_oberflaeche = self.oberflaeche_edit.text()
+            if text_oberflaeche and 'oberflaeche' in header_map:
+                self._get_writable_cell(sheet,
+                                        header_map['oberflaeche']).value = f"Oberflächenbehandlung: {text_oberflaeche}"
+
+            text_bemerkungen = self.bemerkungen_edit.text()
+            if text_bemerkungen and 'bemerkungen' in header_map:
+                self._get_writable_cell(sheet, header_map['bemerkungen']).value = f"Bemerkungen: {text_bemerkungen}"
 
             measure_map = self.cell_mapping.get("measures", [])
             for i in range(self.TOTAL_MEASURES):
@@ -470,17 +623,16 @@ class MessprotokollWidget(QWidget):
         self._update_soll_wert(index)
         nominal_text = self.nominal_fields[index].text().replace(',', '.')
         fit_string = self.iso_fit_combos[index].currentText().strip()
-        if not nominal_text or not fit_string:
-            return
+        if not nominal_text or not fit_string: return
         try:
             result = self.iso_calculator.calculate(float(nominal_text), fit_string)
             if result:
                 up_dev, low_dev = result
-                self.upper_tol_combos[index].blockSignals(True)
+                self.upper_tol_combos[index].blockSignals(True);
                 self.lower_tol_combos[index].blockSignals(True)
                 self.upper_tol_combos[index].setCurrentText(f"{up_dev:+.3f}")
                 self.lower_tol_combos[index].setCurrentText(f"{low_dev:+.3f}")
-                self.upper_tol_combos[index].blockSignals(False)
+                self.upper_tol_combos[index].blockSignals(False);
                 self.lower_tol_combos[index].blockSignals(False)
                 self._update_soll_wert(index)
         except (ValueError, TypeError):
@@ -528,16 +680,11 @@ class MainWindow(QMainWindow):
 
     def _set_application_style(self):
         app = QApplication.instance()
-        extra = {
-            'accent_color': '#448AFF',
-            'secondaryLightColor': "#31363B",
-        }
+        extra = {'accent_color': '#448AFF', 'secondaryLightColor': "#31363B"}
         apply_stylesheet(app, theme='dark_blue.xml', extra=extra)
 
-
     def on_field_selected(self, widget):
-        if self.target_widget:
-            self.target_widget.setStyleSheet("")
+        if self.target_widget: self.target_widget.setStyleSheet("")
         self.target_widget = widget
         self.target_widget.setStyleSheet("border: 2px solid #448AFF;")
 
@@ -567,8 +714,7 @@ class MainWindow(QMainWindow):
 
     def open_file(self):
         path, _ = QFileDialog.getOpenFileName(self, "DXF-Datei öffnen", "", "DXF-Dateien (*.dxf)")
-        if path:
-            self.dxf_widget.load_dxf(path)
+        if path: self.dxf_widget.load_dxf(path)
 
     def dragEnterEvent(self, event: QDragEnterEvent):
         if event.mimeData().hasUrls():
