@@ -338,10 +338,11 @@ class MessprotokollWidget(QWidget):
 
         # Rechter Teil: Das Logo
         logo_label = QLabel()
-        logo_label.setFixedSize(150, 150)
+        logo_label.setFixedSize(200, 200)
         logo_label.setScaledContents(True)
-        if os.path.exists("app-logo.png"):
-            logo_label.setPixmap(QPixmap("app-logo.png"))
+
+        if os.path.exists("assets/logo.png"):
+            logo_label.setPixmap(QPixmap("assets/logo.png"))
 
         # Das Logo dehnt sich nicht aus und ist oben rechts ausgerichtet
         header_layout.addWidget(logo_label, 0, alignment=Qt.AlignTop | Qt.AlignRight)
