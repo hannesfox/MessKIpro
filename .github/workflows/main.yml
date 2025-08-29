@@ -1,4 +1,4 @@
-# Name des Workflows, angepasst an die App.
+# Name des Workflows, angepasst an die App
 name: Build and Release Messprotokoll-Assistent
 
 on:
@@ -27,7 +27,7 @@ jobs:
             target_id: macos-arm64
 
     runs-on: ${{ matrix.os_runner }}
-    
+
     steps:
     - name: 1. Code auschecken
       uses: actions/checkout@v4
@@ -40,6 +40,14 @@ jobs:
     - name: 3. Abhängigkeiten installieren
       run: |
         python -m pip install --upgrade pip
+        
+        # =========================================================================
+        # === HAUPTÄNDERUNG HIER: NumPy-Version auf 1.26.4 festpinnen ===
+        # Dies geschieht VOR der Installation von requirements.txt, um Konflikte
+        # zu vermeiden und sicherzustellen, dass ezdxf diese Version verwendet.
+        # =========================================================================
+        pip install "numpy==1.26.4"
+        
         # Installiert Abhängigkeiten aus der requirements.txt
         pip install -r requirements.txt
         # Installiert zusätzliche, für den Build-Prozess benötigte Pakete
