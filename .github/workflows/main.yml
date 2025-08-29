@@ -1,0 +1,165 @@
+# Name des Workflows, angepasst an die App
+name: Build and Release Messprotokoll-Assistent
+
+on:
+  push:
+    branches: [ main ] # Löst den Workflow bei Push auf den main-Branch aus
+    tags: [ 'v*' ]    # Löst den Workflow bei Erstellung eines Tags (z.B. v1.0.0) aus
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # Ermöglicht manuelles Starten
+
+env:
+  # Name der Anwendung, wird für die Ausgabedateien verwendet
+  APP_NAME: MessprotokollAssistent
+
+jobs:
+  build-and-release:
+    strategy:
+      fail-fast: false # Lässt andere Jobs weiterlaufen, auch wenn einer fehlschlägt
+      matrix:
+        include:
+          - os_name: Windows
+            os_runner: windows-latest
+            target_id: windows-x64
+          - os_name: macOS (Apple Silicon)
+            os_runner: macos-latest # 'macos-latest' ist derzeit ARM64-basiert
+            target_id: macos-arm64
+
+    runs-on: ${{ matrix.os_runner }}
+    
+    steps:
+    - name: 1. Code auschecken
+      uses: actions/checkout@v4
+
+    - name: 2. Python-Umgebung einrichten
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11' # Python 3.11 ist sehr stabil für PyInstaller und PySide6
+
+    - name: 3. Abhängigkeiten installieren
+      run: |
+        python -m pip install --upgrade pip
+        # Installiert Abhängigkeiten aus der requirements.txt
+        pip install -r requirements.txt
+        # Installiert zusätzliche, für den Build-Prozess benötigte Pakete
+        pip install "pyinstaller==6.8.0" qt-material Pillow
+
+    # --- Icon-Erstellung für jedes Betriebssystem ---
+    - name: 4. Windows Icon (.ico) erstellen
+      if: runner.os == 'Windows'
+      shell: powershell
+      run: |
+        $ICON_SOURCE = "assets/logo.png"
+        if (-Not (Test-Path $ICON_SOURCE)) {
+          Write-Host "WARNUNG: assets/logo.png nicht gefunden. Icon-Erstellung wird übersprungen."
+          exit 0
+        }
+        # ImageMagick via Chocolatey installieren
+        choco install imagemagick --no-progress
+        # Icon in verschiedenen Größen erstellen und als .ico speichern
+        magick convert "$ICON_SOURCE" -define icon:auto-resize=256,128,64,48,32,16 "icon.ico"
+        Write-Host "icon.ico wurde erfolgreich erstellt."
+
+    - name: 4. macOS Icon (.icns) erstellen
+      if: runner.os == 'macOS'
+      run: |
+        ICON_SOURCE="assets/logo.png"
+        if [ ! -f "$ICON_SOURCE" ]; then
+          echo "WARNUNG: assets/logo.png nicht gefunden. Icon-Erstellung wird übersprungen."
+          exit 0
+        fi
+        # Erstellt ein temporäres Verzeichnis für die Icon-Größen
+        mkdir -p icon.iconset
+        # Erstellt mit 'sips' die benötigten PNG-Größen aus der Quelldatei
+        sips -z 16 16   "$ICON_SOURCE" --out icon.iconset/icon_16x16.png
+        sips -z 32 32   "$ICON_SOURCE" --out icon.iconset/icon_16x16@2x.png
+        sips -z 32 32   "$ICON_SOURCE" --out icon.iconset/icon_32x32.png
+        sips -z 64 64   "$ICON_SOURCE" --out icon.iconset/icon_32x32@2x.png
+        sips -z 128 128 "$ICON_SOURCE" --out icon.iconset/icon_128x128.png
+        sips -z 256 256 "$ICON_SOURCE" --out icon.iconset/icon_128x128@2x.png
+        # Wandelt das Set in eine .icns-Datei um
+        iconutil -c icns icon.iconset -o icon.icns
+        # Räumt das temporäre Verzeichnis auf
+        rm -r icon.iconset
+        echo "icon.icns wurde erfolgreich erstellt."
+
+    - name: 5. Version aus Git-Tag extrahieren
+      id: get_version
+      if: startsWith(github.ref, 'refs/tags/')
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: 6. Anwendung mit PyInstaller bauen
+      shell: bash
+      run: |
+        # Setzt die Version auf 'dev', falls kein Tag vorhanden ist
+        APP_VERSION=${{ steps.get_version.outputs.VERSION || 'dev' }}
+        echo "Baue Version $APP_VERSION für ${{ matrix.os_name }}"
+
+        # Setzt den korrekten Pfad-Separator für --add-data
+        DATA_SEPARATOR=$([ "$RUNNER_OS" == "Windows" ] && echo ";" || echo ":")
+
+        # Argumente für PyInstaller
+        PYINSTALLER_ARGS=(
+          --noconfirm
+          --windowed
+          --clean
+          main.py
+          --name "${APP_NAME}"
+          # Notwendige Daten-Dateien und Ordner für die App
+          --add-data "assets${DATA_SEPARATOR}assets"
+          --add-data "Data${DATA_SEPARATOR}Data"
+          --add-data "mapping.json${DATA_SEPARATOR}."
+          --add-data "LEERFORMULAR.xlsx${DATA_SEPARATOR}."
+          # Stellt sicher, dass Daten von abhängigen Bibliotheken gefunden werden
+          --collect-data ezdxf
+          --collect-data qt_material
+          # Wichtige versteckte Imports für PySide6-Anwendungen
+          --hidden-import "PySide6.QtSvg"
+          --hidden-import "PySide6.QtPrintSupport"
+        )
+
+        # Fügt das plattformspezifische Icon hinzu, falls es existiert
+        if [ "$RUNNER_OS" == "Windows" ] && [ -f "icon.ico" ]; then
+          PYINSTALLER_ARGS+=(--icon "icon.ico")
+        elif [ "$RUNNER_OS" == "macOS" ] && [ -f "icon.icns" ]; then
+          PYINSTALLER_ARGS+=(--icon "icon.icns")
+        fi
+
+        # Führt PyInstaller mit allen Argumenten aus
+        pyinstaller "${PYINSTALLER_ARGS[@]}"
+
+    - name: 7. Release-Artefakt vorbereiten
+      id: prepare_artifact
+      shell: bash
+      run: |
+        APP_VERSION="${{ steps.get_version.outputs.VERSION || 'dev' }}"
+        
+        if [ "${{ runner.os }}" == "Windows" ]; then
+          # Erstellt ein ZIP-Archiv unter Windows
+          ARTIFACT_PATH="${{ env.APP_NAME }}-v${APP_VERSION}-${{ matrix.target_id }}.zip"
+          powershell -Command "Compress-Archive -Path 'dist/${{ env.APP_NAME }}' -DestinationPath '${ARTIFACT_PATH}' -Force"
+        elif [ "${{ runner.os }}" == "macOS" ]; then
+          # Erstellt ein ZIP-Archiv des .app-Bundles unter macOS
+          ARTIFACT_PATH="${{ env.APP_NAME }}-v${APP_VERSION}-${{ matrix.target_id }}.zip"
+          ditto -c -k --sequesterRsrc --keepParent "dist/${{ env.APP_NAME }}.app" "${ARTIFACT_PATH}"
+        fi
+
+        echo "Artefakt erstellt: ${ARTIFACT_PATH}"
+        # Übergibt den Artefaktnamen an nachfolgende Schritte
+        echo "ARTIFACT_PATH=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
+
+    - name: 8. Build-Artefakt hochladen
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.APP_NAME }}-Build-${{ matrix.target_id }}
+        path: ${{ steps.prepare_artifact.outputs.ARTIFACT_PATH }}
+        if-no-files-found: error
+
+    - name: 9. GitHub Release erstellen (nur bei Tags)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v2
+      with:
+        # Hängt die in Schritt 7 erstellten ZIP-Dateien an das Release an
+        files: ${{ steps.prepare_artifact.outputs.ARTIFACT_PATH }}
