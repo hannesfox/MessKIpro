@@ -1,4 +1,4 @@
-# Name des Workflows, angepasst an die App
+# Name des Workflows, angepasst an die App.
 name: Build and Release Messprotokoll-Assistent
 
 on:
