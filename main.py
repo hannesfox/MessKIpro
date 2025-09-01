@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (
     QPushButton
 )
 from PySide6.QtGui import (
-    QColor, QWheelEvent, QAction, QFont, QDragEnterEvent, QDropEvent, QPixmap, QScreen
+    QColor, QWheelEvent, QAction, QFont, QDragEnterEvent, QDropEvent, QPixmap, QScreen, QIcon
 )
 from PySide6.QtCore import Qt, QPoint, QPointF, Signal, QDate
 
@@ -686,6 +686,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.target_widget = None
+        app_icon_path = resource_path("assets/logo.png")
+        self.setWindowIcon(QIcon(app_icon_path))
         self._set_application_style()
         self.setAcceptDrops(True)
         self.dxf_widget = DXFWidget()
