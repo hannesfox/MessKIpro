@@ -1,6 +1,3 @@
-# ==============================================================================
-#      1. IMPORTS
-# ==============================================================================
 import sys
 import os
 import json
@@ -13,18 +10,17 @@ from ezdxf.recover import readfile as recover_readfile
 from ezdxf.addons.drawing.pyqt import PyQtBackend
 from ezdxf.math import Vec3
 
-from PySide6.QtWidgets import (
+from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QGraphicsScene, QGraphicsView, QMessageBox,
     QFileDialog, QWidget, QSplitter, QVBoxLayout, QGridLayout, QLabel,
     QLineEdit, QComboBox, QFrame, QHBoxLayout, QDateEdit, QStyleFactory,
-    QPushButton
+    QPushButton, QAction
 )
-from PySide6.QtGui import (
-    QColor, QWheelEvent, QAction, QFont, QDragEnterEvent, QDropEvent, QPixmap, QScreen, QIcon
+from PyQt5.QtGui import (
+    QColor, QWheelEvent, QFont, QDragEnterEvent, QDropEvent, QPixmap, QScreen, QIcon
 )
-from PySide6.QtCore import Qt, QPoint, QPointF, Signal, QDate
+from PyQt5.QtCore import Qt, QPoint, QPointF, pyqtSignal as Signal, QDate
 
-# qt-material wird NACH PySide6 importiert
 from qt_material import apply_stylesheet
 
 # ==============================================================================
@@ -33,7 +29,7 @@ from qt_material import apply_stylesheet
 
 ZOOM_FACTOR = 1.15
 
-# +++ NEUE HELFERFUNKTION +++
+
 def resource_path(relative_path: str) -> str:
     """
     Ermittelt den absoluten Pfad zu einer Ressource, funktioniert für den
@@ -47,6 +43,7 @@ def resource_path(relative_path: str) -> str:
         base_path = os.path.abspath(".")
 
     return os.path.join(base_path, relative_path)
+
 
 class ClickableLineEdit(QLineEdit):
     clicked = Signal()
@@ -275,13 +272,10 @@ class MessprotokollWidget(QWidget):
         main_layout = QVBoxLayout(self)
         main_layout.setSpacing(15)
 
-        #script_dir = os.path.dirname(os.path.realpath(__file__))
-        #data_dir = os.path.join(script_dir, "Data")
         data_dir = resource_path("Data")
 
         self.iso_calculator = IsoFitsCalculator(data_dir)
 
-        self.iso_calculator = IsoFitsCalculator(data_dir)
         self.nominal_fields, self.upper_tol_combos, self.lower_tol_combos = [], [], []
         self.soll_labels, self.iso_fit_combos, self.messmittel_combos = [], [], []
         self.measure_blocks = []
@@ -295,67 +289,57 @@ class MessprotokollWidget(QWidget):
         self._update_page_view()
 
     def _create_header(self, main_layout):
-        # Haupt-Layout für den Header (teilt Felder links und Logo rechts auf)
         header_layout = QHBoxLayout()
-        header_layout.setSpacing(30)  # Platz zwischen Eingabefeldern und Logo
+        header_layout.setSpacing(30)
 
-        # Linker Teil: Ein Grid für alle Eingabefelder
         fields_grid = QGridLayout()
         fields_grid.setVerticalSpacing(15)
         fields_grid.setHorizontalSpacing(10)
 
-        # --- ZEILE 0: TITEL ---
         title_label = QLabel("Messprotokoll-Assistent")
         title_label.setStyleSheet("font-size: 28pt; font-weight: bold;")
-        fields_grid.addWidget(title_label, 0, 0, 1, 4)  # Nimmt die volle Breite ein
+        fields_grid.addWidget(title_label, 0, 0, 1, 4)
 
-        # --- ZEILE 1: ZEICHNUNGSNUMMER, AUFTRAG, POS, DATUM ---
-        # Ein horizontales Layout für diese Zeile sorgt für eine saubere Anordnung
-        row1_layout = QHBoxLayout()
-        row1_layout.setSpacing(10)
-
-        row1_layout.addWidget(QLabel("Zeichnungsnummer:"))
+        drawing_num_layout = QHBoxLayout()
+        drawing_num_layout.addWidget(QLabel("Zeichnungsnummer:"))
         self.zeichnungsnummer_field = ClickableLineEdit()
         self.zeichnungsnummer_field.clicked.connect(self._on_zeichnungsnummer_field_selected)
-        row1_layout.addWidget(self.zeichnungsnummer_field, 2)  # Stretch-Faktor 2
+        drawing_num_layout.addWidget(self.zeichnungsnummer_field, 1)
+        fields_grid.addLayout(drawing_num_layout, 1, 0, 1, 4)
 
-        row1_layout.addSpacing(20)
+        row2_layout = QHBoxLayout()
+        row2_layout.setSpacing(10)
 
         auftrag_label = QLabel("Auftrag:")
         self.auftrag_edit = QLineEdit()
-        row1_layout.addWidget(auftrag_label)
-        row1_layout.addWidget(self.auftrag_edit, 1)  # Stretch-Faktor 1
+        row2_layout.addWidget(auftrag_label)
+        row2_layout.addWidget(self.auftrag_edit, 1)
 
-        row1_layout.addSpacing(20)
+        row2_layout.addSpacing(20)
 
-        row1_layout.addWidget(QLabel("Pos.:"))
+        row2_layout.addWidget(QLabel("Pos.:"))
         self.pos_edit = QLineEdit()
         self.pos_edit.setFixedWidth(80)
-        row1_layout.addWidget(self.pos_edit)
+        row2_layout.addWidget(self.pos_edit)
 
-        row1_layout.addSpacing(20)
+        row2_layout.addSpacing(20)
 
-        row1_layout.addWidget(QLabel("Datum:"))
+        row2_layout.addWidget(QLabel("Datum:"))
         self.date_edit = QDateEdit(calendarPopup=True, date=QDate.currentDate())
-        row1_layout.addWidget(self.date_edit)
+        row2_layout.addWidget(self.date_edit)
 
-        # Füge das Layout für die erste Zeile dem Haupt-Grid hinzu
-        fields_grid.addLayout(row1_layout, 1, 0, 1, 4)
+        fields_grid.addLayout(row2_layout, 2, 0, 1, 4)
 
-        # --- ZEILE 2: OBERFLÄCHENBEHANDLUNG ---
-        fields_grid.addWidget(QLabel("Oberflächenbehandlung:"), 2, 0, alignment=Qt.AlignTop)
+        fields_grid.addWidget(QLabel("Oberflächenbehandlung:"), 3, 0, alignment=Qt.AlignTop)
         self.oberflaeche_edit = QLineEdit()
-        fields_grid.addWidget(self.oberflaeche_edit, 2, 1, 1, 3)
+        fields_grid.addWidget(self.oberflaeche_edit, 3, 1, 1, 3)
 
-        # --- ZEILE 3: BEMERKUNGEN ---
-        fields_grid.addWidget(QLabel("Bemerkungen:"), 3, 0, alignment=Qt.AlignTop)
+        fields_grid.addWidget(QLabel("Bemerkungen:"), 4, 0, alignment=Qt.AlignTop)
         self.bemerkungen_edit = QLineEdit()
-        fields_grid.addWidget(self.bemerkungen_edit, 3, 1, 1, 3)
+        fields_grid.addWidget(self.bemerkungen_edit, 4, 1, 1, 3)
 
-        # Das Felder-Grid soll sich ausdehnen
         header_layout.addLayout(fields_grid, 1)
 
-        # Rechter Teil: Das Logo
         logo_label = QLabel()
         logo_label.setFixedSize(200, 200)
         logo_label.setScaledContents(True)
@@ -364,10 +348,8 @@ class MessprotokollWidget(QWidget):
         if os.path.exists(logo_path):
             logo_label.setPixmap(QPixmap(logo_path))
 
-        # Das Logo dehnt sich nicht aus und ist oben rechts ausgerichtet
         header_layout.addWidget(logo_label, 0, alignment=Qt.AlignTop | Qt.AlignRight)
 
-        # Füge den kompletten Header zum Haupt-Layout des Fensters hinzu
         main_layout.addLayout(header_layout)
 
     def _create_measure_blocks(self, main_layout):
@@ -445,7 +427,6 @@ class MessprotokollWidget(QWidget):
         pagination_layout.addWidget(self.next_button)
         pagination_layout.addStretch()
 
-        # === GEÄNDERT: Button-Text und Funktion angepasst ===
         self.load_button = QPushButton("Protokoll Laden")
         self.load_button.clicked.connect(self._load_protokoll_from_excel)
 
@@ -456,7 +437,7 @@ class MessprotokollWidget(QWidget):
         bottom_layout = QHBoxLayout()
         bottom_layout.addLayout(pagination_layout, 1)
         bottom_layout.addStretch(1)
-        bottom_layout.addWidget(self.load_button)  # Neuer Lade-Button
+        bottom_layout.addWidget(self.load_button)
         bottom_layout.addWidget(self.save_button)
         main_layout.addLayout(bottom_layout)
 
@@ -478,11 +459,7 @@ class MessprotokollWidget(QWidget):
                     return sheet.cell(row=merged_range.min_row, column=merged_range.min_col).value
         return cell.value
 
-    # ==========================================================================
-    # === NEUE METHODE ZUM LADEN VON DATEN AUS EINER EXCEL-DATEI ===
-    # ==========================================================================
     def _clear_ui(self):
-        """Setzt alle Eingabefelder in der UI auf ihren Standardzustand zurück."""
         self.zeichnungsnummer_field.clear()
         self.auftrag_edit.clear()
         self.pos_edit.clear()
@@ -508,12 +485,11 @@ class MessprotokollWidget(QWidget):
             return
 
         try:
-            self._clear_ui()  # UI vor dem Laden bereinigen
+            self._clear_ui()
             workbook = openpyxl.load_workbook(open_path, data_only=True)
             sheet = workbook["Tabelle1"]
             header_map = self.cell_mapping.get("header", {})
 
-            # --- Header-Daten auslesen und in UI eintragen ---
             for key, cell_coord in header_map.items():
                 value = self._get_cell_value(sheet, cell_coord)
                 if value is None: continue
@@ -536,7 +512,6 @@ class MessprotokollWidget(QWidget):
                 elif key == 'bemerkungen':
                     self.bemerkungen_edit.setText(value_str.replace("Bemerkungen:", "").strip())
 
-            # --- Messdaten auslesen und in UI eintragen ---
             measure_map = self.cell_mapping.get("measures", [])
             for i in range(min(self.TOTAL_MEASURES, len(measure_map))):
                 cell_info = measure_map[i]
@@ -556,7 +531,6 @@ class MessprotokollWidget(QWidget):
                         self.upper_tol_combos[i].setCurrentText(value_str)
                     elif key == 'lower_tol':
                         self.lower_tol_combos[i].setCurrentText(value_str)
-                    # Soll-Wert wird nicht geladen, sondern bei Änderung neu berechnet
 
             QMessageBox.information(self, "Erfolg", f"Protokoll '{os.path.basename(open_path)}' erfolgreich geladen.")
 
@@ -690,13 +664,29 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon(app_icon_path))
         self._set_application_style()
         self.setAcceptDrops(True)
+
         self.dxf_widget = DXFWidget()
         self.protokoll_widget = MessprotokollWidget()
-        splitter = QSplitter(Qt.Horizontal)
-        splitter.addWidget(self.dxf_widget)
-        splitter.addWidget(self.protokoll_widget)
-        splitter.setSizes([1300, 1300])
-        self.setCentralWidget(splitter)
+
+        # Erstelle einen Splitter mit deaktiviertem Handle-Verschieben
+        self.splitter = QSplitter(Qt.Horizontal)
+        self.splitter.addWidget(self.dxf_widget)
+        self.splitter.addWidget(self.protokoll_widget)
+
+        # Setze den Splitter auf 50:50 und deaktiviere die Größenänderung
+        self.splitter.setStretchFactor(0, 1)
+        self.splitter.setStretchFactor(1, 1)
+
+        # Deaktiviere das Verschieben des Splitter-Handles
+        self.splitter.handle(1).setEnabled(False)
+
+        # Setze die Splitter-Handle-Breite auf 1 Pixel für eine saubere Trennung
+        self.splitter.setHandleWidth(1)
+
+        # Stelle sicher, dass beide Widgets gleich viel Platz bekommen
+        self.splitter.setChildrenCollapsible(False)
+
+        self.setCentralWidget(self.splitter)
         menu_bar = self.menuBar()
         file_menu = menu_bar.addMenu("Datei")
         open_action = QAction("DXF Öffnen...", self)
@@ -704,14 +694,16 @@ class MainWindow(QMainWindow):
         file_menu.addAction(open_action)
         self.setWindowTitle("Messprotokoll-Assistent")
 
-        #self.setGeometry(300, 100, 2200, 1200)
-        self.resize(2600, 1200)
+        self.setMinimumSize(1024, 768)
 
-        # Fenster auf dem primären Bildschirm zentrieren
-        center_point = QScreen.availableGeometry(QApplication.primaryScreen()).center()
-        frame_geometry = self.frameGeometry()
-        frame_geometry.moveCenter(center_point)
-        self.move(frame_geometry.topLeft())
+        screen_geometry = QApplication.primaryScreen().availableGeometry()
+        self.resize(int(screen_geometry.width() * 0.9), int(screen_geometry.height() * 0.9))
+        self.move(int(screen_geometry.width() * 0.05), int(screen_geometry.height() * 0.05))
+
+        # Setze die exakte 50:50 Aufteilung NACH dem Resize
+        total_width = self.width()
+        half_width = total_width // 2
+        self.splitter.setSizes([half_width, half_width])
 
         self.protokoll_widget.selection_mode_changed.connect(self.dxf_widget.set_selection_mode)
         self.protokoll_widget.field_selected.connect(self.on_field_selected)
